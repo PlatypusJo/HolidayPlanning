@@ -1,0 +1,12 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 0 48px;
+  background: linear-gradient(#5e7fee, #8095d3, #beccf8);
+  flex-grow: 1;
+  text-align: center;
+}
+
+.layout {
+  min-height: 100vh;
+}

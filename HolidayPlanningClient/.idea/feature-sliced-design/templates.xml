@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FeatureSlicedDesignTemplates">
+    <option name="templates">
+      <map>
+        <entry key="APP">
+          <value>
+            <set>
+              <Template>
+                <option name="description" value="Simple Provider" />
+                <option name="layer" value="APP" />
+                <option name="name" value="Provider" />
+                <option name="rootNode">
+                  <TemplateStructureNode>
+                    <option name="name" value="$$layerName$$" />
+                    <option name="nodes">
+                      <list>
+                        <TemplateStructureNode>
+                          <option name="extensionType" value="TSX" />
+                          <option name="name" value="$$sliceOrSegmentName$$" />
+                          <option name="nodeType" value="FILE" />
+                          <option name="template">
+                            <TemplateStructureNodeTemplate>
+                              <option name="value" value="import React from &quot;react&quot;;&#10;&#10;const $$componentName$$ = (component: Component) =&gt; () =&gt; (&#10;    // TODO&#10;);&#10;&#10;export default $$componentName$$;&#10;" />
+                              <option name="variables">
+                                <set>
+                                  <option value="COMPONENT_NAME" />
+                                </set>
+                              </option>
+                            </TemplateStructureNodeTemplate>
+                          </option>
+                          <option name="variables">
+                            <set>
+                              <option value="SLICE_OR_SEGMENT_NAME" />
+                            </set>
+                          </option>
+                        </TemplateStructureNode>
+                      </list>
+                    </option>
+                    <option name="variables">
+                      <set>
+                        <option value="LAYER_NAME" />
+                      </set>
+                    </option>
+                  </TemplateStructureNode>
+                </option>
+                <option name="status" value="NEW" />
+                <option name="uuid" value="e9cc93eb-8417-42d4-ae6c-cd8a9bc37485" />
+              </Template>
+              <Template>
+                <option name="description" value="Simple style file with append import to index" />
+                <option name="layer" value="APP" />
+                <option name="name" value="Style Sass" />
+                <option name="rootNode">
+                  <TemplateStructureNode>
+                    <option name="name" value="$$layerName$$" />
+                    <option name="nodes">
+                      <list>
+                        <TemplateStructureNode>
+                          <option name="extensionType" value="SCSS" />
+                          <option name="name" value="$$sliceOrSegmentName$$" />
+                          <option name="nodeType" value="STYLE" />
+                          <option name="variables">
+                            <set>
+                              <option value="SLICE_OR_SEGMENT_NAME" />
+                            </set>
+                          </option>
+                        </TemplateStructureNode>
+                        <TemplateStructureNode>
+                          <option name="extensionType" value="SCSS" />
+                          <option name="name" value="index" />
+                          <option name="nodeType" value="STYLE" />
+                          <option name="template">
+                            <TemplateStructureNodeTemplate>
+                              <option name="value" value="@import &quot;./$$sliceOrSegmentName$$.scss&quot;;" />
+                              <option name="variables">
+                                <set>
+                                  <option value="SLICE_OR_SEGMENT_NAME" />
+                                </set>
+                              </option>
+                            </TemplateStructureNodeTemplate>
+                          </option>
+                        </TemplateStructureNode>
+                      </list>
+                    </option>
+                    <option name="variables">
+                      <set>
+                        <option value="LAYER_NAME" />
+                      </set>
+                    </option>
+                  </TemplateStructureNode>
+                </option>
+                <option name="status" value="NEW" />
+                <option name="uuid" value="de71c4c6-5a45-49b4-b3a9-a29fb11926af" />
+              </Template>
+              <Template>
+                <option name="description" value="Inital style files" />
+                <option name="layer" value="APP" />
+                <option name="name" value="Styles Sass Default" />
+                <option name="rootNode">
+                  <TemplateStructureNode>
+                    <option name="name" value="$$layerName$$" />
+                    <option name="nodes">
+                      <list>
+                        <TemplateStructureNode>
+                          <option name="extensionType" value="SCSS" />
+                          <option name="name" value="index" />
+                          <option name="nodeType" value="STYLE" />
+                          <option name="template">
+                            <TemplateStructureNodeTemplate>
+                              <option name="value" value="@import &quot;./utils.scss&quot;;" />
+                            </TemplateStructureNodeTemplate>
+                          </option>
+                        </TemplateStructureNode>
+                        <TemplateStructureNode>
+                          <option name="extensionType" value="SCSS" />
+                          <option name="name" value="utils" />
+                          <option name="nodeType" value="STYLE" />
+                        </TemplateStructureNode>
+                      </list>
+                    </option>
+                    <option name="variables">
+                      <set>
+                        <option value="LAYER_NAME" />
+                      </set>
+                    </option>
+                  </TemplateStructureNode>
+                </option>
+                <option name="status" value="NEW" />
+                <option name="uuid" value="0752f0f4-794f-4482-aadc-7c7e285db592" />
+              </Template>
+            </set>
+          </value>
+        </entry>
+        <entry key="PAGES">
+          <value>
+            <set>
+              <Template>
+                <option name="description" value="Simple page with index. model and page files." />
+                <option name="name" value="Simple Page" />
+                <option name="rootNode">
+                  <TemplateStructureNode>
+                    <option name="name" value="$$layerName$$" />
+                    <option name="nodes">
+                      <list>
+                        <TemplateStructureNode>
+                          <option name="name" value="$$sliceOrSegmentName$$" />
+                          <option name="nodeType" value="FOLDER" />
+                          <option name="nodes">
+                            <list>
+                              <TemplateStructureNode>
+                                <option name="extensionType" value="TS" />
+                                <option name="name" value="index" />
+                                <option name="nodeType" value="FILE" />
+                                <option name="template">
+                                  <TemplateStructureNodeTemplate>
+                                    <option name="value" value="export { $$componentName$$ } from './page';" />
+                                    <option name="variables">
+                                      <set>
+                                        <option value="COMPONENT_NAME" />
+                                      </set>
+                                    </option>
+                                  </TemplateStructureNodeTemplate>
+                                </option>
+                              </TemplateStructureNode>
+                              <TemplateStructureNode>
+                                <option name="extensionType" value="TS" />
+                                <option name="name" value="model" />
+                                <option name="nodeType" value="FILE" />
+                              </TemplateStructureNode>
+                              <TemplateStructureNode>
+                                <option name="extensionType" value="TSX" />
+                                <option name="name" value="page" />
+                                <option name="nodeType" value="FILE" />
+                                <option name="template">
+                                  <TemplateStructureNodeTemplate>
+                                    <option name="value" value="export const $$componentName$$ = () =&gt; {&#10;    return null;&#10;}" />
+                                    <option name="variables">
+                                      <set>
+                                        <option value="COMPONENT_NAME" />
+                                      </set>
+                                    </option>
+                                  </TemplateStructureNodeTemplate>
+                                </option>
+                              </TemplateStructureNode>
+                            </list>
+                          </option>
+                          <option name="variables">
+                            <set>
+                              <option value="SLICE_OR_SEGMENT_NAME" />
+                            </set>
+                          </option>
+                        </TemplateStructureNode>
+                      </list>
+                    </option>
+                    <option name="variables">
+                      <set>
+                        <option value="LAYER_NAME" />
+                      </set>
+                    </option>
+                  </TemplateStructureNode>
+                </option>
+                <option name="status" value="NEW" />
+                <option name="uuid" value="90ce5377-6441-40f5-b82c-d05ed3685eda" />
+              </Template>
+            </set>
+          </value>
+        </entry>
+        <entry key="ENTITIES">
+          <value>
+            <set>
+              <Template>
+                <option name="description" value="Basic entity with:&#10;- index&#10;- ui folder&#10;- model folder&#10;- lib folder" />
+                <option name="layer" value="ENTITIES" />
+                <option name="name" value="Default Full as Files" />
+                <option name="rootNode">
+                  <TemplateStructureNode>
+                    <option name="name" value="$$layerName$$" />
+                    <option name="nodes">
+                      <list>
+                        <TemplateStructureNode>
+                          <option name="name" value="$$sliceOrSegmentName$$" />
+                          <option name="nodeType" value="FOLDER" />
+                          <option name="nodes">
+                            <list>
+                              <TemplateStructureNode>
+                                <option name="extensionType" value="TS" />
+                                <option name="name" value="index" />
+                                <option name="nodeType" value="FILE" />
+                                <option name="template">
+                                  <TemplateStructureNodeTemplate>
+                                    <option name="value" value="export { * as $$sliceOrSegmentName$$Model } from &quot;./model&quot;;&#10;export { * as $$sliceOrSegmentName$$Lib } from &quot;./lib&quot;;&#10;export { $$componentName$$ } from './ui';" />
+                                    <option name="variables">
+                                      <set>
+                                        <option value="COMPONENT_NAME" />
+                                        <option value="SLICE_OR_SEGMENT_NAME" />
+                                      </set>
+                                    </option>
+                                  </TemplateStructureNodeTemplate>
+                                </option>
+                              </TemplateStructureNode>
+                              <TemplateStructureNode>
+                                <option name="extensionType" value="TS" />
+                                <option name="name" value="lib" />
+                                <option name="nodeType" value="FILE" />
+                              </TemplateStructureNode>
+                              <TemplateStructureNode>
+                                <option name="extensionType" value="TS" />
+                                <option name="name" value="model" />
+                                <option name="nodeType" value="FILE" />
+                              </TemplateStructureNode>
+                              <TemplateStructureNode>
+                                <option name="extensionType" value="TSX" />
+                                <option name="name" value="ui" />
+                                <option name="nodeType" value="FILE" />
+                                <option name="template">
+                                  <TemplateStructureNodeTemplate>
+                                    <option name="value" value="export const $$componentName$$ = () =&gt; {&#10;    return null;&#10;}" />
+                                    <option name="variables">
+                                      <set>
+                                        <option value="COMPONENT_NAME" />
+                                      </set>
+                                    </option>
+                                  </TemplateStructureNodeTemplate>
+                                </option>
+                              </TemplateStructureNode>
+                            </list>
+                          </option>
+                          <option name="variables">
+                            <set>
+                              <option value="SLICE_OR_SEGMENT_NAME" />
+                            </set>
+                          </option>
+                        </TemplateStructureNode>
+                      </list>
+                    </option>
+                    <option name="variables">
+                      <set>
+                        <option value="LAYER_NAME" />
+                      </set>
+                    </option>
+                  </TemplateStructureNode>
+                </option>
+                <option name="status" value="NEW" />
+                <option name="uuid" value="e846912f-ba30-4441-ba0c-5d4fecbd2aee" />
+              </Template>
+              <Template>
+                <option name="description" value="Basic entity with:&#10;- index&#10;- ui folder&#10;- model folder&#10;- lib folder" />
+                <option name="layer" value="ENTITIES" />
+                <option name="name" value="Default Full as Folders" />
+                <option name="rootNode">
+                  <TemplateStructureNode>
+                    <option name="name" value="$$layerName$$" />
+                    <option name="nodes">
+                      <list>
+                        <TemplateStructureNode>
+                          <option name="name" value="$$sliceOrSegmentName$$" />
+                          <option name="nodeType" value="FOLDER" />
+                          <option name="nodes">
+                            <list>
+                              <TemplateStructureNode>
+                                <option name="extensionType" value="TS" />
+                                <option name="name" value="index" />
+                                <option name="nodeType" value="FILE" />
+                                <option name="template">
+                                  <TemplateStructureNodeTemplate>
+                                    <option name="value" value="import * as $$sliceOrSegmentName$$Model from &quot;./model&quot;;&#10;import * as $$sliceOrSegmentName$$Lib from &quot;./lib&quot;;&#10;&#10;export { $$sliceOrSegmentName$$Model, $$sliceOrSegmentName$$Lib };" />
+                                    <option name="variables">
+                                      <set>
+                                        <option value="SLICE_OR_SEGMENT_NAME" />
+                                      </set>
+                                    </option>
+                                  </TemplateStructureNodeTemplate>
+                                </option>
+                              </TemplateStructureNode>
+                              <TemplateStructureNode>
+                                <option name="name" value="ui" />
+                                <option name="nodeType" value="FOLDER" />
+                                <option name="nodes">
+                                  <list>
+                                    <TemplateStructureNode>
+                                      <option name="extensionType" value="TS" />
+                                      <option name="name" value="index" />
+                                      <option name="nodeType" value="FILE" />
+                                      <option name="template">
+                                        <TemplateStructureNodeTemplate>
+                                          <option name="value" value="export { $$componentName$$ } from './ui';" />
+                                          <option name="variables">
+                                            <set>
+                                              <option value="COMPONENT_NAME" />
+                                            </set>
+                                          </option>
+                                        </TemplateStructureNodeTemplate>
+                                      </option>
+                                    </TemplateStructureNode>
+                                    <TemplateStructureNode>
+                                      <option name="name" value="$$componentName$$" />
+                                      <option name="nodeType" value="FOLDER" />
+                                      <option name="nodes">
+                                        <list>
+                                          <TemplateStructureNode>
+                                            <option name="extensionType" value="TSX" />
+                                            <option name="name" value="index" />
+                                            <option name="nodeType" value="FILE" />
+                                            <option name="template">
+                                              <TemplateStructureNodeTemplate>
+                                                <option name="value" value="import './index.scss';&#10;&#10;export const $$componentName$$ = () =&gt; {&#10;    return null;&#10;}" />
+                                                <option name="variables">
+                                                  <set>
+                                                    <option value="COMPONENT_NAME" />
+                                                  </set>
+                                                </option>
+                                              </TemplateStructureNodeTemplate>
+                                            </option>
+                                          </TemplateStructureNode>
+                                          <TemplateStructureNode>
+                                            <option name="extensionType" value="SCSS" />
+                                            <option name="name" value="index" />
+                                            <option name="nodeType" value="STYLE" />
+                                          </TemplateStructureNode>
+                                        </list>
+                                      </option>
+                                      <option name="variables">
+                                        <set>
+                                          <option value="COMPONENT_NAME" />
+                                        </set>
+                                      </option>
+                                    </TemplateStructureNode>
+                                  </list>
+                                </option>
+                              </TemplateStructureNode>
+                              <TemplateStructureNode>
+                                <option name="name" value="model" />
+                                <option name="nodeType" value="FOLDER" />
+                                <option name="nodes">
+                                  <list>
+                                    <TemplateStructureNode>
+                                      <option name="extensionType" value="TS" />
+                                      <option name="name" value="index" />
+                                      <option name="nodeType" value="FILE" />
+                                    </TemplateStructureNode>
+                                  </list>
+                                </option>
+                              </TemplateStructureNode>
+                              <TemplateStructureNode>
+                                <option name="name" value="lib" />
+                                <option name="nodeType" value="FOLDER" />
+                                <option name="nodes">
+                                  <list>
+                                    <TemplateStructureNode>
+                                      <option name="extensionType" value="TS" />
+                                      <option name="name" value="index" />
+                                      <option name="nodeType" value="FILE" />
+                                    </TemplateStructureNode>
+                                  </list>
+                                </option>
+                              </TemplateStructureNode>
+                            </list>
+                          </option>
+                          <option name="variables">
+                            <set>
+                              <option value="SLICE_OR_SEGMENT_NAME" />
+                            </set>
+                          </option>
+                        </TemplateStructureNode>
+                      </list>
+                    </option>
+                    <option name="variables">
+                      <set>
+                        <option value="LAYER_NAME" />
+                      </set>
+                    </option>
+                  </TemplateStructureNode>
+                </option>
+                <option name="status" value="NEW" />
+                <option name="uuid" value="68b26400-eb51-4034-b565-fe36f74217fc" />
+              </Template>
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

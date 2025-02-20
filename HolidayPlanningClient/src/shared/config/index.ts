@@ -1,0 +1,1 @@
+export {RoutesPaths} from "./routesPaths"
