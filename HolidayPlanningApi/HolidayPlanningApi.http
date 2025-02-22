@@ -1,0 +1,6 @@
+@HolidayPlanningApi_HostAddress = http://localhost:5046
+
+GET {{HolidayPlanningApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
