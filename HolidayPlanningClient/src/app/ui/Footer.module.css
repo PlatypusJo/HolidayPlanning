@@ -1,0 +1,9 @@
+.footer {
+    align-items: center;
+    justify-items: center;
+    background: var(--background-color);
+    text-align: center;
+    z-index: 11;
+    color: white;
+    font-size: 14px;
+}

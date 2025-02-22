@@ -1,0 +1,34 @@
+.headerLogo {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    width: 100%;
+}
+
+.headerName {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.headerButton {
+    background: var(--primary-btn-color);
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    border-color: #FE9449;
+    margin-left: auto;
+    margin-right: 2%;
+    margin-top: 15px;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    background: var(--background-color);
+}

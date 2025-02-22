@@ -1,16 +1,22 @@
-import { Layout } from 'antd';
+import {Layout} from 'antd';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
+import './ui/App.css';
 import {AppRoutes} from "./AppRoutes";
+import {Header} from "./Header";
+import {Footer} from "./Footer";
 
-function App() {
+const {Content} = Layout
+
+const App = () => {
   return (
       <BrowserRouter>
           <Layout className="layout">
-              <Layout.Content className="content">
+              <Header/>
+              <Content className="content">
                   <AppRoutes />
-              </Layout.Content>
+              </Content>
+              <Footer/>
           </Layout>
       </BrowserRouter>
   );
