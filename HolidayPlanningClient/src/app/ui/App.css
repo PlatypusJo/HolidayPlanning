@@ -1,0 +1,17 @@
+:root {
+  --primary-btn-color: linear-gradient(to right, #FE9449, #EF5282);
+  --background-color: #043873;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(#043873, #5982b0, white);
+  flex-grow: 1;
+  text-align: center;
+}
+
+.layout {
+  min-height: 100vh;
+  min-width: 600px;
+}
