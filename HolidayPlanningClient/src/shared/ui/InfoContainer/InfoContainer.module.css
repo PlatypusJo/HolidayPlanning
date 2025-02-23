@@ -1,0 +1,46 @@
+.infoContainer {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5%;
+    background-color: var(--background-color);
+    background-image: url('container-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 402px;
+    padding: 0 clamp(14px, 2.2vw, 36px);
+}
+
+.backButtonInfoContainer {
+    background: var(--primary-btn-color);
+    color: white;
+    font-size: clamp(12px, 1vw, 16px);
+    height: clamp(40px, 4.6vh, 46px);
+    border-radius: 8px;
+    border-color: #FE9449;
+    margin-right: auto;
+    margin-top: 3%;
+}
+
+.textInfoContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 50%;
+    z-index: 1;
+}
+
+.imageInfoContainer{
+    margin-left: auto;
+}
+
+.titleInfoContainer{
+    color: white;
+    text-align: start;
+    font-weight: bold;
+    font-size: clamp(32px, 3.5vw, 52px);
+}
