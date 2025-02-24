@@ -4,7 +4,7 @@ namespace HolidayPlanningApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EventController : ControllerBase
+    public class HolidayController : ControllerBase
     {
         
     }
