@@ -10,10 +10,9 @@ import {EventContainer} from "../../widgets";
 export const EventsPage = () => {
     const [contextHolder, notification] = useNotification(5)
     const [events, setEvents] = useState<EventData[]>([]);
-    const [fetchGetEvents, errorFetchGetEvents] = useFetching(async () => {
+    const [fetchGetEvents, isLoadingFetchGetEvents, errorFetchGetEvents] = useFetching(async () => {
         try {
             const response = await getAllEvents()
-            console.log(response)
             setEvents(response)
         } catch (e) {
             notification.error(`Ошибка при получении меропритий: ${errorFetchGetEvents}`)
