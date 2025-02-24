@@ -1,0 +1,12 @@
+.eventsContainer {
+    position: relative;
+    min-height: 540px;
+    padding: 10px clamp(14px, 2.2vw, 36px);
+}
+
+.separatorUnderline {
+    width: 100%;
+    height: 2px;
+    background-color: var(--background-color);
+    margin-top: 2%;
+}

@@ -1,0 +1,22 @@
+.imageNoData{
+    margin-left: auto;
+}
+
+.titleNoData {
+    font-size: 3vh;
+}
+
+.textNoData {
+    font-size: 2vh;
+    color: #888888;
+}
+
+.noData{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 0;
+    height: 100%;
+    text-align: center;
+}

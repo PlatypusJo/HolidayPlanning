@@ -1,0 +1,6 @@
+.scrollTopButton {
+    position: fixed;
+    bottom: 2%;
+    right: 1.2%;
+    background: var(--primary-btn-color);
+}
