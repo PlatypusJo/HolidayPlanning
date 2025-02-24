@@ -6,10 +6,12 @@ import {useFetching, useNotification} from "../../shared/hook";
 import {InfoContainer, NoData, RightFloatButton} from "../../shared/ui";
 import {PlusOutlined} from "@ant-design/icons";
 import {EventContainer} from "../../widgets";
+import {useFooterContext} from "../../shared/ui/Footer/Footer";
 
 export const EventsPage = () => {
     const [contextHolder, notification] = useNotification(5)
     const [events, setEvents] = useState<EventData[]>([]);
+    const { updateFloatButton } = useFooterContext()
     const [fetchGetEvents, isLoadingFetchGetEvents, errorFetchGetEvents] = useFetching(async () => {
         try {
             const response = await getAllEvents()
@@ -21,6 +23,11 @@ export const EventsPage = () => {
 
     useEffect(() => {
         fetchGetEvents()
+        updateFloatButton(<RightFloatButton
+            tooltipTitle={"Добавить мероприятие"}
+            buttonIcon={<PlusOutlined/>}
+            onClick={() => notification.info("Добавление мероприятия в раработке..")}
+        />)
     }, [])
 
     return (
@@ -36,8 +43,6 @@ export const EventsPage = () => {
                         <NoData title={"Мероприятий не найдено"} text={"Нажмите +, чтобы добавить новое мероприятие"}/>
                 }
             </div>
-            <RightFloatButton tooltipTitle={"Добавить мероприятие"} buttonIcon={<PlusOutlined/>}
-                              onClick={() => notification.info("Добавление мероприятия в раработке..")}/>
         </>
     )
 }
