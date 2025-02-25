@@ -19,18 +19,22 @@ namespace DAL.Entities
         /// </summary>
         [Key]
         public int Id { get; set; }
+
         /// <summary>
         /// Название мероприятия
         /// </summary>
         public string? Title { get; set; }
+
         /// <summary>
         /// Дата и время начала мероприятия
         /// </summary>
         public DateTime StartDate { get; set; }
+
         /// <summary>
         /// Дата и время конца мероприятия
         /// </summary>
         public DateTime EndDate { get; set; }
+
         /// <summary>
         /// Бюджет мероприятия в рублях
         /// </summary>
