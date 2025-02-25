@@ -7,11 +7,13 @@ import {InfoContainer, NoData, RightFloatButton} from "../../shared/ui";
 import {PlusOutlined} from "@ant-design/icons";
 import {EventContainer} from "../../widgets";
 import {useFooterContext} from "../../shared/ui/Footer/Footer";
+import {EventCreateModal} from "../../modal/EventCreateModal/EventCreateModal";
 
 export const EventsPage = () => {
     const [contextHolder, notification] = useNotification(5)
     const [events, setEvents] = useState<EventData[]>([]);
     const { updateFloatButton } = useFooterContext()
+    const [isCreateEventModal, setIsCreateEventModal] = useState(false);
     const [fetchGetEvents, isLoadingFetchGetEvents, errorFetchGetEvents] = useFetching(async () => {
         try {
             const response = await getAllEvents()
@@ -26,9 +28,17 @@ export const EventsPage = () => {
         updateFloatButton(<RightFloatButton
             tooltipTitle={"Добавить мероприятие"}
             buttonIcon={<PlusOutlined/>}
-            onClick={() => notification.info("Добавление мероприятия в раработке..")}
+            onClick={openCreateEventModal}
         />)
     }, [])
+
+    const openCreateEventModal = () => {
+        setIsCreateEventModal(true);
+      };
+    
+      const handleCancelCreateEventModal = () => {
+        setIsCreateEventModal(false);
+    };
 
     return (
         <>
@@ -43,6 +53,7 @@ export const EventsPage = () => {
                         <NoData title={"Мероприятий не найдено"} text={"Нажмите +, чтобы добавить новое мероприятие"}/>
                 }
             </div>
+            <EventCreateModal visible={isCreateEventModal} onCancel={handleCancelCreateEventModal}/>
         </>
     )
 }
