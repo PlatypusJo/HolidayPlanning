@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
+    /// <summary>
+    /// Репозиторий Мероприятия
+    /// </summary>
     public class HolidayRepository : IRepository<Holiday>
     {
         #region Поля

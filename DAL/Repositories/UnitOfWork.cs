@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
+    /// <summary>
+    /// Класс, реализующий паттерн UnitOfWork
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         #region Поля
