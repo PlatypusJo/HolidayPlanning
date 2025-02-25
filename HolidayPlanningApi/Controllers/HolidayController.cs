@@ -15,13 +15,16 @@ namespace HolidayPlanningApi.Controllers
     public class HolidayController : ControllerBase
     {
         #region Поля
+
         /// <summary>
         /// Экземпляр сервиса мероприятия
         /// </summary>
         private readonly IHolidayService _holidayService;
+        
         #endregion
 
         #region Конструкторы
+
         /// <summary>
         /// Контруктор на основе сервиса мероприятия
         /// </summary>
@@ -30,9 +33,11 @@ namespace HolidayPlanningApi.Controllers
         {
             _holidayService = holidayService;
         }
+        
         #endregion
 
         #region Методы
+
         /// <summary>
         /// Возвращает dto сущности по заданному ID
         /// </summary>
@@ -116,6 +121,7 @@ namespace HolidayPlanningApi.Controllers
             await _holidayService.Delete(id);
             return Ok(id);
         }
+
         #endregion
     }
 }

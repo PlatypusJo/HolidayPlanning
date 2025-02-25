@@ -13,6 +13,7 @@ namespace DAL.Entities
     public class Holiday
     {
         #region Свойства
+
         /// <summary>
         /// Целочисленный ID мероприятия
         /// </summary>
@@ -25,22 +26,25 @@ namespace DAL.Entities
         /// <summary>
         /// Дата и время начала мероприятия
         /// </summary>
-        public DateTime StartTime { get; set; }
+        public DateTime StartDate { get; set; }
         /// <summary>
         /// Дата и время конца мероприятия
         /// </summary>
-        public DateTime EndTime { get; set; }
+        public DateTime EndDate { get; set; }
         /// <summary>
         /// Бюджет мероприятия в рублях
         /// </summary>
         public double Budget { get; set; }
+        
         #endregion
 
         #region Конструкторы
+
         /// <summary>
         /// Конструктор по умолчанию
         /// </summary>
         public Holiday() { }
+        
         #endregion
     }
 }

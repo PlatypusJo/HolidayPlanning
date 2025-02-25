@@ -13,6 +13,7 @@ namespace BLL.DTOs
     public class HolidayDto
     {
         #region Свойства
+
         /// <summary>
         /// Целочисленный ID мероприятия
         /// </summary>
@@ -24,18 +25,20 @@ namespace BLL.DTOs
         /// <summary>
         /// Дата и время начала мероприятия
         /// </summary>
-        public DateTime StartTime { get; set; }
+        public DateTime StartDate { get; set; }
         /// <summary>
         /// Дата и время конца мероприятия
         /// </summary>
-        public DateTime EndTime { get; set; }
+        public DateTime EndDate { get; set; }
         /// <summary>
         /// Бюджет мероприятия в рублях
         /// </summary>
         public double Budget { get; set; }
+        
         #endregion
 
         #region Конструкторы
+
         /// <summary>
         /// Конструктор по умолчанию
         /// </summary>
@@ -47,10 +50,11 @@ namespace BLL.DTOs
         {
             Id = holiday.Id;
             Title = holiday.Title;
-            StartTime = holiday.StartTime;
-            EndTime = holiday.EndTime;
+            StartDate = holiday.StartDate;
+            EndDate = holiday.EndDate;
             Budget = holiday.Budget;
         }
+        
         #endregion
     }
 }

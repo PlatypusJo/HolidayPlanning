@@ -15,21 +15,25 @@ namespace DAL.Repositories
     public class HolidayRepository : IRepository<Holiday>
     {
         #region Поля
+
         /// <summary>
         /// Контекст базы данных
         /// </summary>
-        private readonly HolidayDbContext _db;
+        private readonly HolidayPlanningDbContext _db;
+        
         #endregion
 
         #region Конструкторы
+
         /// <summary>
         /// Контруктор с определением контекста
         /// </summary>
         /// <param name="db">Контекст базы данных</param>
-        public HolidayRepository(HolidayDbContext db)
+        public HolidayRepository(HolidayPlanningDbContext db)
         {
             _db = db;
         }
+        
         #endregion
 
         #region Методы
@@ -53,6 +57,7 @@ namespace DAL.Repositories
         public async Task<Holiday> GetItem(int id) => await _db.Holiday.FindAsync(id);
 
         public async Task Update(Holiday item) => _db.Entry(item).State = EntityState.Modified;
+        
         #endregion
     }
 }

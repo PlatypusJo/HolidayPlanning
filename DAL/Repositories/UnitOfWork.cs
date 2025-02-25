@@ -14,18 +14,21 @@ namespace DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         #region Поля
+
         /// <summary>
         /// Контекст базы данных
         /// </summary>
-        private readonly HolidayDbContext _db;
+        private readonly HolidayPlanningDbContext _db;
 
         /// <summary>
         /// Репозиторий мероприятия
         /// </summary>
         private HolidayRepository _holidayRepository;
+        
         #endregion
 
         #region Свойства
+
         public IRepository<Holiday> Holiday
         {
             get
@@ -34,24 +37,29 @@ namespace DAL.Repositories
                 return _holidayRepository;
             }
         }
+        
         #endregion
 
         #region Конструкторы
+
         /// <summary>
         /// Конструктор, принимающий контекст базы данных
         /// </summary>
         /// <param name="db">Контекст базы данных</param>
-        public UnitOfWork(HolidayDbContext db)
+        public UnitOfWork(HolidayPlanningDbContext db)
         {
             _db = db;
         }
+        
         #endregion
 
         #region Методы
+
         public async Task<int> Save()
         {
             return await _db.SaveChangesAsync();
         }
+        
         #endregion
     }
 }

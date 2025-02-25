@@ -20,6 +20,7 @@ namespace BLL.Services
         /// </summary>
         /// <param name="unitOfWork">Экземпляр UnitOfWork</param>
         public HolidayService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        
         #endregion
 
         #region Методы
@@ -29,8 +30,8 @@ namespace BLL.Services
             {
                 Id = itemDto.Id,
                 Title = itemDto.Title,
-                StartTime = itemDto.StartTime,
-                EndTime = itemDto.EndTime,
+                StartDate = itemDto.StartDate,
+                EndDate = itemDto.EndDate,
                 Budget = itemDto.Budget
             };
 
@@ -76,13 +77,14 @@ namespace BLL.Services
 
             item.Id = itemDto.Id;
             item.Title = itemDto.Title;
-            item.StartTime = itemDto.StartTime;
-            item.EndTime = itemDto.EndTime;
+            item.StartDate = itemDto.StartDate;
+            item.EndDate = itemDto.EndDate;
             item.Budget = itemDto.Budget;
 
             await _unitOfWork.Holiday.Update(item);
             return await SaveAsync();
         }
+        
         #endregion
     }
 }

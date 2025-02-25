@@ -11,24 +11,29 @@ namespace DAL.Entities
     /// <summary>
     /// Контекст базы данных
     /// </summary>
-    public class HolidayDbContext : DbContext, IHolidayDbContext
+    public class HolidayPlanningDbContext : DbContext
     {
         #region Свойства
+
         public virtual DbSet<Holiday> Holiday { get; set; }
+        
         #endregion
 
         #region Конструкторы
+
         /// <summary>
         /// Контруктор контекста на основе options
         /// </summary>
         /// <param name="options">Параметры контекста данных</param>
-        public HolidayDbContext(DbContextOptions<HolidayDbContext> options) : base(options) 
+        public HolidayPlanningDbContext(DbContextOptions<HolidayPlanningDbContext> options) : base(options) 
         {
             InitializeMockData();
         }
+        
         #endregion
 
         #region Внутренние методы
+
         /// <summary>
         /// Инициализирует мокнутую бд начальными значениями
         /// </summary>
@@ -38,20 +43,21 @@ namespace DAL.Entities
             {
                 Id = 1,
                 Title = "День мазута",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
                 Budget = 134
             });
             Holiday.Add(new Holiday
             {
                 Id = 2,
                 Title = "День цемента",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
                 Budget = 12.50
             });
             SaveChanges();
         }
+        
         #endregion
     }
 }

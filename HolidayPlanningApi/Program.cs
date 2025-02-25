@@ -17,12 +17,12 @@ namespace HolidayPlanningApi
             builder.Services.AddControllers();
 
             // реализация InMemory db
-            builder.Services.AddSingleton<HolidayDbContext>(provider =>
+            builder.Services.AddSingleton<HolidayPlanningDbContext>(provider =>
             {
-                var options = new DbContextOptionsBuilder<HolidayDbContext>()
+                var options = new DbContextOptionsBuilder<HolidayPlanningDbContext>()
                     .UseInMemoryDatabase("HolidayDb")
                     .Options;
-                return new HolidayDbContext(options);
+                return new HolidayPlanningDbContext(options);
             });
             builder.Services.AddScoped<IHolidayService, HolidayService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
