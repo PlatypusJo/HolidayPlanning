@@ -1,0 +1,44 @@
+.Modal{
+    top: 10%;
+}
+
+.Input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    column-gap: 4%;
+    color: black;
+    width: 85%;
+    margin-left: 8%;
+    margin-top: 3%;
+}
+
+.TextInput{
+    font-size: 18px;
+    color: #043873;
+    font-weight: 600;
+}
+
+.InputDatetime{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    column-gap: 3%;
+    color: black;
+    width: 85%;
+    margin-left: 8%;
+    margin-top: 3%;
+}
+
+.SpanTitle{
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    display: block; 
+    font-size: 3vh;
+    margin-left: 0.6vw;
+}
