@@ -1,0 +1,15 @@
+.floatButton {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    right: 1.2%;
+    background: var(--primary-btn-color);
+}
+
+.floatButtonDefault {
+    bottom: 2%;
+}
+
+.floatButtonSifted {
+    bottom: 6.8%;
+}

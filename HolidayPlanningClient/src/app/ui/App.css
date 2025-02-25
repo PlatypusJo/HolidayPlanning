@@ -6,7 +6,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(#043873, #5982b0, white);
+  background: white;
   flex-grow: 1;
   text-align: center;
 }
