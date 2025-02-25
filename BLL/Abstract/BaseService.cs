@@ -23,7 +23,7 @@ namespace BLL.Abstract
         /// <summary>
         /// Контрукор на основе UnitOfWork
         /// </summary>
-        /// <param name="unitOfWork"></param>
+        /// <param name="unitOfWork">Экземпляр UnitOfWork</param>
         protected BaseService(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
         #endregion
 

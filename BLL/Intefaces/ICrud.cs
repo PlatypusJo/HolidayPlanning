@@ -37,22 +37,22 @@ namespace BLL.Intefaces
         Task<bool> Exists(int id);
 
         /// <summary>
-        /// Возвращает все экземпляры сущности
+        /// Возвращает все экземпляры сущности в виде dto
         /// </summary>
-        /// <returns>Список сущностей</returns>
+        /// <returns>Список dto сущностей</returns>
         Task<List<T>> GetAll();
 
         /// <summary>
-        /// Возвращает экземпляр сущности по заданному ID
+        /// Возвращает dto сущности по заданному ID
         /// </summary>
         /// <param name="id">ID сущности</param>
-        /// <returns>Найденная сущность (null, если сущность не найдена)</returns>
+        /// <returns>Найденная сущность в форме dto (null, если сущность не найдена)</returns>
         Task<T> GetById(int id);
 
         /// <summary>
         /// Обновляет заданную сущность
         /// </summary>
-        /// <param name="itemDto">Заданная сущности</param>
+        /// <param name="itemDto">Заданная сущности в форме dto</param>
         /// <returns>true при успешном обновлении экземпляра сущности, иначе false</returns>
         Task<bool> Update(T itemDto);
     }
