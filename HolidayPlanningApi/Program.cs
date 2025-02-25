@@ -1,4 +1,11 @@
 
+using BLL.Intefaces;
+using BLL.Services;
+using DAL.Entities;
+using DAL.Interfaces;
+using DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 namespace HolidayPlanningApi
 {
     public class Program
@@ -7,10 +14,19 @@ namespace HolidayPlanningApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            // реализация InMemory db
+            builder.Services.AddSingleton<HolidayDbContext>(provider =>
+            {
+                var options = new DbContextOptionsBuilder<HolidayDbContext>()
+                    .UseInMemoryDatabase("HolidayDb")
+                    .Options;
+                return new HolidayDbContext(options);
+            });
+            builder.Services.AddScoped<IHolidayService, HolidayService>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -26,7 +42,6 @@ namespace HolidayPlanningApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
