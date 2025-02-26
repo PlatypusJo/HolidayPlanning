@@ -61,7 +61,7 @@ export const createEvent = async (body: CreateEventData) => {
         response => response
     ).catch(
         error => {
-            console.error(`Ошибка при получении списка мероприятий: ${error}`)
+            console.error(`Ошибка при создании мероприятия: ${error}`)
             return undefined
         }
     )
