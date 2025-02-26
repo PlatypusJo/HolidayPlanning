@@ -19,7 +19,7 @@ namespace HolidayPlanningApi
                 options.AddDefaultPolicy(
                 builder =>
                 {
-                    builder.AllowAnyOrigin()
+                    builder.WithOrigins("http://localhost:3000")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
                 });
@@ -49,6 +49,8 @@ namespace HolidayPlanningApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
