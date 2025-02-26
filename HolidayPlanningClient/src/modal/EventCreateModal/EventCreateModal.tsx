@@ -9,7 +9,7 @@ import {createEvent} from "../../shared/api";
 
 
 type FormData = {
-    name: string;
+    title: string;
     budget: string;
     startDate: string;
     startTime: string;
@@ -22,7 +22,7 @@ export const EventCreateModal: React.FC<{
     onCancel: () => void;
 }> = ({ visible, onCancel }) => {
     const initialFormState: FormData = {
-        name: '',
+        title: '',
         budget: '',
         startDate: '',
         startTime: '',
@@ -35,13 +35,13 @@ export const EventCreateModal: React.FC<{
     const [fetchCreateEvents, isLoadingFetchCreateEvents, errorFetchCreateEvents] = useFetching(async () => {
         try {
             const response = await createEvent({
-                name: formData.name,
+                title: formData.title,
                 budget: Number(formData.budget),
                 startDate: new Date(`${formData.startDate} ${formData.startTime}`),
                 endDate: new Date(`${formData.endDate} ${formData.endTime}`),
             })
             if (response && response.status === 200) {
-                notification.success(`Мероприятие '${formData.name}' успешно создано!`)
+                notification.success(`Мероприятие '${formData.title}' успешно создано!`)
             }
         } catch (e) {
             notification.error(`Ошибка при создании меропрития: ${errorFetchCreateEvents}`)
@@ -116,8 +116,8 @@ export const EventCreateModal: React.FC<{
                         <Input
                             placeholder="Название вашего мероприятия"
                             style={inputStyle}
-                            value={formData.name}
-                            onChange={(e) => handleInputChange(e, 'name')}
+                            value={formData.title}
+                            onChange={(e) => handleInputChange(e, 'title')}
                         />
                     </div>
 

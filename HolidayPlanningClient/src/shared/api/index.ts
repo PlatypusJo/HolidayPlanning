@@ -1,11 +1,19 @@
 import axios from "axios";
 
-const apiUrl = 'https://localhost:7248/api'
+const apiUrl = 'https://localhost:7230/api'
 const eventControllerUrl = `${apiUrl}/Holiday`
+
+export interface EventDataResponse {
+    id: number,
+    title: string,
+    startDate: string,
+    endDate: string,
+    budget: number
+}
 
 export interface EventData {
     id: number,
-    name: string,
+    title: string,
     startDate: Date,
     endDate: Date,
     budget: number
@@ -18,17 +26,26 @@ export const getAllEvents = async () => {
             Accept: 'application/json'
         }
     }).then(
-        response => response.data as EventData[]
+        response => {
+            const data = response.data as EventDataResponse[]
+            console.log(data)
+            const mapData: EventData[] = data.map(event => ({
+                ...event,
+                startDate: new Date(event.startDate),
+                endDate: new Date(event.endDate)
+            }));
+            return mapData
+        }
     ).catch(
         error => {
             console.error(`Ошибка при получении списка мероприятий: ${error}`)
-            return [] as EventData[]
+            return undefined
         }
     )
 }
 
 export interface CreateEventData {
-    name: string,
+    title: string,
     startDate: Date,
     endDate: Date,
     budget: number
