@@ -28,7 +28,6 @@ export const getAllEvents = async () => {
     }).then(
         response => {
             const data = response.data as EventDataResponse[]
-            console.log(data)
             const mapData: EventData[] = data.map(event => ({
                 ...event,
                 startDate: new Date(event.startDate),
@@ -58,7 +57,14 @@ export const createEvent = async (body: CreateEventData) => {
             Accept: 'application/json'
         }
     }).then(
-        response => response
+        response => {
+            const data = response.data as EventDataResponse
+            return {
+                ...data,
+                startDate: new Date(data.startDate),
+                endDate: new Date(data.endDate)
+            }
+        }
     ).catch(
         error => {
             console.error(`Ошибка при создании мероприятия: ${error}`)

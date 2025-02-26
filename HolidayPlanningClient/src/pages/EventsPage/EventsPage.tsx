@@ -32,6 +32,11 @@ export const EventsPage = () => {
         />)
     }, [])
 
+
+    const onCreateEvent = (newEvent: EventData) => {
+        setEvents([...events, newEvent])
+    }
+
     const openCreateEventModal = () => {
         setIsCreateEventModal(true);
       };
@@ -53,7 +58,7 @@ export const EventsPage = () => {
                         <NoData title={"Мероприятий не найдено"} text={"Нажмите +, чтобы добавить новое мероприятие"}/>
                 }
             </div>
-            <EventCreateModal visible={isCreateEventModal} onCancel={handleCancelCreateEventModal}/>
+            <EventCreateModal visible={isCreateEventModal} onCancel={handleCancelCreateEventModal} onCreateEvent={onCreateEvent}/>
         </>
     )
 }
