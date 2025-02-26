@@ -1,8 +1,8 @@
-.Modal{
+.modal{
     top: 10%;
 }
 
-.Input{
+.inputContainer{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -14,13 +14,8 @@
     margin-top: 3%;
 }
 
-.TextInput{
-    font-size: 18px;
-    color: #043873;
-    font-weight: 600;
-}
 
-.InputDatetime{
+.inputDatetimeContainer{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -32,13 +27,16 @@
     margin-top: 3%;
 }
 
-.SpanTitle{
-    display: flex;
+.modalTitle{
     flex-direction: column;
     color: #ffffff;
     font-weight: bold;
     text-align: center;
-    display: block; 
+    display: block;
     font-size: 3vh;
     margin-left: 0.6vw;
+}
+
+.titleDescription{
+    font-size: 1.7vh;
 }

@@ -14,6 +14,17 @@ namespace HolidayPlanningApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+                });
+            });
+
             builder.Services.AddControllers();
 
             // реализация InMemory db
@@ -38,6 +49,8 @@ namespace HolidayPlanningApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 

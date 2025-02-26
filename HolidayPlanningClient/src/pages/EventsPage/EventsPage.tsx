@@ -17,7 +17,7 @@ export const EventsPage = () => {
     const [fetchGetEvents, isLoadingFetchGetEvents, errorFetchGetEvents] = useFetching(async () => {
         try {
             const response = await getAllEvents()
-            setEvents(response)
+            response && setEvents(response)
         } catch (e) {
             notification.error(`Ошибка при получении меропритий: ${errorFetchGetEvents}`)
         }
@@ -48,7 +48,7 @@ export const EventsPage = () => {
                 <div className={cl.separatorUnderline}/>
                 {
                     events.length > 0
-                        ? events.map(event => <EventContainer event={event}/>)
+                        ? events.map((event, index) => <EventContainer event={event} key={index}/>)
                         :
                         <NoData title={"Мероприятий не найдено"} text={"Нажмите +, чтобы добавить новое мероприятие"}/>
                 }
