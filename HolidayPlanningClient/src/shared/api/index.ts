@@ -1,76 +1,51 @@
+import axios from "axios";
 
+const apiUrl = 'https://localhost:7248/api'
+const eventControllerUrl = `${apiUrl}/Holiday`
 
 export interface EventData {
     id: number,
     name: string,
-    type: string,
     startDate: Date,
     endDate: Date,
+    budget: number
 }
 
 export const getAllEvents = async () => {
-    const mockEventsData: EventData[] = [
-        {
-            id: 1,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 2,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 3,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 4,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 5,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 6,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 7,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 8,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 9,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
-        },{
-            id: 10,
-            name: "Новый год",
-            type: "Ваше мерприятие",
-            startDate: new Date(),
-            endDate: new Date(Date.now() + 28800 * 1000)
+    return await axios.get(eventControllerUrl, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
         }
-    ]
-    return mockEventsData
+    }).then(
+        response => response.data as EventData[]
+    ).catch(
+        error => {
+            console.error(`Ошибка при получении списка мероприятий: ${error}`)
+            return [] as EventData[]
+        }
+    )
+}
+
+export interface CreateEventData {
+    name: string,
+    startDate: Date,
+    endDate: Date,
+    budget: number
+}
+
+export const createEvent = async (body: CreateEventData) => {
+    return await axios.post(eventControllerUrl, body, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при получении списка мероприятий: ${error}`)
+            return undefined
+        }
+    )
 }

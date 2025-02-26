@@ -14,7 +14,7 @@ export const EventContainer: React.FC<{ event: EventData }> = ({ event }) => {
             </div>
             <div className={cl.blockEventDate}>
                 <div>{`${formatDate(event.startDate).replace(",", " в ")}, ${formatTimeDifference(event.startDate, event.endDate)}`}</div>
-                <div>{event.type}</div>
+                <div>Бюджет: {event.budget}</div>
             </div>
         </div>
     );
