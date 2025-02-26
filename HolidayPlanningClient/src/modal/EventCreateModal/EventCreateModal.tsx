@@ -5,7 +5,7 @@ import cl from './ui/EventCreateModal.module.css';
 import Logo from '../../shared/image/modal-logo.png';
 import {cancelButtonStyle, dateTimePickerStyle, inputStyle, modalTheme, okButtonStyle} from "./config/theme";
 import {useFetching, useNotification} from "../../shared/hook";
-import {createEvent} from "../../shared/api";
+import {createEvent, EventData} from "../../shared/api";
 
 
 type FormData = {
@@ -19,8 +19,9 @@ type FormData = {
 
 export const EventCreateModal: React.FC<{
     visible: boolean;
+    onCreateEvent: (newEvent: EventData) => void;
     onCancel: () => void;
-}> = ({ visible, onCancel }) => {
+}> = ({ visible, onCreateEvent, onCancel }) => {
     const initialFormState: FormData = {
         title: '',
         budget: '',
@@ -40,7 +41,8 @@ export const EventCreateModal: React.FC<{
                 startDate: new Date(`${formData.startDate} ${formData.startTime}`),
                 endDate: new Date(`${formData.endDate} ${formData.endTime}`),
             })
-            if (response && response.status === 200) {
+            if (response) {
+                onCreateEvent(response)
                 notification.success(`Мероприятие '${formData.title}' успешно создано!`)
             }
         } catch (e) {
