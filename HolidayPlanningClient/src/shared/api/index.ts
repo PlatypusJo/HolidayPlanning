@@ -72,3 +72,35 @@ export const createEvent = async (body: CreateEventData) => {
         }
     )
 }
+
+export const deleteEvent = async (eventId: number) => {
+    return await axios.delete(`${eventControllerUrl}/${eventId}`, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при удалении мероприятия: ${error}`)
+            return undefined
+        }
+    )
+}
+
+export const changeEvent = async (eventId: number, body: EventData) => {
+    return await axios.put(`${eventControllerUrl}/${eventId}`, body, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при изменении мероприятия: ${error}`)
+            return undefined
+        }
+    )
+}

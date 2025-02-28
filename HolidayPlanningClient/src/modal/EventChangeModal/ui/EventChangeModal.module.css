@@ -1,0 +1,42 @@
+.modal{
+    top: 10%;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    column-gap: 4%;
+    color: black;
+    width: 85%;
+    margin-left: 8%;
+    margin-top: 3%;
+}
+
+
+.inputDatetimeContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    column-gap: 3%;
+    color: black;
+    width: 85%;
+    margin-left: 8%;
+    margin-top: 3%;
+}
+
+.modalTitle{
+    flex-direction: column;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    font-size: 3vh;
+    margin-left: 0.6vw;
+}
+
+.titleDescription{
+    font-size: 1.7vh;
+}

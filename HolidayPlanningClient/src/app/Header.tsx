@@ -6,11 +6,8 @@ import {LoginOutlined} from "@ant-design/icons";
 import {useNotification} from "../shared/hook";
 
 export const Header = () => {
-    const [contextHolder, notification] = useNotification(2)
-
     return (
         <>
-            {contextHolder}
             <Layout.Header className={cl.header}>
                 <div className={cl.headerLogo}>
                     <Image preview={false} src={Logo} />
@@ -19,7 +16,7 @@ export const Header = () => {
                         icon={<LoginOutlined/>}
                         iconPosition={"end"}
                         className={cl.headerButton}
-                        onClick={() => {notification.info("Авторизация в разработке..")}}
+                        onClick={() => {console.info("Авторизация в разработке..")}}
                     >
                         Войти
                     </Button>

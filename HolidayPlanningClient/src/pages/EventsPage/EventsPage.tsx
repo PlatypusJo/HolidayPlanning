@@ -10,7 +10,7 @@ import {useFooterContext} from "../../shared/ui/Footer/Footer";
 import {EventCreateModal} from "../../modal/EventCreateModal/EventCreateModal";
 
 export const EventsPage = () => {
-    const [contextHolder, notification] = useNotification(5)
+    const {notification} = useNotification()
     const [events, setEvents] = useState<EventData[]>([]);
     const { updateFloatButton } = useFooterContext()
     const [isCreateEventModal, setIsCreateEventModal] = useState(false);
@@ -37,23 +37,52 @@ export const EventsPage = () => {
         setEvents([...events, newEvent])
     }
 
+    const onDeleteEvent = (eventId: number) => {
+        const updatedEvents = events.filter(event => event.id !== eventId);
+        setEvents(updatedEvents);
+    }
+
+    const onChangeEvent = (eventId: number, newEvent: EventData) => {
+        const index = events.findIndex(event => event.id === eventId);
+
+        if (index !== -1) {
+            const updatedEvents = [
+                ...events.slice(0, index),
+                newEvent,
+                ...events.slice(index + 1)
+            ];
+
+            // Обновляем состояние
+            setEvents(updatedEvents);
+        } else {
+            console.warn(`Мероприятие с id ${eventId} не найдено`);
+        }
+    }
+
     const openCreateEventModal = () => {
         setIsCreateEventModal(true);
       };
-    
-      const handleCancelCreateEventModal = () => {
+
+
+    const handleCancelCreateEventModal = () => {
         setIsCreateEventModal(false);
     };
 
     return (
         <>
-            {contextHolder}
             <InfoContainer title={"Здесь располагаются все ваши мероприятия"} src={ImageContainerEvents}/>
             <div className={cl.eventsContainer}>
                 <div className={cl.separatorUnderline}/>
                 {
                     events.length > 0
-                        ? events.map((event, index) => <EventContainer event={event} key={index}/>)
+                        ? events.map((event, index) =>
+                            <EventContainer
+                                event={event}
+                                key={index}
+                                onDeleteEvent={onDeleteEvent}
+                                onChangeEvent={onChangeEvent}
+                            />
+                        )
                         :
                         <NoData title={"Мероприятий не найдено"} text={"Нажмите +, чтобы добавить новое мероприятие"}/>
                 }
