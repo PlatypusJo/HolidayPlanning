@@ -6,13 +6,16 @@ import {deleteEvent, EventData} from "../../shared/api";
 import {Button, Dropdown, MenuProps} from "antd";
 import {useFetching, useNotification} from "../../shared/hook";
 import {EventChangeModal} from "../../modal/EventChangeModal";
+import {useNavigate} from "react-router-dom";
+import {RoutesPaths} from "../../shared/config";
 
 export const EventContainer: React.FC<{
     event: EventData,
     onChangeEvent: (eventId: number, newEvent: EventData) => void,
     onDeleteEvent: (eventId: number) => void,
 }> = ({ event, onChangeEvent, onDeleteEvent }) => {
-    const { notification } = useNotification()
+    const navigate = useNavigate()
+    const notification = useNotification()
     const [isChangeEventModal, setIsChangeEventModal] = useState(false);
     const [fetchDeleteEvents, isLoadingFetchDeleteEvents, errorFetchDeleteEvents] = useFetching(async () => {
         try {
@@ -58,7 +61,7 @@ export const EventContainer: React.FC<{
                 <Button
                     icon={<SolutionOutlined/>}
                     iconPosition={"start"}
-                    onClick={() => notification.info("Подрядчики")}
+                    onClick={() => navigate(`${RoutesPaths.EVENTS_CONTRACTORS}`.replace(":id", `${event.id}`))}
                     color={"default"}
                     variant={"link"}
                 >

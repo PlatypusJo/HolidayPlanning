@@ -32,7 +32,7 @@ export const EventCreateModal: React.FC<{
     };
 
     const [formData, setFormData] = useState<FormData>(initialFormState);
-    const {notification} = useNotification()
+    const notification = useNotification()
     const [fetchCreateEvents, isLoadingFetchCreateEvents, errorFetchCreateEvents] = useFetching(async () => {
         try {
             const response = await createEvent({

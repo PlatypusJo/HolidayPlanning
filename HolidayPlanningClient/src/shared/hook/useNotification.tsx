@@ -64,5 +64,5 @@ export const useNotification = () => {
     if (!context) {
         throw new Error("useNotificationContext должен использоваться в NotificationProvider!");
     }
-    return context;
+    return context.notification;
 };

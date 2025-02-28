@@ -10,7 +10,7 @@ import {useFooterContext} from "../../shared/ui/Footer/Footer";
 import {EventCreateModal} from "../../modal/EventCreateModal/EventCreateModal";
 
 export const EventsPage = () => {
-    const {notification} = useNotification()
+    const notification = useNotification()
     const [events, setEvents] = useState<EventData[]>([]);
     const { updateFloatButton } = useFooterContext()
     const [isCreateEventModal, setIsCreateEventModal] = useState(false);

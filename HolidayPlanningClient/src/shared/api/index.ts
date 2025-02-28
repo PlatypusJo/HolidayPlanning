@@ -104,3 +104,58 @@ export const changeEvent = async (eventId: number, body: EventData) => {
         }
     )
 }
+
+// Массив всех значений
+export const contractorCategories = [
+    "Одежда&Аксессуары",
+    "Красота&Здоровье",
+    "Музыка&Шоу",
+    "Цветы&Декор",
+    "Фото&Видео",
+    "Банкет",
+    "Ведущие",
+    "Транспорт",
+    "Жилье"
+] as const;
+
+// Тип, основанный на массиве
+export type ContractorCategory = typeof contractorCategories[number];
+
+export type ContractorStatus = "приглашен" | "отменен" | "принят"
+
+export interface ContractorsData{
+    id: number
+    name: string,
+    description: string,
+    category: ContractorCategory,
+    phoneNumber: string,
+    email: string,
+    serviceCost: number,
+    status: ContractorStatus
+}
+
+export const getEventContractors = async (eventId: number) => {
+    const mockData: ContractorsData[] = [
+        {
+            id: 1,
+            name: "Подрядчик1",
+            description: "Описание1",
+            category: "Красота&Здоровье",
+            phoneNumber: "",
+            email: "",
+            serviceCost: 5000,
+            status: "приглашен"
+        },
+        {
+            id: 2,
+            name: "Подрядчик2",
+            description: "Описание2",
+            category: "Транспорт",
+            phoneNumber: "",
+            email: "dgd@mail.ru",
+            serviceCost: 10000,
+            status: "принят"
+        }
+    ]
+    return mockData
+}

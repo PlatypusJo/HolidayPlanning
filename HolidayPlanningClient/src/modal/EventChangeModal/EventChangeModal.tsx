@@ -33,7 +33,7 @@ export const EventChangeModal: React.FC<{
     };
 
     const [formData, setFormData] = useState<FormData>(initialFormState);
-    const { notification } = useNotification()
+    const notification = useNotification()
     const [fetchChangeEvents, isLoadingFetchChangeEvents, errorFetchChangeEvents] = useFetching(async () => {
         try {
             const eventData = {
