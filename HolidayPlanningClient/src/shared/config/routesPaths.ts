@@ -3,7 +3,7 @@ export enum RoutesPaths {
     DASHBOARD = '/dashboard',
     EVENTS = '/events',
     GUESTS = '/guests',
-    CONTRACTORS = '/contractors',
+    EVENTS_CONTRACTORS = '/events/:id/contractors',
     BUDGET = '/budget',
     TASKS = '/tasks',
 }

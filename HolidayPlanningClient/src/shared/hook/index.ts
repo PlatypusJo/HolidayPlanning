@@ -1,2 +1,2 @@
 export {useFetching} from "./useFatching"
-export {useNotification} from "./useNotification"
+export {useNotification, NotificationProvider} from "./useNotification"

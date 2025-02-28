@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {Modal, Input, Image, DatePicker, TimePicker, ConfigProvider} from "antd";
 import dayjs, {Dayjs} from "dayjs";
-import cl from './ui/EventCreateModal.module.css';
+import cl from './ui/EventChangeModal.module.css';
 import Logo from '../../shared/image/modal-logo.png';
 import {cancelButtonStyle, dateTimePickerStyle, inputStyle, modalTheme, okButtonStyle} from "./config/theme";
 import {useFetching, useNotification} from "../../shared/hook";
-import {createEvent, EventData} from "../../shared/api";
+import {changeEvent, createEvent, EventData} from "../../shared/api";
 
 
 type FormData = {
@@ -17,36 +17,39 @@ type FormData = {
     endTime: string;
 };
 
-export const EventCreateModal: React.FC<{
+export const EventChangeModal: React.FC<{
+    event: EventData
     visible: boolean;
-    onCreateEvent: (newEvent: EventData) => void;
+    onChangeEvent: (eventId: number, newEvent: EventData) => void;
     onCancel: () => void;
-}> = ({ visible, onCreateEvent, onCancel }) => {
+}> = ({ event, visible, onChangeEvent, onCancel }) => {
     const initialFormState: FormData = {
-        title: '',
-        budget: '',
-        startDate: '',
-        startTime: '',
-        endDate: '',
-        endTime: '',
+        title: event.title,
+        budget: `${event.budget}`,
+        startDate: dayjs(event.startDate).format('YYYY-MM-DD'),
+        startTime: dayjs(event.startDate).format('HH:mm'),
+        endDate: dayjs(event.endDate).format('YYYY-MM-DD'),
+        endTime: dayjs(event.endDate).format('HH:mm'),
     };
 
     const [formData, setFormData] = useState<FormData>(initialFormState);
-    const {notification} = useNotification()
-    const [fetchCreateEvents, isLoadingFetchCreateEvents, errorFetchCreateEvents] = useFetching(async () => {
+    const { notification } = useNotification()
+    const [fetchChangeEvents, isLoadingFetchChangeEvents, errorFetchChangeEvents] = useFetching(async () => {
         try {
-            const response = await createEvent({
+            const eventData = {
+                id: event.id,
                 title: formData.title,
                 budget: Number(formData.budget),
                 startDate: new Date(`${formData.startDate} ${formData.startTime}`),
                 endDate: new Date(`${formData.endDate} ${formData.endTime}`),
-            })
+            }
+            const response = await changeEvent(event.id, eventData)
             if (response) {
-                onCreateEvent(response)
-                notification.success(`Мероприятие '${formData.title}' успешно создано!`)
+                onChangeEvent(event.id, eventData)
+                notification.success(`Мероприятие '${formData.title}' успешно изменено!`)
             }
         } catch (e) {
-            notification.error(`Ошибка при создании меропрития: ${errorFetchCreateEvents}`)
+            notification.error(`Ошибка при изменении меропрития: ${errorFetchChangeEvents}`)
         }
     })
 
@@ -79,7 +82,8 @@ export const EventCreateModal: React.FC<{
     };
 
     const handleSubmit = () => {
-        fetchCreateEvents()
+        fetchChangeEvents()
+        onCancel();
     };
 
     const handleClose = () => {
@@ -97,13 +101,13 @@ export const EventCreateModal: React.FC<{
                         style: okButtonStyle,
                         disabled: Object.values(formData).some(value => value === '')
                     }}
-                    okText="Создать"
+                    okText="Сохранить"
                     title={
                         <span className={cl.modalTitle}>
                             <Image width={105} height={80} preview={false} src={Logo}/>
-                            <div>Создать новое мероприятие</div>
+                            <div>Изменить мероприятие</div>
                             <div
-                                className={cl.titleDescription}>Настройте мероприятие и приступите к его планированию</div>
+                                className={cl.titleDescription}>Измените мероприятие и продолжайте его планирование</div>
                         </span>
                     }
                     width={"30vw"}

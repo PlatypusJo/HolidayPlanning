@@ -14,12 +14,12 @@
     align-items: center;
 }
 
-.changeEventIcon {
+.settingsEventIcon {
     color: #888888;
     margin-left: auto;
 }
 
-.changeEventIcon :hover {
+.settingsEventIcon :hover {
     color: #FE954C;
 }
 
