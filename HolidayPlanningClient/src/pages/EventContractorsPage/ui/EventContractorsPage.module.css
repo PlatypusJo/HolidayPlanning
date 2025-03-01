@@ -1,0 +1,37 @@
+.container {
+    position: relative;
+    min-height: 540px;
+    padding: 10px clamp(14px, 2.2vw, 36px);
+    display: grid; /* Включаем Grid */
+    grid-template-columns: 2fr 10fr; /* Определяем ширину колонок */
+    gap: 10px; /* Расстояние между колонками */
+}
+
+.contractorsContainer {
+    position: relative;
+    padding: 10px clamp(14px, 2.2vw, 36px);
+}
+
+.filterContainer {
+    display: flex;
+    padding: 10px 10px;
+    flex-direction: column;
+}
+
+.checkBoxContainer {
+    display: flex;
+    padding: 10px 15px;
+    flex-direction: column;
+}
+
+.category {
+    text-align: start;
+    font-size: 2vh;
+}
+
+.separatorUnderline {
+    width: 100%;
+    height: 2px;
+    background-color: var(--background-color);
+    margin-top: 2%;
+}

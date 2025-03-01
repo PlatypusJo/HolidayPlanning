@@ -1,18 +1,21 @@
 import cl from "./ui/EventContainer.module.css";
-import {DeleteOutlined, EditOutlined, SettingOutlined, SolutionOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, PlusCircleOutlined, SettingOutlined, SolutionOutlined} from "@ant-design/icons";
 import {formatDate, formatTimeDifference} from "../../shared/lib";
 import React, {useState} from "react";
 import {deleteEvent, EventData} from "../../shared/api";
 import {Button, Dropdown, MenuProps} from "antd";
 import {useFetching, useNotification} from "../../shared/hook";
 import {EventChangeModal} from "../../modal/EventChangeModal";
+import {useNavigate} from "react-router-dom";
+import {RoutesPaths} from "../../shared/config";
 
 export const EventContainer: React.FC<{
     event: EventData,
     onChangeEvent: (eventId: number, newEvent: EventData) => void,
     onDeleteEvent: (eventId: number) => void,
 }> = ({ event, onChangeEvent, onDeleteEvent }) => {
-    const { notification } = useNotification()
+    const navigate = useNavigate()
+    const notification = useNotification()
     const [isChangeEventModal, setIsChangeEventModal] = useState(false);
     const [fetchDeleteEvents, isLoadingFetchDeleteEvents, errorFetchDeleteEvents] = useFetching(async () => {
         try {
@@ -35,7 +38,7 @@ export const EventContainer: React.FC<{
                         color={"default"}
                         variant={"link"}
                 >
-                    Изменить
+                    Изменить мероприятие
                 </Button>
             ),
             key: '0',
@@ -49,16 +52,18 @@ export const EventContainer: React.FC<{
                     color={"danger"}
                     variant={"link"}
                 >
-                    Удалить
+                    Удалить мероприятие
                 </Button>
             ),
             key: '1',
+        }, {
+            type: 'divider',
         }, {
             label: (
                 <Button
                     icon={<SolutionOutlined/>}
                     iconPosition={"start"}
-                    onClick={() => notification.info("Подрядчики")}
+                    onClick={() => navigate(`${RoutesPaths.EVENTS_CONTRACTORS}`.replace(":id", `${event.id}`))}
                     color={"default"}
                     variant={"link"}
                 >
@@ -66,6 +71,19 @@ export const EventContainer: React.FC<{
                 </Button>
             ),
             key: '2',
+        }, {
+            label: (
+                <Button
+                    icon={<><PlusCircleOutlined/> <SolutionOutlined/></>}
+                    iconPosition={"start"}
+                    onClick={() => notification.info("Добавление подрядчика в разработке..")}
+                    color={"default"}
+                    variant={"link"}
+                >
+                    Добавить подрядчика
+                </Button>
+            ),
+            key: '3',
         }
     ];
 

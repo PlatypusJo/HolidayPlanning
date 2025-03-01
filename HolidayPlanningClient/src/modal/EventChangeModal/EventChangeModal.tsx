@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import {Modal, Input, Image, DatePicker, TimePicker, ConfigProvider} from "antd";
+import {Input, Image, DatePicker, TimePicker, ConfigProvider} from "antd";
 import dayjs, {Dayjs} from "dayjs";
 import cl from './ui/EventChangeModal.module.css';
 import Logo from '../../shared/image/modal-logo.png';
-import {cancelButtonStyle, dateTimePickerStyle, inputStyle, modalTheme, okButtonStyle} from "./config/theme";
+import {dateTimePickerStyle, inputStyle} from "./config/theme";
 import {useFetching, useNotification} from "../../shared/hook";
 import {changeEvent, createEvent, EventData} from "../../shared/api";
+import {Modal} from "../../shared/ui";
 
 
 type FormData = {
@@ -33,7 +34,7 @@ export const EventChangeModal: React.FC<{
     };
 
     const [formData, setFormData] = useState<FormData>(initialFormState);
-    const { notification } = useNotification()
+    const notification = useNotification()
     const [fetchChangeEvents, isLoadingFetchChangeEvents, errorFetchChangeEvents] = useFetching(async () => {
         try {
             const eventData = {
@@ -92,83 +93,67 @@ export const EventChangeModal: React.FC<{
     };
 
     return (
-        <>
-            <ConfigProvider theme={modalTheme}>
-                <Modal
-                    className={cl.modal}
-                    open={visible}
-                    okButtonProps={{
-                        style: okButtonStyle,
-                        disabled: Object.values(formData).some(value => value === '')
-                    }}
-                    okText="Сохранить"
-                    title={
-                        <span className={cl.modalTitle}>
-                            <Image width={105} height={80} preview={false} src={Logo}/>
-                            <div>Изменить мероприятие</div>
-                            <div
-                                className={cl.titleDescription}>Измените мероприятие и продолжайте его планирование</div>
-                        </span>
-                    }
-                    width={"30vw"}
-                    onCancel={handleClose}
-                    centered
-                    cancelButtonProps={{ style: cancelButtonStyle }}
-                    onOk={handleSubmit}
-                >
-                    <div className={cl.inputContainer}>
-                        <Input
-                            placeholder="Название вашего мероприятия"
-                            style={inputStyle}
-                            value={formData.title}
-                            onChange={(e) => handleInputChange(e, 'title')}
-                        />
-                    </div>
+        <Modal
+            onCancel={handleClose}
+            onOk={handleSubmit}
+            icon={Logo}
+            visible={visible}
+            disabled={Object.values(formData).some(value => value === '')}
+            okButtonText={"Сохранить"}
+            modalTitle={"Изменить мероприятие"}
+            description={"Измените мероприятие и продолжайте его планирование"}
+        >
+            <div className={cl.inputContainer}>
+                <Input
+                    placeholder="Название вашего мероприятия"
+                    style={inputStyle}
+                    value={formData.title}
+                    onChange={(e) => handleInputChange(e, 'title')}
+                />
+            </div>
 
-                    <div className={cl.inputDatetimeContainer}>
-                        <DatePicker
-                            placeholder="Дата начала"
-                            style={dateTimePickerStyle}
-                            value={formData.startDate ? dayjs(formData.startDate, 'YYYY-MM-DD') : null}
-                            onChange={(date) => handleDateChange(date, 'startDate')}
-                        />
-                        <TimePicker
-                            placeholder="Время начала"
-                            style={dateTimePickerStyle}
-                            value={formData.startTime ? dayjs(formData.startTime, 'HH:mm') : null}
-                            onChange={(time) => handleTimeChange(time, 'startTime')}
-                            format="HH:mm"
-                        />
-                    </div>
+            <div className={cl.inputDatetimeContainer}>
+                <DatePicker
+                    placeholder="Дата начала"
+                    style={dateTimePickerStyle}
+                    value={formData.startDate ? dayjs(formData.startDate, 'YYYY-MM-DD') : null}
+                    onChange={(date) => handleDateChange(date, 'startDate')}
+                />
+                <TimePicker
+                    placeholder="Время начала"
+                    style={dateTimePickerStyle}
+                    value={formData.startTime ? dayjs(formData.startTime, 'HH:mm') : null}
+                    onChange={(time) => handleTimeChange(time, 'startTime')}
+                    format="HH:mm"
+                />
+            </div>
 
-                    <div className={cl.inputDatetimeContainer}>
-                        <DatePicker
-                            placeholder="Дата конца"
-                            style={dateTimePickerStyle}
-                            value={formData.endDate ? dayjs(formData.endDate, 'YYYY-MM-DD') : null}
-                            onChange={(date) => handleDateChange(date, 'endDate')}
-                        />
-                        <TimePicker
-                            placeholder="Время конца"
-                            style={dateTimePickerStyle}
-                            value={formData.endTime ? dayjs(formData.endTime, 'HH:mm') : null}
-                            onChange={(time) => handleTimeChange(time, 'endTime')}
-                            format="HH:mm"
-                        />
-                    </div>
+            <div className={cl.inputDatetimeContainer}>
+                <DatePicker
+                    placeholder="Дата конца"
+                    style={dateTimePickerStyle}
+                    value={formData.endDate ? dayjs(formData.endDate, 'YYYY-MM-DD') : null}
+                    onChange={(date) => handleDateChange(date, 'endDate')}
+                />
+                <TimePicker
+                    placeholder="Время конца"
+                    style={dateTimePickerStyle}
+                    value={formData.endTime ? dayjs(formData.endTime, 'HH:mm') : null}
+                    onChange={(time) => handleTimeChange(time, 'endTime')}
+                    format="HH:mm"
+                />
+            </div>
 
-                    <div className={cl.inputContainer}>
-                        <Input
-                            placeholder="Бюджет вашего мероприятия"
-                            style={inputStyle}
-                            value={formData.budget}
-                            onChange={handleBudgetChange}
-                            type="number"
-                            min={0}
-                        />
-                    </div>
-                </Modal>
-            </ConfigProvider>
-        </>
+            <div className={cl.inputContainer}>
+                <Input
+                    placeholder="Бюджет вашего мероприятия"
+                    style={inputStyle}
+                    value={formData.budget}
+                    onChange={handleBudgetChange}
+                    type="number"
+                    min={0}
+                />
+            </div>
+        </Modal>
     );
 };

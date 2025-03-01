@@ -1,0 +1,18 @@
+.modal{
+    min-width: 400px;
+    top: 10%;
+}
+
+.modalTitle{
+    flex-direction: column;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    font-size: 3vh;
+    margin-left: 0.6vw;
+}
+
+.titleDescription{
+    font-size: 1.7vh;
+}

@@ -1,6 +1,7 @@
 import {RoutesPaths} from "../../shared/config";
 import {JSX} from "react";
 import {EventsPage} from "../../pages/EventsPage/EventsPage";
+import {EventContractorsPage} from "../../pages/EventContractorsPage/EventContractorsPage";
 
 type AppRoutes = {
     path: RoutesPaths | "*",
@@ -14,5 +15,6 @@ const NotFoundRedirect = () => {
 
 export const routes: AppRoutes[] = [
     { path: RoutesPaths.HOME, element: <EventsPage/> },
+    { path: RoutesPaths.EVENTS_CONTRACTORS, element: <EventContractorsPage/> },
     { path: "*", element: <NotFoundRedirect/> },
 ]
