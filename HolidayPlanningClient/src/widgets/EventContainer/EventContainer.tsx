@@ -2,10 +2,11 @@ import cl from "./ui/EventContainer.module.css";
 import {DeleteOutlined, EditOutlined, PlusCircleOutlined, SettingOutlined, SolutionOutlined} from "@ant-design/icons";
 import {formatDate, formatTimeDifference} from "../../shared/lib";
 import React, {useState} from "react";
-import {deleteEvent, EventData} from "../../shared/api";
+import {deleteEvent, EventData, ContractorsData} from "../../shared/api";
 import {Button, Dropdown, MenuProps} from "antd";
 import {useFetching, useNotification} from "../../shared/hook";
 import {EventChangeModal} from "../../modal/EventChangeModal";
+import { ContractorCreateModal } from "../../modal/ContractorCreateModal.tsx";
 import {useNavigate} from "react-router-dom";
 import {RoutesPaths} from "../../shared/config";
 
@@ -17,6 +18,8 @@ export const EventContainer: React.FC<{
     const navigate = useNavigate()
     const notification = useNotification()
     const [isChangeEventModal, setIsChangeEventModal] = useState(false);
+    const [contractors, setContractors] = useState<ContractorsData[]>([]);
+    const [isCreateContractorModal, setIsCreateContractorModal] = useState(false);
     const [fetchDeleteEvents, isLoadingFetchDeleteEvents, errorFetchDeleteEvents] = useFetching(async () => {
         try {
             const response = await deleteEvent(event.id)
@@ -28,6 +31,15 @@ export const EventContainer: React.FC<{
             notification.error(`Ошибка при удалении меропрития: ${errorFetchDeleteEvents}`)
         }
     })
+
+    const openCreateContractorModal = () => {
+        setIsCreateContractorModal(true);
+    };
+    
+    
+    const handleCancelCreateContractorModal = () => {
+        setIsCreateContractorModal(false);
+    };
 
     const items: MenuProps['items'] = [
         {
@@ -76,7 +88,7 @@ export const EventContainer: React.FC<{
                 <Button
                     icon={<><PlusCircleOutlined/> <SolutionOutlined/></>}
                     iconPosition={"start"}
-                    onClick={() => notification.info("Добавление подрядчика в разработке..")}
+                    onClick={openCreateContractorModal}
                     color={"default"}
                     variant={"link"}
                 >
@@ -96,6 +108,10 @@ export const EventContainer: React.FC<{
         setIsChangeEventModal(false);
     };
 
+    const onCreateContractor = (newContractor: ContractorsData) => {
+                setContractors([...contractors, newContractor])
+    }
+
     return (
         <>
             <div key={event.id} className={cl.blockEventBack}>
@@ -111,6 +127,7 @@ export const EventContainer: React.FC<{
                 </div>
             </div>
             <EventChangeModal event={event} visible={isChangeEventModal} onCancel={handleCloseChangeEventModal} onChangeEvent={onChangeEvent}/>
+            <ContractorCreateModal visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={onCreateContractor}/>
         </>
     );
 };

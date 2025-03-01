@@ -118,10 +118,17 @@ export const contractorCategories = [
     "Жилье"
 ] as const;
 
+export const contractorStatus = [
+    "в ожидании",
+    "подтвержден",
+    "отклонен"
+]
+
+
 // Тип, основанный на массиве
 export type ContractorCategory = typeof contractorCategories[number];
 
-export type ContractorStatus = "приглашен" | "отменен" | "принят"
+export type ContractorStatus = typeof contractorStatus[number];
 
 export interface ContractorsData{
     id: number
@@ -138,23 +145,23 @@ export const getEventContractors = async (eventId: number) => {
     const mockData: ContractorsData[] = [
         {
             id: 1,
-            name: "Подрядчик1",
-            description: "Описание1",
+            name: "Loreal Professionnel & Kerastase",
+            description: "Салон красоты: прическа и макияж",
             category: "Красота&Здоровье",
-            phoneNumber: "",
-            email: "",
-            serviceCost: 5000,
-            status: "приглашен"
+            phoneNumber: "89153431798",
+            email: "loreal@mail.ru",
+            serviceCost: 9000,
+            status: "подтвержден"
         },
         {
             id: 2,
-            name: "Подрядчик2",
-            description: "Описание2",
-            category: "Транспорт",
-            phoneNumber: "",
-            email: "dgd@mail.ru",
+            name: "Татьяна Папаева",
+            description: "Фотограф с хорошим стажем",
+            category: "Фото&Видео",
+            phoneNumber: "+79104532312",
+            email: "papaeva@gmail.com",
             serviceCost: 10000,
-            status: "принят"
+            status: "в ожидании"
         }
     ]
     return mockData

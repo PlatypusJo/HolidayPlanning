@@ -10,6 +10,7 @@ import {ContractorContainer} from "../../widgets";
 import {useNavigate, useParams} from "react-router-dom";
 import {RoutesPaths} from "../../shared/config";
 import {Checkbox} from "antd";
+import {ContractorCreateModal} from "../../modal/ContractorCreateModal.tsx";
 
 export const EventContractorsPage = () => {
     const eventId = Number(useParams().id)
@@ -17,7 +18,8 @@ export const EventContractorsPage = () => {
     const notification = useNotification()
     const [contractors, setContractors] = useState<ContractorsData[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-    const { updateFloatButton } = useFooterContext()
+    const {updateFloatButton} = useFooterContext()
+    const [isCreateContractorModal, setIsCreateContractorModal] = useState(false);
     const [fetchGetContractors, isLoadingFetchGetContractors, errorFetchGetContractors] = useFetching(async () => {
         try {
             const response = await getEventContractors(eventId)
@@ -32,9 +34,13 @@ export const EventContractorsPage = () => {
         updateFloatButton(<RightFloatButton
             tooltipTitle={"Добавить подрядчика"}
             buttonIcon={<PlusOutlined/>}
-            onClick={() => notification.info("Добавление подрядчика в разработке")}
+            onClick={openCreateContractorModal}
         />)
     }, [])
+
+    const onCreateContractor = (newContractor: ContractorsData) => {
+            setContractors([...contractors, newContractor])
+    }
 
     const handleCheckboxChange = (category: string) => {
         setSelectedCategories((prevSelected) =>
@@ -47,6 +53,15 @@ export const EventContractorsPage = () => {
     const filteredContractors = selectedCategories.length > 0
         ? contractors.filter((contractor) => selectedCategories.includes(contractor.category))
         : contractors;
+
+    const openCreateContractorModal = () => {
+        setIsCreateContractorModal(true);
+    };
+    
+    
+    const handleCancelCreateContractorModal = () => {
+        setIsCreateContractorModal(false);
+    };
 
     return (
         <>
@@ -86,6 +101,7 @@ export const EventContractorsPage = () => {
                     </div>
                 </div>
             </div>
+            <ContractorCreateModal visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={onCreateContractor}/>
         </>
     )
 }
