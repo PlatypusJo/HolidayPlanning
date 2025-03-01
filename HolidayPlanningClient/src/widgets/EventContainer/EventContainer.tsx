@@ -1,5 +1,5 @@
 import cl from "./ui/EventContainer.module.css";
-import {DeleteOutlined, EditOutlined, SettingOutlined, SolutionOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, PlusCircleOutlined, SettingOutlined, SolutionOutlined} from "@ant-design/icons";
 import {formatDate, formatTimeDifference} from "../../shared/lib";
 import React, {useState} from "react";
 import {deleteEvent, EventData} from "../../shared/api";
@@ -38,7 +38,7 @@ export const EventContainer: React.FC<{
                         color={"default"}
                         variant={"link"}
                 >
-                    Изменить
+                    Изменить мероприятие
                 </Button>
             ),
             key: '0',
@@ -52,10 +52,12 @@ export const EventContainer: React.FC<{
                     color={"danger"}
                     variant={"link"}
                 >
-                    Удалить
+                    Удалить мероприятие
                 </Button>
             ),
             key: '1',
+        }, {
+            type: 'divider',
         }, {
             label: (
                 <Button
@@ -69,6 +71,19 @@ export const EventContainer: React.FC<{
                 </Button>
             ),
             key: '2',
+        }, {
+            label: (
+                <Button
+                    icon={<><PlusCircleOutlined/> <SolutionOutlined/></>}
+                    iconPosition={"start"}
+                    onClick={() => notification.info("Добавление подрядчика в разработке..")}
+                    color={"default"}
+                    variant={"link"}
+                >
+                    Добавить подрядчика
+                </Button>
+            ),
+            key: '3',
         }
     ];
 
