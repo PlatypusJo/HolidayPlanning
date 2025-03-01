@@ -3,4 +3,5 @@ export {InfoContainer} from "./InfoContainer/InfoContainer"
 export {NoData} from "./NoData/NoData"
 export {RightFloatButton} from './RightFloatButton/RightFloatButton'
 export {FloatScrollTopButton} from "./FloatScrollTopButton/FloatScrollTopButton"
-export {} from "./Footer/Footer"
+export {Footer, FooterProvider} from "./Footer/Footer"
+export {Modal} from "./Modal/Modal"
