@@ -39,7 +39,12 @@ namespace DAL.Entities
         /// Бюджет мероприятия в рублях
         /// </summary>
         public double Budget { get; set; }
-        
+
+        /// <summary>
+        /// Подрядчики мероприятия
+        /// </summary>
+        public virtual ICollection<Contractor> Contractors { get; set; }
+
         #endregion
 
         #region Конструкторы
@@ -47,7 +52,10 @@ namespace DAL.Entities
         /// <summary>
         /// Конструктор по умолчанию
         /// </summary>
-        public Holiday() { }
+        public Holiday() 
+        {
+            Contractors = new HashSet<Contractor>();
+        }
         
         #endregion
     }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,8 +16,26 @@ namespace DAL.Entities
     {
         #region Свойства
 
+        /// <summary>
+        /// Мероприятия
+        /// </summary>
         public virtual DbSet<Holiday> Holiday { get; set; }
-        
+
+        /// <summary>
+        /// Подрядчики
+        /// </summary>
+        public virtual DbSet<Contractor> Contractor { get; set; }
+
+        /// <summary>
+        /// Категории подрядчиков
+        /// </summary>
+        public virtual DbSet<ContractorCategory> ContractorCategory { get; set; }
+
+        /// <summary>
+        /// Статусы подрядчиков
+        /// </summary>
+        public virtual DbSet<ContractorStatus> ContractorStatus { get; set; }
+
         #endregion
 
         #region Конструкторы
