@@ -15,7 +15,7 @@ namespace DAL.Entities
         #region Свойства
 
         /// <summary>
-        /// Целочисленный ID Статуса
+        /// ID Статуса
         /// </summary>
         [Key]
         public int Id { get; set; }

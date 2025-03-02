@@ -15,7 +15,7 @@ namespace DAL.Entities
         #region Свойства
 
         /// <summary>
-        /// Целочисленный ID мероприятия
+        /// ID мероприятия
         /// </summary>
         [Key]
         public int Id { get; set; }

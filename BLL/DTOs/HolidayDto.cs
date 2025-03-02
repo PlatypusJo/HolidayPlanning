@@ -15,7 +15,7 @@ namespace BLL.DTOs
         #region Свойства
 
         /// <summary>
-        /// Целочисленный ID мероприятия
+        /// ID мероприятия
         /// </summary>
         public int Id { get; set; }
 

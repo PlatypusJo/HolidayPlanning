@@ -15,7 +15,7 @@ namespace DAL.Entities
         #region Свойства
 
         /// <summary>
-        /// Целочисленный ID Категории
+        /// ID Категории
         /// </summary>
         [Key]
         public int Id { get; set; }
