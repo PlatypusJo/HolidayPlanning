@@ -31,11 +31,11 @@ namespace DAL.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            var item = await _db.Holiday.FindAsync(id);
+            var item = await _db.Contractor.FindAsync(id);
             if (item == null)
                 return false;
 
-            _db.Holiday.Remove(item);
+            _db.Contractor.Remove(item);
             return true;
         }
 
