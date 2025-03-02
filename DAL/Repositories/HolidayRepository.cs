@@ -35,6 +35,15 @@ namespace DAL.Repositories
             if (item == null)
                 return false;
 
+            var contractors = await _db.Contractor.Where(c => c.HolidayId == id).ToListAsync();
+            if (contractors != null && contractors.Count != 0)
+            {
+                foreach(var contractor in contractors)
+                {
+                    _db.Contractor.Remove(contractor);
+                }
+            }
+
             _db.Holiday.Remove(item);
             return true;
         }
