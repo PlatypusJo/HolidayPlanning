@@ -8,7 +8,7 @@ using System.Reflection.Metadata.Ecma335;
 namespace HolidayPlanningApi.Controllers
 {
     /// <summary>
-    /// Класс-контроллер мероприятия
+    /// Класс-контроллер Мероприятия
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
