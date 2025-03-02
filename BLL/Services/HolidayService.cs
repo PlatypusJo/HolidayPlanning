@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
+    /// <summary>
+    /// Сервис Мероприятия
+    /// </summary>
     public class HolidayService : BaseService, IHolidayService
     {
         #region Конструкторы

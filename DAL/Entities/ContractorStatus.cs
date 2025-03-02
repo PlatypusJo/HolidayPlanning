@@ -8,40 +8,25 @@ using System.Threading.Tasks;
 namespace DAL.Entities
 {
     /// <summary>
-    /// Сущность Мероприятие
+    /// Сущность Статус подрядчика (захардкоженный справочник)
     /// </summary>
-    public class Holiday
+    public class ContractorStatus
     {
         #region Свойства
 
         /// <summary>
-        /// ID мероприятия
+        /// ID Статуса
         /// </summary>
         [Key]
         public int Id { get; set; }
 
         /// <summary>
-        /// Название мероприятия
+        /// Название статуса
         /// </summary>
         public string? Title { get; set; }
 
         /// <summary>
-        /// Дата и время начала мероприятия
-        /// </summary>
-        public DateTime StartDate { get; set; }
-
-        /// <summary>
-        /// Дата и время конца мероприятия
-        /// </summary>
-        public DateTime EndDate { get; set; }
-
-        /// <summary>
-        /// Бюджет мероприятия в рублях
-        /// </summary>
-        public double Budget { get; set; }
-
-        /// <summary>
-        /// Подрядчики мероприятия
+        /// Подрядчики статуса
         /// </summary>
         public virtual ICollection<Contractor> Contractors { get; set; }
 
@@ -52,11 +37,11 @@ namespace DAL.Entities
         /// <summary>
         /// Конструктор по умолчанию
         /// </summary>
-        public Holiday() 
+        public ContractorStatus()
         {
             Contractors = new HashSet<Contractor>();
         }
-        
+
         #endregion
     }
 }

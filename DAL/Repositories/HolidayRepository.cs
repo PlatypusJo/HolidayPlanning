@@ -1,4 +1,5 @@
-﻿using DAL.Entities;
+﻿using DAL.Abstract;
+using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,27 +13,15 @@ namespace DAL.Repositories
     /// <summary>
     /// Репозиторий Мероприятия
     /// </summary>
-    public class HolidayRepository : IRepository<Holiday>
+    public class HolidayRepository : BaseRepository, IRepository<Holiday>
     {
-        #region Поля
-
-        /// <summary>
-        /// Контекст базы данных
-        /// </summary>
-        private readonly HolidayPlanningDbContext _db;
-        
-        #endregion
-
         #region Конструкторы
 
         /// <summary>
-        /// Контруктор с определением контекста
+        /// Конструктор с определением контекста
         /// </summary>
         /// <param name="db">Контекст базы данных</param>
-        public HolidayRepository(HolidayPlanningDbContext db)
-        {
-            _db = db;
-        }
+        public HolidayRepository(HolidayPlanningDbContext db) : base(db) { }
         
         #endregion
 
@@ -42,11 +31,20 @@ namespace DAL.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            var budget = await _db.Holiday.FindAsync(id);
-            if (budget == null)
+            var item = await _db.Holiday.FindAsync(id);
+            if (item == null)
                 return false;
 
-            _db.Holiday.Remove(budget);
+            var contractors = await _db.Contractor.Where(c => c.HolidayId == id).ToListAsync();
+            if (contractors != null && contractors.Count != 0)
+            {
+                foreach(var contractor in contractors)
+                {
+                    _db.Contractor.Remove(contractor);
+                }
+            }
+
+            _db.Holiday.Remove(item);
             return true;
         }
 

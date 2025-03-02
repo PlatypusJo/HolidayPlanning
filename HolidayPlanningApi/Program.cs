@@ -36,6 +36,9 @@ namespace HolidayPlanningApi
                 return new HolidayPlanningDbContext(options);
             });
             builder.Services.AddScoped<IHolidayService, HolidayService>();
+            builder.Services.AddScoped<IContractorService, ContractorService>();
+            builder.Services.AddScoped<IContractorCategoryService, ContractorCategoryService>();
+            builder.Services.AddScoped<IContractorStatusService, ContractorStatusService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddEndpointsApiExplorer();

@@ -21,10 +21,25 @@ namespace DAL.Repositories
         private readonly HolidayPlanningDbContext _db;
 
         /// <summary>
-        /// Репозиторий мероприятия
+        /// Репозиторий Мероприятия
         /// </summary>
         private HolidayRepository _holidayRepository;
-        
+
+        /// <summary>
+        /// Репозиторий Подрядчика
+        /// </summary>
+        private ContractorRepository _contractorRepository;
+
+        /// <summary>
+        /// Репозиторий Категории подрядчика
+        /// </summary>
+        private ContractorCategoryRepository _contractorCategoryRepository;
+
+        /// <summary>
+        /// Репозиторий Статуса подрядчика
+        /// </summary>
+        private ContractorStatusRepository _contractorStatusRepository;
+
         #endregion
 
         #region Свойства
@@ -37,7 +52,34 @@ namespace DAL.Repositories
                 return _holidayRepository;
             }
         }
+
+        public IContractorRepository Contractor
+        {
+            get
+            {
+                _contractorRepository ??= new ContractorRepository(_db);
+                return _contractorRepository;
+            }
+        }
+
+        public IFrozenCollectionRepository<ContractorCategory> ContractorCategory
+        {
+            get
+            {
+                _contractorCategoryRepository ??= new ContractorCategoryRepository(_db);
+                return _contractorCategoryRepository;
+            }
+        }
         
+        public IFrozenCollectionRepository<ContractorStatus> ContractorStatus
+        {
+            get
+            {
+                _contractorStatusRepository ??= new ContractorStatusRepository(_db);
+                return _contractorStatusRepository;
+            }
+        }
+
         #endregion
 
         #region Конструкторы
@@ -55,10 +97,7 @@ namespace DAL.Repositories
 
         #region Методы
 
-        public async Task<int> Save()
-        {
-            return await _db.SaveChangesAsync();
-        }
+        public async Task<int> Save() => await _db.SaveChangesAsync();
         
         #endregion
     }

@@ -12,10 +12,31 @@ namespace DAL.Interfaces
     /// </summary>
     public interface IUnitOfWork
     {
+        #region Репозитории
+
         /// <summary>
         /// Репозиторий Мероприятия
         /// </summary>
         IRepository<Holiday> Holiday { get; }
+
+        /// <summary>
+        /// Репозиторий Подрядчика
+        /// </summary>
+        IContractorRepository Contractor { get; }
+
+        /// <summary>
+        /// Репозиторий Категории подрядчика
+        /// </summary>
+        IFrozenCollectionRepository<ContractorCategory> ContractorCategory { get; }
+
+        /// <summary>
+        /// Репозиторий Статуса подрядчика
+        /// </summary>
+        IFrozenCollectionRepository<ContractorStatus> ContractorStatus { get; }
+
+        #endregion
+
+        #region Методы
 
         /// <summary>
         ///     Сохраняет изменения в бд
@@ -26,5 +47,7 @@ namespace DAL.Interfaces
         ///     Иначе возвращает минимальное значение Int32.
         /// </returns>
         Task<int> Save();
+
+        #endregion
     }
 }
