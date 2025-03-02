@@ -51,6 +51,7 @@ namespace BLL.DTOs
         /// <summary>
         /// Конструктор на основе оригинальной сущности
         /// </summary>
+        /// <param name="holiday">Сущность Мероприятие</param>
         public HolidayDto(Holiday holiday)
         {
             Id = holiday.Id;
