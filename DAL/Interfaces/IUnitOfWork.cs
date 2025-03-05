@@ -34,6 +34,11 @@ namespace DAL.Interfaces
         /// </summary>
         IFrozenCollectionRepository<ContractorStatus> ContractorStatus { get; }
 
+        /// <summary>
+        /// Репозиторий мероприятия для Firestore
+        /// </summary>
+        IHolidayRepositoryFirestore<Holiday> HolidayFirestore { get; }
+
         #endregion
 
         #region Методы
