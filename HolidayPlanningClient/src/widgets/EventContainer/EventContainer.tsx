@@ -127,7 +127,7 @@ export const EventContainer: React.FC<{
                 </div>
             </div>
             <EventChangeModal event={event} visible={isChangeEventModal} onCancel={handleCloseChangeEventModal} onChangeEvent={onChangeEvent}/>
-            <ContractorCreateModal visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={onCreateContractor}/>
+            <ContractorCreateModal eventId={event.id} visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={onCreateContractor}/>
         </>
     );
 };

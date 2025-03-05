@@ -77,8 +77,8 @@ export const EventContractorsPage = () => {
                                 contractorCategories.map(category =>
                                     <Checkbox
                                         style={{fontSize: "1.8vh"}}
-                                        checked={selectedCategories.includes(category)}
-                                        onChange={() => handleCheckboxChange(category)}
+                                        checked={selectedCategories.includes(category as string)}
+                                        onChange={() => handleCheckboxChange(category as string)}
                                     >
                                         {category}
                                     </Checkbox>
@@ -101,7 +101,7 @@ export const EventContractorsPage = () => {
                     </div>
                 </div>
             </div>
-            <ContractorCreateModal visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={onCreateContractor}/>
+            <ContractorCreateModal eventId={eventId} visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={onCreateContractor}/>
         </>
     )
 }
