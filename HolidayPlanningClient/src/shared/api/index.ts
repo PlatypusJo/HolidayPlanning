@@ -5,11 +5,10 @@ const eventControllerUrl = `${apiUrl}/Holiday`
 const contractorControllerUrl = `${apiUrl}/Contractor`
 
 
-export function getEnumMapping<T extends object>(enumObj: T, value: keyof T | T[keyof T]): string | undefined {
+export function getEnumMapping<T extends object>(enumObj: T, value: keyof T | T[keyof T]): string | number | undefined {
     if (typeof value === "string") {
         // Если передана строка, ищем соответствующий числовой ключ
-        // @ts-ignore
-        return enumObj[value as keyof T];
+        return enumObj[value as keyof T] as number;
     } else if (typeof value === "number") {
         // Если передано число, ищем соответствующее строковое значение
         return Object.keys(enumObj).find(key => enumObj[key as keyof T] === value);
