@@ -4,7 +4,12 @@ import cl from './ui/ContractorCreateModal.module.css'
 import Logo from '../../shared/image/modal-logo.png';
 import {inputStyle, selectStyle} from "./config/theme";
 import {useFetching, useNotification} from "../../shared/hook";
-import {contractorCategories, ContractorsData, contractorStatus} from "../../shared/api";
+import {
+    contractorCategories, ContractorCategory,
+    ContractorsData, ContractorStatus,
+    contractorStatus, createContractor, getEnumMapping,
+    getEventContractors
+} from "../../shared/api";
 import {Modal} from "../../shared/ui";
 
 const { Option } = Select;
@@ -20,39 +25,45 @@ type FormData = {
 };
 
 export const ContractorCreateModal: React.FC<{
+    eventId: number,
     visible: boolean;
     onCreateContractor: (newContractor: ContractorsData) => void;
     onCancel: () => void;
-}> = ({ visible, onCreateContractor, onCancel }) => {
+}> = ({ eventId, visible, onCreateContractor, onCancel }) => {
     const initialFormState: FormData = {
         name: '',
         description: '',
-        category: contractorCategories[0],
+        category: contractorCategories[0] as string,
         phoneNumber: '',
         email: '',
         serviceCost: '',
-        status: contractorStatus[0]
+        status: contractorStatus[0] as string
     };
 
     const [formData, setFormData] = useState<FormData>(initialFormState);
     const [errors, setErrors] = useState<{ phoneNumber?: string; email?: string }>({});
     const notification = useNotification()
-    // const [fetchCreateEvents, isLoadingFetchCreateEvents, errorFetchCreateEvents] = useFetching(async () => {
-    //     try {
-    //         const response = await createEvent({
-    //             title: formData.title,
-    //             budget: Number(formData.budget),
-    //             startDate: new Date(`${formData.startDate} ${formData.startTime}`),
-    //             endDate: new Date(`${formData.endDate} ${formData.endTime}`),
-    //         })
-    //         if (response) {
-    //             // onCreateContractor(response)
-    //             notification.success(`Подрядчик '${formData.title}' успешно добавлен!`)
-    //         }
-    //     } catch (e) {
-    //         notification.error(`Ошибка при добавлении подрядчика: ${errorFetchCreateEvents}`)
-    //     }
-    // })
+
+    const [fetchCreateContractor, isLoadingFetchCreateContractor, errorFetchCreateContractor] = useFetching(async () => {
+        try {
+            const response = await createContractor({
+                title: formData.name,
+                description: formData.description,
+                phoneNumber: formData.phoneNumber,
+                email: formData.email,
+                serviceCost: Number(formData.serviceCost),
+                holidayId: eventId,
+                statusId: Number(getEnumMapping(ContractorStatus, formData.status as keyof typeof ContractorStatus)),
+                сategoryId: Number(getEnumMapping(ContractorCategory, formData.category as keyof typeof ContractorCategory))
+            })
+            if (response) {
+                // onCreateContractor(response)
+                notification.success(`Подрядчик '${formData.name}' успешно добавлен!`)
+            }
+        } catch (e) {
+            notification.error(`Ошибка при добавлении подрядчика: ${errorFetchCreateContractor}`)
+        }
+    })
 
     const validatePhoneNumber = (phone: string) => {
         if (!phone) return '';
@@ -95,15 +106,15 @@ export const ContractorCreateModal: React.FC<{
             id: Date.now(), // Генерация уникального id
             name: formData.name,
             description: formData.description,
-            category: formData.category as ContractorsData["category"],
+            category: formData.category,
             phoneNumber: formData.phoneNumber,
             email: formData.email,
             serviceCost: parseFloat(formData.serviceCost) || 0,
-            status: formData.status as ContractorsData["status"]
+            status: formData.status
         };
         
         onCreateContractor(newContractor);
-        notification.success(`Подрядчик '${formData.name}' успешно добавлен!`);
+        fetchCreateContractor()
         handleClose();
     };
 
