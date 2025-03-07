@@ -88,7 +88,7 @@ export const EventChangeModal: React.FC<{
     };
 
     const handleClose = () => {
-        setFormData(initialFormState);
+        setFormData(formData);
         onCancel();
     };
 

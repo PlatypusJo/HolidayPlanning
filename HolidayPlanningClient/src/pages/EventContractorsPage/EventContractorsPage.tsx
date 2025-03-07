@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react";
 import cl from "./ui/EventContractorsPage.module.css"
 import ImageContainerContractors from "../../shared/image/image container-contractors.png"
-import {contractorCategories, ContractorsData, getEventContractors} from "../../shared/api";
+import {contractorCategories, ContractorsData, EventData, getEventContractors} from "../../shared/api";
 import {useFetching, useNotification} from "../../shared/hook";
 import {InfoContainer, NoData, RightFloatButton} from "../../shared/ui";
-import {PlusOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, PlusCircleOutlined, PlusOutlined, SolutionOutlined} from "@ant-design/icons";
 import {useFooterContext} from "../../shared/ui/Footer/Footer";
 import {ContractorContainer} from "../../widgets";
 import {useNavigate, useParams} from "react-router-dom";
 import {RoutesPaths} from "../../shared/config";
-import {Checkbox} from "antd";
+import {Button, Checkbox, MenuProps} from "antd";
 import {ContractorCreateModal} from "../../modal/ContractorCreateModal.tsx";
 
 export const EventContractorsPage = () => {
@@ -18,7 +18,7 @@ export const EventContractorsPage = () => {
     const notification = useNotification()
     const [contractors, setContractors] = useState<ContractorsData[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-    const {updateFloatButton} = useFooterContext()
+    const { updateFloatButton } = useFooterContext()
     const [isCreateContractorModal, setIsCreateContractorModal] = useState(false);
     const [fetchGetContractors, isLoadingFetchGetContractors, errorFetchGetContractors] = useFetching(async () => {
         try {
@@ -39,7 +39,7 @@ export const EventContractorsPage = () => {
     }, [])
 
     const onCreateContractor = (newContractor: ContractorsData) => {
-            setContractors([...contractors, newContractor])
+        setContractors([...contractors, newContractor])
     }
 
     const handleCheckboxChange = (category: string) => {
@@ -57,11 +57,34 @@ export const EventContractorsPage = () => {
     const openCreateContractorModal = () => {
         setIsCreateContractorModal(true);
     };
-    
-    
+
+
     const handleCancelCreateContractorModal = () => {
         setIsCreateContractorModal(false);
     };
+
+    const onDeleteContractor = (contractorId: number) => {
+        const updatedContractors = contractors.filter(contractor => contractor.id !== contractorId);
+        setContractors(updatedContractors);
+    }
+
+    const onChangeContractor = (contractorId: number, newContractor: ContractorsData) => {
+        const index = contractors.findIndex(contractor => contractor.id === contractorId);
+
+        if (index !== -1) {
+            const updatedContractors = [
+                ...contractors.slice(0, index),
+                newContractor,
+                ...contractors.slice(index + 1)
+            ];
+
+            // Обновляем состояние
+            setContractors(updatedContractors);
+        } else {
+            console.warn(`Подрядчик с id ${contractorId} не найден`);
+        }
+    }
+
 
     return (
         <>
@@ -71,12 +94,12 @@ export const EventContractorsPage = () => {
                 <div className={cl.separatorUnderline}/>
                 <div className={cl.container}>
                     <div className={cl.filterContainer}>
-                        <div className={cl.category}>Категории: </div>
+                        <div className={cl.category}>Категории:</div>
                         <div className={cl.checkBoxContainer}>
                             {
                                 contractorCategories.map(category =>
                                     <Checkbox
-                                        style={{fontSize: "1.8vh"}}
+                                        style={{ fontSize: "1.8vh" }}
                                         checked={selectedCategories.includes(category as string)}
                                         onChange={() => handleCheckboxChange(category as string)}
                                     >
@@ -93,6 +116,8 @@ export const EventContractorsPage = () => {
                                     <ContractorContainer
                                         contractor={contractor}
                                         key={index}
+                                        onDeleteContractor={onDeleteContractor}
+                                        onChangeContractor={onChangeContractor}
                                     />
                                 )
                                 :
@@ -101,7 +126,9 @@ export const EventContractorsPage = () => {
                     </div>
                 </div>
             </div>
-            <ContractorCreateModal eventId={eventId} visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={onCreateContractor}/>
+            <ContractorCreateModal eventId={eventId} visible={isCreateContractorModal}
+                                   onCancel={handleCancelCreateContractorModal}
+                                   onCreateContractor={onCreateContractor}/>
         </>
     )
 }
