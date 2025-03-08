@@ -1,11 +1,22 @@
 import {Button, Image, Layout} from "antd";
 import Logo from "../shared/image/logo.png";
 import cl from './ui/Header.module.css'
-import React from "react";
+import React, {useState} from "react";
 import {LoginOutlined} from "@ant-design/icons";
-import {useNotification} from "../shared/hook";
+import AuthorizationModal from "../modal/AutorizationModal/AuthorizationModal";
 
 export const Header = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isAuth, setIsAuth] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
     return (
         <>
             <Layout.Header className={cl.header}>
@@ -16,12 +27,18 @@ export const Header = () => {
                         icon={<LoginOutlined/>}
                         iconPosition={"end"}
                         className={cl.headerButton}
-                        onClick={() => {console.info("Авторизация в разработке..")}}
+                        onClick={showModal}
                     >
-                        Войти
+                        {isAuth ? 'Личный кабинет' : 'Войти'}
                     </Button>
                 </div>
             </Layout.Header>
+
+            <AuthorizationModal
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                setIsAuth={setIsAuth}
+            />
         </>
     )
 }

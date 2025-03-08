@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+#Firebase key
+holidayplanning-da398-firebase-adminsdk-fbsvc-5c8115c79c.json
