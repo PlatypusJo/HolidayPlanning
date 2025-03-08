@@ -12,6 +12,7 @@ export const ProfileEventsWidget: React.FC<{
     const notification = useNotification()
     const [selectEventId, setSelectEventId] = useState<number | undefined>(Number(localStorage.getItem('selectEventId')));
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [beforeEventTime, setBeforeEventTime] = useState(events.find(ev => ev.id === selectEventId)?.startDate)
 
     useEffect(() => {
         selectEventId && localStorage.setItem('selectEventId', `${selectEventId}`);
@@ -25,9 +26,27 @@ export const ProfileEventsWidget: React.FC<{
         }
     }, [selectEventId]);
 
+    useEffect(() => {
+        console.log('Создние таймера')
+        const interval = setInterval(() => {
+            if(beforeEventTime){
+                if(Date.now() >= beforeEventTime.getTime()){
+                    clearInterval(interval);
+                }
+                setBeforeEventTime(new Date(beforeEventTime.getTime() - 1000))
+            }
+        }, 1000)
+
+        return () => {
+            console.log('Удаление таймера')
+            clearInterval(interval)
+        };
+    }, [selectEventId]);
+
     const handleSelectEvent = (event: EventData) => {
         updateSelectedId(event.id);
         setIsDropdownOpen(false);
+        setBeforeEventTime(event.startDate)
         notification.success(`Выбрано мероприятие: ${event.title}`);
     };
 
@@ -73,9 +92,8 @@ export const ProfileEventsWidget: React.FC<{
                             {isDropdownOpen ? (
                                 <>
                                     {events.map((event) => (
-                                        <div className={cl.resumeNameEventList}>
+                                        <div key={event.id} className={cl.resumeNameEventList}>
                                             <div
-                                                key={event.id}
                                                 className={cl.resumeNameEventList}
                                                 onClick={() => handleSelectEvent(event)}
                                             >
@@ -99,7 +117,7 @@ export const ProfileEventsWidget: React.FC<{
                                       onClick={() => setIsDropdownOpen(prev => !prev)}/>
                     </div>
                     <div className={cl.countdownTimer}>
-                        <div className={cl.timerDisplay}>{getCountdown(events[0].startDate)}</div>
+                        <div className={cl.timerDisplay}>{getCountdown(beforeEventTime)}</div>
                     </div>
                 </div>
             </div>

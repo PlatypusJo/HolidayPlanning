@@ -24,7 +24,7 @@
     text-align: start;
     font-weight: bold;
     font-size: clamp(24px, 3vw, 36px);
-    width: 100%;
+    width: 94%;
     margin-left: 5%;
     margin-top: 1%;
 }
@@ -38,8 +38,7 @@
 
 .container {
     display: grid;
-    width: calc(100% - 20px);
-    margin-right: 20px;
+    width: 100%;
     align-items: start;
 }
 

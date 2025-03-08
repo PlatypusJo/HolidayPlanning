@@ -1,4 +1,8 @@
-export const getCountdown = (eventDate: Date) => {
+export const getCountdown = (eventDate?: Date) => {
+    if(!eventDate){
+        return "Событие уже началось";
+    }
+
     const now = new Date().getTime();
     const diff = eventDate.getTime() - now;
 
