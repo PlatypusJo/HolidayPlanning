@@ -94,7 +94,7 @@ export const ContractorContainer: React.FC<{
                     <div>{contractor.name}</div>
                     <div className={cl.contractorStatus}>
                         <Cascader
-                            options={statusOptions.filter(val => val.label != status)}
+                            options={statusOptions.filter(val => val.label !== status)}
                             onChange={onChangeStatus}
                             dropdownRender={(menu) => (
                                 <div style={{ maxHeight: '80px', overflowY: 'hidden' }}>

@@ -1,0 +1,34 @@
+.loginModal{
+    top: 10%;
+}
+
+.inputLogin{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    column-gap: 4%;
+    color: black;
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 5%;
+}
+
+.textInput{
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+}
+
+.inputPassword{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    column-gap: 4%;
+    color: black;
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
