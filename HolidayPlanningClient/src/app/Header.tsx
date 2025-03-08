@@ -13,11 +13,9 @@ export const Header = () => {
     const [isAuth, setIsAuth] = useState(false);
     const navigate = useNavigate()
     const {updateFloatButton } = useFooterContext()
-
     const showModal = () => {
         setIsModalVisible(true);
     };
-
     const handleCancel = () => {
         setIsModalVisible(false);
     };
@@ -36,7 +34,7 @@ export const Header = () => {
                     <Image preview={false} src={Logo} />
                     <div className={cl.headerName}>Планирование праздников</div>
                     {
-                        isAuth
+                        isAuth || localStorage.getItem('userId')
                             ? <Button
                                 icon={<LogoutOutlined/>}
                                 iconPosition={"end"}
