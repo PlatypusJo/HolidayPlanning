@@ -235,3 +235,35 @@ export const createContractor = async (body: ContractorDataRequest): Promise<Con
     )
 }
 
+export const deleteContractor = async (contractorId: number) => {
+    return await axios.delete(`${contractorControllerUrl}/${contractorId}`, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при удалении подрядчика: ${error}`)
+            return undefined
+        }
+    )
+}
+
+export const changeContractor = async (contractorId: number, body: ContractorDataResponse) => {
+    return await axios.put(`${contractorControllerUrl}/${contractorId}`, body, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при изменении подрядчика: ${error}`)
+            return undefined
+        }
+    )
+}
+
