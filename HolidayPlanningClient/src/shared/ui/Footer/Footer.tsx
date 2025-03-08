@@ -41,7 +41,6 @@ export const FooterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [floatButton, setFloatButton] = useState<React.ReactNode | undefined>(undefined);
 
     const updateShowScrollTop = (value: boolean) => {
-        console.log(value)
         setShowScrollTop(value)
     }
 
