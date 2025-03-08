@@ -14,7 +14,7 @@ export const Header = () => {
 
     const onLogIn = () => {
         localStorage.setItem('userId', `${Date.now()}`)
-        navigate(RoutesPaths.EVENTS)
+        navigate(RoutesPaths.PROFILE)
     }
 
     const onLogOut = () => {

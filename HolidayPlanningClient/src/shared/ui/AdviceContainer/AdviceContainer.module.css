@@ -1,0 +1,54 @@
+.adviceContainer{
+    position: relative;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    column-gap: 2%;
+    align-items: center;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 2%;
+}
+
+
+.adviceText{
+    text-align: start;
+    font-size: clamp(14px, 2.5vw, 20px);
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    width: 157%;
+}
+
+.adviceIcon{
+    color: #FE9449;
+    font-size: clamp(16px, 2.5vw, 22px);
+    margin-right: 1%;
+}
+
+.textMenu{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    width: 60%;
+    z-index: 1;
+}
+
+.menuBlok{
+    color: #212529;
+    text-align: start;
+    font-weight: bold;
+    font-size: clamp(24px, 3vw, 36px);
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+.menuUnderline {
+    width: 166%;
+    height: 2px;
+    background-color: var(--background-color);
+    margin-top: 5px;
+}
