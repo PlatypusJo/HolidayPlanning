@@ -1,0 +1,89 @@
+.profileMenu{
+    position: relative;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    column-gap: 2%;
+    align-items: center;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.textMenu{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    width: 100%;
+    z-index: 1;
+}
+
+.menuBlock{
+    color: #212529;
+    text-align: start;
+    font-weight: bold;
+    font-size: clamp(24px, 3vw, 36px);
+    width: 94%;
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+.menuUnderline {
+    width: 100%;
+    height: 2px;
+    background-color: var(--background-color);
+    margin-top: 5px;
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    align-items: start;
+}
+
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.tabMenu{
+    display: flex;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: white;
+}
+
+.tabMenuIcon{
+    color: #FE9449;
+    font-size: clamp(44px, 4.5vw, 54px);
+    height: 8%;
+    margin: 2% 5% 5% 10%;
+}
+
+.tabMenuText{
+    display: flex;
+    flex-direction: row;
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 500;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        color: #FE9449;
+    }
+}

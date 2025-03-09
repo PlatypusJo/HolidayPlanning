@@ -1,0 +1,145 @@
+.contentResume{
+    width: 100%;
+    background-color: var(--background-color);
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-top: 1%;
+    padding-bottom: 3%;
+}
+
+.textResume{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    width: 60%;
+    z-index: 1;
+}
+
+.resumeBlock{
+    color: white;
+    text-align: start;
+    font-weight: bold;
+    font-size: 36px;
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+.checkIcon{
+    margin-top: 1%;
+    margin-left: 5%;
+    color: #FE9449;
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 800;
+}
+
+.resumeUnderline {
+    width: 166%;
+    height: 2px;
+    background-color: white;
+    margin-top: 5px;
+}
+
+.resumeEvent{
+    background-color: white;
+    border-radius: 10px;
+    width: 160%;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+
+.resumeEventHeader{
+    display: flex;
+    align-items: center;
+    margin-top: 1%;
+    margin-left: 3%;
+}
+
+.resumeEventHeaderButton{
+    color: #043873;
+    font-size: 22px;
+    margin-right: 1%;
+}
+
+.resumeEventHeaderText{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.resumeUnderlineHeader{
+    width: 96%;
+    margin-left: 2%;
+    height: 2px;
+    background-color: #043873;
+    margin-top: 5px;
+}
+
+.resumeBlockEventName{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-left: 6%;
+    margin-right: 8%;
+    margin-top: 1%;
+}
+
+.resumeNameEventList{
+    text-align: start;
+    margin-top: 1%;
+    font-size: 22px;
+}
+
+.resumeNameEvent{
+    text-align: start;
+    margin-top: 1%;
+    font-size: 22px;
+}
+
+
+.resumeNameEventList:hover{
+    color: #FE9449;
+    cursor: pointer;
+}
+
+.resumeDateEvent{
+    font-size: 16px;
+    color: #888888;
+}
+
+.iconDropdown{
+    margin-top: 1%;
+    margin-left: auto;
+    position: absolute;
+    color: #FE9449;
+    font-size: clamp(24px, 3vw, 36px);
+    right: 0.5vw;
+}
+
+.countdownTimer{
+    display: flex;
+    margin-left: 6%;
+    background: linear-gradient(to right, #FE9449, #EF5282);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 1%;
+    width: 88%;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.timerDisplay {
+    font-size: 24px;
+    font-weight: bold;
+    color: #108ee9;
+}
+
+/*.timerDisplay{*/
+/*    color: white;*/
+/*    font-size: 28px;*/
+/*    font-weight: 700;*/
+/*}*/

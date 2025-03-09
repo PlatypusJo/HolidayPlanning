@@ -52,7 +52,6 @@ export const EventsPage = () => {
                 ...events.slice(index + 1)
             ];
 
-            // Обновляем состояние
             setEvents(updatedEvents);
         } else {
             console.warn(`Мероприятие с id ${eventId} не найдено`);
@@ -70,7 +69,11 @@ export const EventsPage = () => {
 
     return (
         <>
-            <InfoContainer title={"Здесь располагаются все ваши мероприятия"} src={ImageContainerEvents}/>
+            <InfoContainer
+                title={"Здесь располагаются все ваши мероприятия"}
+                src={ImageContainerEvents}
+                onBtnClick={() => window.history.back()}
+            />
             <div className={cl.eventsContainer}>
                 <div className={cl.separatorUnderline}/>
                 {

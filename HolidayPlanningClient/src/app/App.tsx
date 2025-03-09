@@ -13,8 +13,8 @@ const App = () => {
     return (
         <BrowserRouter>
             <Layout className="layout">
-                <Header/>
                 <FooterProvider>
+                    <Header/>
                     <Content className="content">
                         <AppRoutes/>
                     </Content>

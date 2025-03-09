@@ -14,7 +14,6 @@ import {ContractorCreateModal} from "../../modal/ContractorCreateModal.tsx";
 
 export const EventContractorsPage = () => {
     const eventId = Number(useParams().id)
-    const navigate = useNavigate()
     const notification = useNotification()
     const [contractors, setContractors] = useState<ContractorsData[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -89,7 +88,7 @@ export const EventContractorsPage = () => {
     return (
         <>
             <InfoContainer title={"Здесь располагаются подрядчики вашего мероприятия"} src={ImageContainerContractors}
-                           onRouteBack={() => navigate(RoutesPaths.EVENTS)}/>
+                           onBtnClick={() => window.history.back()}/>
             <div className={cl.contractorsContainer}>
                 <div className={cl.separatorUnderline}/>
                 <div className={cl.container}>

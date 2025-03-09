@@ -20,7 +20,7 @@ type FormData = {
 
 export const EventCreateModal: React.FC<{
     visible: boolean;
-    onCreateEvent: (newEvent: EventData) => void;
+    onCreateEvent?: (newEvent: EventData) => void;
     onCancel: () => void;
 }> = ({ visible, onCreateEvent, onCancel }) => {
     const initialFormState: FormData = {
@@ -43,7 +43,7 @@ export const EventCreateModal: React.FC<{
                 endDate: new Date(`${formData.endDate} ${formData.endTime}`),
             })
             if (response) {
-                onCreateEvent(response)
+                onCreateEvent && onCreateEvent(response)
                 notification.success(`Мероприятие '${formData.title}' успешно создано!`)
             }
         } catch (e) {
