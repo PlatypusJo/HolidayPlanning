@@ -12,11 +12,13 @@ export const InfoContainer: React.FC<{
         iconPosition?: "start" | "end"
         btnText: string
     }
-}> = ({title, src, onBtnClick, buttonSettings}) => {
+    description?: string
+}> = ({title, src, onBtnClick, buttonSettings, description}) => {
     return (
         <div className={cl.infoContainer}>
             <div className={cl.textInfoContainer}>
                 <div className={cl.titleInfoContainer}>{title}</div>
+                {description && <div className={cl.descrInfoContainer}>{description}</div>}
                 <Button icon={buttonSettings?.btnIcon ?? <ArrowLeftOutlined />} iconPosition={buttonSettings?.iconPosition ?? "start"} className={cl.backButtonInfoContainer} onClick={() => {onBtnClick && onBtnClick()}}>
                     {buttonSettings?.btnText ?? 'Назад'}
                 </Button>
