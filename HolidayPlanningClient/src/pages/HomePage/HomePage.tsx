@@ -6,11 +6,11 @@ import {InfoContainer} from "../../shared/ui";
 import { ContentBlock } from "../../shared/ui/ContentBlock/ContentBlock";
 import {AuthorizationModal} from "../../modal/AutorizationModal";
 import ImageContainerProfile from "../../shared/image/image-container-profile.png"
-import ImBlock2 from '../../shared/image/Image-container2.png'
-import ImBlock3 from '../../shared/image/Work Together Image.png'
-import ImBlock4 from '../../shared/image/Image container3.png'
-import ImBlock5 from '../../shared/image/Image container4.png'
-import ImBlock6 from '../../shared/image/Image container5.png'
+import ImBlock2 from '../../shared/image/image-container-block1.png'
+import ImBlock3 from '../../shared/image/image-container-block2.png'
+import ImBlock4 from '../../shared/image/image-container-block3.png'
+import ImBlock5 from '../../shared/image/image-container-block4.png'
+import ImBlock6 from '../../shared/image/image-container-block5.png'
 
 export const HomePage = () => {
     const navigate = useNavigate()
