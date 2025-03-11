@@ -44,3 +44,10 @@
     font-weight: bold;
     font-size: clamp(32px, 3.5vw, 52px);
 }
+
+.descrInfoContainer{
+    color: white;
+    text-align: start;
+    font-weight: semibold;
+    font-size: clamp(14px, 2vw, 20px);
+}

@@ -1,0 +1,107 @@
+.contentBlock {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5%;
+    transition: all 0.3s ease;
+    padding: 0 clamp(14px, 2.2vw, 36px);
+    min-height: 402px;
+  }
+  
+  .textInfoContainer {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 4rem;
+  }
+  
+  .titleInfoContainer {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: clamp(32px, 3.5vw, 52px);
+  }
+  
+  .descrInfoContainer {
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-size: clamp(14px, 2vw, 20px);
+  }
+  
+  .backButtonInfoContainer {
+    background: var(--primary-btn-color);
+    color: white;
+    font-size: clamp(12px, 1vw, 16px);
+    height: clamp(40px, 4.6vh, 46px);
+    border-radius: 8px;
+    border-color: #FE9449;
+    margin-right: auto;
+    margin-top: 3%;
+  }
+  
+  .backButtonInfoContainer:hover {
+    background-color: #EF5282;
+  }
+  
+  .imageInfoContainer {
+    margin-left: auto;
+    width: 75%; 
+    height: auto; 
+    max-width: 75%;
+  }
+  
+  /* Вариант 1 - белый фон, слева текст, справа фото */
+  .white-bg-left-text-right-image {
+    color: var(--background-color);
+    background-color: #fff;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .white-bg-left-text-right-image .descrInfoContainer {
+    color: #000000; /* Черный текст для белого фона */
+}
+  
+  /* Вариант 2 - белый фон, слева фото, справа текст */
+  .white-bg-left-image-right-text {
+    background-color: #fff;
+    color: var(--background-color);
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .white-bg-left-image-right-text .descrInfoContainer {
+    color: #000000; /* Черный текст для белого фона */
+}
+  
+  /* Вариант 3 - синий фон, слева текст, справа фото */
+  .blue-bg-left-text-right-image {
+    background-color: var(--background-color);
+    color: white;
+    flex-direction: row;
+    margin-top: 2%;
+    text-align: left;
+  }
+
+  .blue-bg-left-text-right-image .descrInfoContainer {
+    color: #ffffff; /* Белый текст для синего фона */
+}
+  
+  /* Вариант 4 - синий фон, слева фото, справа текст */
+  .blue-bg-left-image-right-text {
+    background-color: var(--background-color);
+    color: white;
+    flex-direction: row-reverse;
+    text-align: right;
+    margin-bottom: 2%;
+  }
+
+  .blue-bg-left-image-right-text .descrInfoContainer {
+    color: #ffffff; /* Белый текст для синего фона */
+}
+  
