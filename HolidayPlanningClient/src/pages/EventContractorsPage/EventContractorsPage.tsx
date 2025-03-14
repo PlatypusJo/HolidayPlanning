@@ -79,6 +79,7 @@ export const EventContractorsPage = () => {
 
             // Обновляем состояние
             setContractors(updatedContractors);
+            console.log(updatedContractors)
         } else {
             console.warn(`Подрядчик с id ${contractorId} не найден`);
         }

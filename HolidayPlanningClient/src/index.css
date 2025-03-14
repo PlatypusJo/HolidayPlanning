@@ -30,3 +30,7 @@ code {
   scrollbar-width: thin;          /* Тонкий скроллбар */
   scrollbar-color: #043873 #f1f1f1;  /* Цвет ползунка и фона трека */
 }
+
+.ant-modal-footer {
+  text-align: center !important;
+}

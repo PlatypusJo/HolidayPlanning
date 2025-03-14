@@ -5,6 +5,8 @@ import cl from './ui/AuthorizationModal.module.css'
 import Logo from '../../shared/image/modal-logo.png';
 import {RoutesPaths} from "../../shared/config";
 import {useNavigate} from "react-router-dom";
+import {useFetching, useNotification} from "../../shared/hook";
+import {auth, LoginData} from "../../shared/api";
 
 interface AuthorizationModalProps {
     setIsAuth: (value: boolean) => void;
@@ -14,19 +16,31 @@ interface AuthorizationModalProps {
 
 export const AuthorizationModal: React.FC<AuthorizationModalProps> =
     ({ setIsAuth, visible, onCancel }) => {
-        const initialFormState = {
+        const initialFormState: LoginData = {
             login: '',
             password: '',
         };
 
         const navigate = useNavigate()
+        const notification = useNotification()
         const [formData, setFormData] = useState(initialFormState);
+        const [fetchAuth, isLoadingAuth, isErrorAuth] = useFetching(async () => {
+            try {
+                const response = await auth(formData)
 
+                if(response){
+                    localStorage.setItem('userId', `${Date.now()}`)
+                    navigate(RoutesPaths.PROFILE)
+                    setIsAuth(response);
+                    notification.success(`${formData.login} приведствую в системе!`)
+                }
+            } catch (e) {
+                notification.error(`Ошибка авторизации: ${isErrorAuth}`)
+            }
+        })
         const handleAuth = () => {
-            localStorage.setItem('userId', `${Date.now()}`)
-            navigate(RoutesPaths.PROFILE)
-            setIsAuth(true);
-            onCancel();
+            fetchAuth()
+            handleClose()
         };
 
         const handleInputChange = (field: 'login' | 'password', value: string) => {
@@ -44,6 +58,7 @@ export const AuthorizationModal: React.FC<AuthorizationModalProps> =
                 onOk={handleAuth}
                 okButtonText="Войти"
                 icon={Logo}
+                loading={isLoadingAuth}
                 modalTitle="Вход в личный кабинет"
                 description="Введите данные для входа в систему"
                 visible={visible}

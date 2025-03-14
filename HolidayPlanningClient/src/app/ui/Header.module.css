@@ -11,6 +11,53 @@
     font-weight: bold;
 }
 
+.loginButton {
+    background: var(--primary-btn-color);
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    border-color: #FE9449;
+}
+
+.loginButton {
+    background: var(--primary-btn-color);
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    border-color: #FE9449;
+}
+
+.registrationButton {
+    color: #94A3B8 !important;
+    font-size: 16px;
+    transition: all 0.3s ease !important;
+    position: relative;
+    border: none !important;
+    background: none !important;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 !important;
+}
+
+.registrationButton:hover {
+    color: #FE9449FF !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+}
+
+.registrationButton:focus {
+    outline: 2px solid rgba(254, 148, 73, 0.5);
+    outline-offset: 2px;
+}
+
+.headerButtonContainer {
+    display: flex;
+    margin-left: auto;
+    margin-top: 15px;
+    margin-right: 2%;
+    gap: 20px;
+}
+
 .headerButton {
     background: var(--primary-btn-color);
     color: white;
@@ -18,8 +65,8 @@
     border-radius: 8px;
     border-color: #FE9449;
     margin-left: auto;
-    margin-right: 2%;
     margin-top: 15px;
+    margin-right: 2%;
 }
 
 .header {

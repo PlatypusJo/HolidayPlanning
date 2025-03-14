@@ -100,7 +100,6 @@
     font-size: 22px;
 }
 
-
 .resumeNameEventList:hover{
     color: #FE9449;
     cursor: pointer;
@@ -137,9 +136,3 @@
     font-weight: bold;
     color: #108ee9;
 }
-
-/*.timerDisplay{*/
-/*    color: white;*/
-/*    font-size: 28px;*/
-/*    font-weight: 700;*/
-/*}*/

@@ -267,3 +267,26 @@ export const changeContractor = async (contractorId: number, body: ContractorDat
     )
 }
 
+export const changeContractorStatus = async (contractorId: number, newStatusId: number)=> {
+    return true
+}
+
+export interface LoginData {
+    login: string,
+    password: string
+}
+
+export const auth = async (data: LoginData)=> {
+    return true
+}
+
+export interface RegistrationData {
+    login: string,
+    password: string,
+    repeatPassword: string
+}
+
+export const registration = async (data: RegistrationData)=> {
+    return true
+}
+
