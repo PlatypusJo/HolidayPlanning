@@ -6,12 +6,10 @@ import {NotificationProvider} from "../shared/hook";
 
 export const AppRoutes = () => {
     return (
-        <NotificationProvider>
-            <Routes>
-                {routes.map(route =>
-                    <Route path={route.path} element={route.element} key={route.path}/>
-                )}
-            </Routes>
-        </NotificationProvider>
+        <Routes>
+            {routes.map(route =>
+                <Route path={route.path} element={route.element} key={route.path}/>
+            )}
+        </Routes>
     );
 };

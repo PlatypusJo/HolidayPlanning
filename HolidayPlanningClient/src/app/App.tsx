@@ -5,7 +5,7 @@ import './ui/App.css';
 import {AppRoutes} from "./AppRoutes";
 import {Header} from "./Header";
 import {Footer, FooterProvider} from "../shared/ui/Footer/Footer";
-import {useNotification} from "../shared/hook";
+import {NotificationProvider, useNotification} from "../shared/hook";
 
 const { Content } = Layout
 
@@ -14,11 +14,13 @@ const App = () => {
         <BrowserRouter>
             <Layout className="layout">
                 <FooterProvider>
-                    <Header/>
-                    <Content className="content">
-                        <AppRoutes/>
-                    </Content>
-                    <Footer/>
+                    <NotificationProvider>
+                        <Header/>
+                        <Content className="content">
+                            <AppRoutes/>
+                        </Content>
+                        <Footer/>
+                    </NotificationProvider>
                 </FooterProvider>
             </Layout>
         </BrowserRouter>

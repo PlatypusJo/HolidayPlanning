@@ -31,7 +31,7 @@ export const ContractorChangeModal: React.FC<{
     onChangeContractor: (contractorId: number, newContractor: ContractorsData) => void;
     onCancel: () => void;
 }> = ({ eventId, contractor, visible, onChangeContractor, onCancel }) => {
-    const initialFormState: FormData = {
+    const [formData, setFormData] = useState<FormData>({
         name: contractor.name,
         description: contractor.description,
         category: contractor.category,
@@ -39,13 +39,10 @@ export const ContractorChangeModal: React.FC<{
         email: contractor.email,
         serviceCost: `${contractor.serviceCost}`,
         status: contractor.status
-    };
-
-    const [formData, setFormData] = useState<FormData>(initialFormState);
+    });
     const [errors, setErrors] = useState<{ phoneNumber?: string; email?: string }>({});
     const notification = useNotification()
-
-    const [fetchCreateContractor, isLoadingFetchCreateContractor, errorFetchCreateContractor] = useFetching(async () => {
+    const [fetchChangeContractor, isLoadingFetchChangeContractor, errorFetchChangeContractor] = useFetching(async () => {
         try {
             const response = await changeContractor(contractor.id, {
                 id: contractor.id,
@@ -72,9 +69,13 @@ export const ContractorChangeModal: React.FC<{
                 notification.success(`Подрядчик '${formData.name}' успешно изменен!`)
             }
         } catch (e) {
-            notification.error(`Ошибка при изменении подрядчика: ${errorFetchCreateContractor}`)
+            notification.error(`Ошибка при изменении подрядчика: ${errorFetchChangeContractor}`)
         }
     })
+
+    useEffect(() => {
+        setFormData({...contractor, serviceCost: `${contractor.serviceCost}`})
+    }, [contractor]);
 
     const validatePhoneNumber = (phone: string) => {
         if (!phone) return '';
@@ -113,7 +114,7 @@ export const ContractorChangeModal: React.FC<{
 
 
     const handleSubmit = () => {
-        fetchCreateContractor()
+        fetchChangeContractor()
         handleClose();
     };
 

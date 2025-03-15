@@ -7,17 +7,26 @@ import {RoutesPaths} from "../shared/config";
 import {useNavigate} from "react-router-dom";
 import {useFooterContext} from "../shared/ui/Footer/Footer";
 import {AuthorizationModal} from "../modal/AutorizationModal";
+import {RegistrationModal} from "../modal/RegistrationModal";
 
 export const Header = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isAuthModalVisible, setIsAuthModalVisible] = useState(false);
+    const [isRegistrationModalVisible, setIsRegistrationModalVisible] = useState(false);
     const [isAuth, setIsAuth] = useState(false);
     const navigate = useNavigate()
     const {updateFloatButton } = useFooterContext()
-    const showModal = () => {
-        setIsModalVisible(true);
+    const showAuthModal = () => {
+        setIsAuthModalVisible(true);
     };
-    const handleCancel = () => {
-        setIsModalVisible(false);
+    const handleAuthCancel = () => {
+        setIsAuthModalVisible(false);
+    };
+
+    const showRegistrationModal = () => {
+        setIsRegistrationModalVisible(true);
+    };
+    const handleRegistrationCancel = () => {
+        setIsRegistrationModalVisible(false);
     };
 
     const onLogOut = () => {
@@ -38,26 +47,41 @@ export const Header = () => {
                             ? <Button
                                 icon={<LogoutOutlined/>}
                                 iconPosition={"end"}
-                                className={cl.headerButton}
+                                className={`${cl.headerButton}`}
                                 onClick={onLogOut}
                             >
                                 Выйти
                             </Button>
-                            : <Button
-                                icon={<LoginOutlined/>}
-                                iconPosition={"end"}
-                                className={cl.headerButton}
-                                onClick={showModal}
-                            >
-                                Войти
-                            </Button>
+                            : <div className={cl.headerButtonContainer}>
+                                <Button
+                                    type={"link"}
+                                    icon={<LoginOutlined/>}
+                                    iconPosition={"end"}
+                                    className={cl.registrationButton}
+                                    onClick={showRegistrationModal}
+                                >
+                                    Регистриация
+                                </Button>
+                                <Button
+                                    icon={<LoginOutlined/>}
+                                    iconPosition={"end"}
+                                    className={cl.loginButton}
+                                    onClick={showAuthModal}
+                                >
+                                    Войти
+                                </Button>
+                            </div>
                     }
                 </div>
             </Layout.Header>
             <AuthorizationModal
-                visible={isModalVisible}
-                onCancel={handleCancel}
+                visible={isAuthModalVisible}
+                onCancel={handleAuthCancel}
                 setIsAuth={setIsAuth}
+            />
+            <RegistrationModal
+                visible={isRegistrationModalVisible}
+                onCancel={handleRegistrationCancel}
             />
         </>
     )

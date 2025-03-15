@@ -2,9 +2,10 @@ import cl from "./ui/ContractorsContainer.module.css";
 import {DeleteOutlined, EditOutlined, SettingOutlined,} from "@ant-design/icons";
 import React, {useState} from "react";
 import {
+    changeContractorStatus,
     ContractorsData,
     ContractorStatus,
-    contractorStatus, deleteContractor
+    contractorStatus, deleteContractor, getEnumMapping
 } from "../../shared/api";
 import {Button, Cascader, Dropdown, MenuProps} from "antd";
 import {useFetching, useNotification} from "../../shared/hook";
@@ -18,7 +19,6 @@ export const ContractorContainer: React.FC<{
 }> = ({ contractor, onChangeContractor, onDeleteContractor }) => {
     const eventId = Number(useParams().id)
     const notification = useNotification()
-    const [status, setStatus] = useState(contractor.status)
     const [isChangeContractorModal, setIsChangeContractorModal] = useState(false);
     const [fetchDeleteContractor, isLoadingFetchDeleteContractor, errorFetchDeleteContractor] = useFetching(async () => {
         try {
@@ -29,6 +29,17 @@ export const ContractorContainer: React.FC<{
             }
         } catch (e) {
             notification.error(`Ошибка при удалении подрядчика: ${errorFetchDeleteContractor}`)
+        }
+    })
+    const [fetchChangeStatus, isLoadingFetchChangeStatus, errorFetchChangeStatus] = useFetching(async (newStatus: string) => {
+        try {
+            const response = await changeContractorStatus(contractor.id, Number(getEnumMapping(ContractorStatus, newStatus as keyof typeof ContractorStatus)))
+            onChangeContractor(contractor.id, {
+                ...contractor,
+                status: newStatus
+            })
+        } catch (e) {
+            notification.error(`Ошибка при изменении статуса подрядчика '${contractor.name}': ${errorFetchChangeStatus}`)
         }
     })
 
@@ -75,7 +86,7 @@ export const ContractorContainer: React.FC<{
         _: (string | ContractorStatus)[],
         selectedOptions: { value: string | ContractorStatus; label: string | ContractorStatus }[]
     ) => {
-        setStatus(selectedOptions.map((o) => o.label).join(', '));
+        fetchChangeStatus(selectedOptions.map((o) => o.label).join(', '))
     };
 
     const openChangeContractorModal = () => {
@@ -94,7 +105,7 @@ export const ContractorContainer: React.FC<{
                     <div>{contractor.name}</div>
                     <div className={cl.contractorStatus}>
                         <Cascader
-                            options={statusOptions.filter(val => val.label !== status)}
+                            options={statusOptions.filter(val => val.label !== contractor.status)}
                             onChange={onChangeStatus}
                             dropdownRender={(menu) => (
                                 <div style={{ maxHeight: '80px', overflowY: 'hidden' }}>
@@ -102,7 +113,7 @@ export const ContractorContainer: React.FC<{
                                 </div>
                             )}
                         >
-                            <a className={cl.statusLink}>{status}</a>
+                            <a className={cl.statusLink}>{contractor.status}</a>
                         </Cascader>
                     </div>
                     <Dropdown menu={{ items }} trigger={['click', 'contextMenu']}>
@@ -118,10 +129,7 @@ export const ContractorContainer: React.FC<{
                 </div>
             </div>
             <ContractorChangeModal eventId={eventId} contractor={contractor} visible={isChangeContractorModal}
-                                   onChangeContractor={(contractorId: number, newContractor: ContractorsData) => {
-                                       onChangeContractor(contractorId, newContractor)
-                                       setStatus(newContractor.status)
-                                   }} onCancel={handleCloseChangeContractorModal}/>
+                                   onChangeContractor={onChangeContractor} onCancel={handleCloseChangeContractorModal}/>
         </>
     );
 };

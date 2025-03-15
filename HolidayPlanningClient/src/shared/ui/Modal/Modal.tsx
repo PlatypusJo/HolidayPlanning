@@ -11,11 +11,18 @@ const modalTheme = {
             titleColor: '#ffffff',
             colorText: '#ffffff',
         },
+        Select: {
+            colorBgContainer: "rgba(167, 206, 252, 0.5)",
+            colorBorder: "rgba(217,217,217,0)",
+            colorText: "rgb(255,255,255)",
+            colorBgElevated: "rgb(100,122,148)",
+            optionSelectedBg: "rgba(167, 206, 252, 0.5)"
+        }
     },
 }
 
 const okButtonStyle = {
-    marginRight: '42.5%',
+    marginRight: '4%',
     marginTop: '3%',
     background: 'linear-gradient(to right, #FE9449, #EF5282)',
     borderColor: '#FE9449',
@@ -33,8 +40,9 @@ export const Modal: React.FC<{
     icon: string,
     visible: boolean,
     disabled?: boolean,
-    okButtonText: string
-}> = ({ children, onCancel, onOk, icon, description, modalTitle, visible, disabled, okButtonText }) => {
+    okButtonText: string,
+    loading?: boolean
+}> = ({ children, loading, onCancel, onOk, icon, description, modalTitle, visible, disabled, okButtonText }) => {
     return (
         <ConfigProvider theme={modalTheme}>
             <AntdModal
@@ -44,6 +52,7 @@ export const Modal: React.FC<{
                     style: okButtonStyle,
                     disabled: disabled
                 }}
+                confirmLoading={loading}
                 okText={okButtonText}
                 title={
                     <span className={cl.modalTitle}>
