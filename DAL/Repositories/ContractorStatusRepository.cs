@@ -29,7 +29,25 @@ namespace DAL.Repositories
 
         #region Методы
 
-        public async Task<List<ContractorStatus>> GetAll() => await _db.ContractorStatus.ToListAsync();
+        public async Task<List<ContractorStatus>> GetAll()
+        {
+            CollectionReference usersRef = _db.Collection("statuses");
+            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
+
+            List<ContractorStatus> contractorStatuses = [];
+
+            foreach (DocumentSnapshot document in snapshot.Documents)
+            {
+                var documentTemp = document.ToDictionary();
+                contractorStatuses.Add(new ContractorStatus()
+                {
+                    Id = document.Id,
+                    Title = documentTemp["text"].ToString(),
+                });
+            }
+
+            return contractorStatuses;
+        }
 
         #endregion
     }
