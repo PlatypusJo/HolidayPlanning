@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface IUserRepository<T> where T: IdentityUser<int>
+    public interface IUserRepository<T> where T: IdentityUser<string>
     {
         Task<List<T>> GetAll(UserManager<User> userManager);
 

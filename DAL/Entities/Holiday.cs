@@ -18,12 +18,12 @@ namespace DAL.Entities
         /// ID мероприятия
         /// </summary>
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Название мероприятия

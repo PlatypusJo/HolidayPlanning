@@ -11,7 +11,7 @@ namespace DAL.Entities
     /// <summary>
     /// Сущность пользователя
     /// </summary>
-    public class User : IdentityUser<int>
+    public class User : IdentityUser<string>
     {
         #region Свойства
 

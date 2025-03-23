@@ -18,22 +18,22 @@ namespace BLL.DTOs
         /// <summary>
         /// ID Подрядчика
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// ID Мероприятия, на которое нанят подрядчик
         /// </summary>
-        public int HolidayId { get; set; }
+        public string HolidayId { get; set; }
 
         /// <summary>
         /// ID статуса найма подрядчика (Ожидание, Принял, Отказал)
         /// </summary>
-        public int StatusId { get; set; }
+        public string StatusId { get; set; }
 
         /// <summary>
         /// ID категории деятельности подрядчика
         /// </summary>
-        public int СategoryId { get; set; }
+        public string СategoryId { get; set; }
 
         /// <summary>
         /// ФИО Подрядчика или название организации

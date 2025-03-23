@@ -18,7 +18,7 @@ namespace DAL.Entities
         /// ID Статуса
         /// </summary>
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Название статуса
