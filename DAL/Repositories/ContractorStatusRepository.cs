@@ -31,7 +31,7 @@ namespace DAL.Repositories
 
         public async Task<List<ContractorStatus>> GetAll()
         {
-            CollectionReference usersRef = _db.Collection("statuses");
+            CollectionReference usersRef = _db.Collection("statuses").Document("contractor").Collection("list");
             QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
 
             List<ContractorStatus> contractorStatuses = [];
