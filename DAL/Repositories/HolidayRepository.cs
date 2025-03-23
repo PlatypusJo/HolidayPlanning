@@ -1,6 +1,7 @@
 ﻿using DAL.Abstract;
 using DAL.Entities;
 using DAL.Interfaces;
+using Google.Cloud.Firestore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,40 +22,94 @@ namespace DAL.Repositories
         /// Конструктор с определением контекста
         /// </summary>
         /// <param name="db">Контекст базы данных</param>
-        public HolidayRepository(HolidayPlanningDbContext db) : base(db) { }
+        public HolidayRepository(FirestoreDb db) : base(db) { }
         
         #endregion
 
         #region Методы
 
-        public async Task Create(Holiday item) => await _db.Holiday.AddAsync(item);
+        public async Task Create(Holiday item)
+        {
+            DocumentReference docRef = _db.Collection("holiday").Document($"{item.Id}");
+            Dictionary<string, object> holiday = new Dictionary<string, object>
+            {
+                {"Title", $"{item.Title}"},
+                {"StartDate", item.StartDate.ToString()},
+                {"EndDate", item.EndDate.ToString()},
+                {"Budget", item.Budget.ToString()}
+
+            };
+            await docRef.SetAsync(holiday);
+        }
 
         public async Task<bool> Delete(int id)
         {
-            var item = await _db.Holiday.FindAsync(id);
-            if (item == null)
-                return false;
-
-            var contractors = await _db.Contractor.Where(c => c.HolidayId == id).ToListAsync();
-            if (contractors != null && contractors.Count != 0)
-            {
-                foreach(var contractor in contractors)
-                {
-                    _db.Contractor.Remove(contractor);
-                }
-            }
-
-            _db.Holiday.Remove(item);
-            return true;
+            DocumentReference docRef = _db.Collection("holiday").Document($"{id}");
+            return await docRef.DeleteAsync() is not null;
         }
 
-        public async Task<bool> Exists(int id) => await _db.Holiday.AnyAsync(b => b.Id == id);
+        public async Task<bool> Exists(int id)
+        {
+            DocumentReference docRef = _db.Collection("holiday").Document($"{id}");
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            return snapshot.Exists;
+        }
 
-        public async Task<List<Holiday>> GetAll() => await _db.Holiday.ToListAsync();
+        public async Task<List<Holiday>> GetAll()
+        {
+            CollectionReference usersRef = _db.Collection("contractors");
+            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
 
-        public async Task<Holiday> GetItem(int id) => await _db.Holiday.FindAsync(id);
+            List<Holiday> holidays = [];
 
-        public async Task Update(Holiday item) => _db.Entry(item).State = EntityState.Modified;
+            foreach (DocumentSnapshot document in snapshot.Documents)
+            {
+                var documentTemp = document.ToDictionary();
+                holidays.Add(new Holiday()
+                {
+                    Id = document.Id,
+                    Title = documentTemp["Title"].ToString(),
+                    Budget = Convert.ToDouble(documentTemp["Budget"].ToString()),
+                    StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
+                    EndDate = DateTime.Parse(documentTemp["EndDate"].ToString())
+                });
+            }
+
+            return holidays;
+        }
+
+        public async Task<Holiday> GetItem(int id)
+        {
+            DocumentReference docRef = _db.Collection("holiday").Document($"{id}");
+            DocumentSnapshot document = await docRef.GetSnapshotAsync();
+
+            var documentTemp = document.ToDictionary();
+
+            Holiday holiday = new Holiday()
+            {
+                Id = document.Id,
+                Title = documentTemp["Title"].ToString(),
+                Budget = Convert.ToDouble(documentTemp["Budget"].ToString()),
+                StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
+                EndDate = DateTime.Parse(documentTemp["EndDate"].ToString())
+            };
+
+            return holiday;
+        }
+
+        public async Task Update(Holiday item)
+        {
+            DocumentReference docRef = _db.Collection("holiday").Document($"{item.Id}");
+            Dictionary<string, object> holiday = new Dictionary<string, object>
+            {
+                {"Title", $"{item.Title}"},
+                {"StartDate", item.StartDate.ToString()},
+                {"EndDate", item.EndDate.ToString()},
+                {"Budget", item.Budget.ToString()}
+            };
+
+            await docRef.UpdateAsync(holiday);
+        }
         
         #endregion
     }

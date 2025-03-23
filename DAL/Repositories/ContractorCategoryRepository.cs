@@ -40,7 +40,7 @@ namespace DAL.Repositories
                 var documentTemp = document.ToDictionary();
                 categories.Add(new ContractorCategory()
                 {
-                    Id = Convert.ToInt32(document.Id),
+                    Id = document.Id,
                     Title = documentTemp["text"].ToString(),
                 });
             }

@@ -51,7 +51,7 @@ namespace DAL.Repositories
                 var documentTemp = document.ToDictionary();
                 holidays.Add(new Holiday()
                 {
-                    Id = Convert.ToInt32(document.Id),
+                    Id = document.Id,
                     Title = documentTemp["Title"].ToString(),
                     StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
                     EndDate = DateTime.Parse(documentTemp["EndDate"].ToString()),

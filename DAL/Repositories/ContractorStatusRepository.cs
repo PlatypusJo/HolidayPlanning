@@ -1,6 +1,7 @@
 ﻿using DAL.Abstract;
 using DAL.Entities;
 using DAL.Interfaces;
+using Google.Cloud.Firestore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace DAL.Repositories
         /// Конструктор с определением контекста
         /// </summary>
         /// <param name="db">Контекст базы данных</param>
-        public ContractorStatusRepository(HolidayPlanningDbContext db) : base(db) { }
+        public ContractorStatusRepository(FirestoreDb db) : base(db) { }
 
         #endregion
 

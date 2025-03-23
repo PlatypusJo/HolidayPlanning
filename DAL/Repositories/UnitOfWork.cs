@@ -73,7 +73,7 @@ namespace DAL.Repositories
         {
             get
             {
-                _holidayRepository ??= new HolidayRepository(_db);
+                _holidayRepository ??= new HolidayRepository(_firestoreDb);
                 return _holidayRepository;
             }
         }
@@ -100,7 +100,7 @@ namespace DAL.Repositories
         {
             get
             {
-                _contractorStatusRepository ??= new ContractorStatusRepository(_db);
+                _contractorStatusRepository ??= new ContractorStatusRepository(_firestoreDb);
                 return _contractorStatusRepository;
             }
         }
