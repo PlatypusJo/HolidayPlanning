@@ -28,7 +28,7 @@ namespace HolidayPlanningApi
             builder.Services.AddControllers();
 
             // Init
-            string path = AppDomain.CurrentDomain.BaseDirectory + @"";
+            string path = AppDomain.CurrentDomain.BaseDirectory + @"put here";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
             // реализация InMemory db

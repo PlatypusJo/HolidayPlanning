@@ -22,11 +22,6 @@ namespace DAL.Repositories
         private readonly FirestoreDb _firestoreDb;
 
         /// <summary>
-        /// Контекст базы данных
-        /// </summary>
-        private readonly HolidayPlanningDbContext _db;
-
-        /// <summary>
         /// Репозиторий Пользователя
         /// </summary>
         private UserRepository _userRepository;
@@ -124,7 +119,6 @@ namespace DAL.Repositories
         /// <param name="db">Контекст базы данных</param>
         public UnitOfWork(HolidayPlanningDbContext db)
         {
-            _db = db;
             _firestoreDb = FirestoreDb.Create("holidayplanning-da398");
         }
         
@@ -132,7 +126,7 @@ namespace DAL.Repositories
 
         #region Методы
 
-        public async Task<int> Save() => await _db.SaveChangesAsync();
+        public async Task<int> Save() => 1;
         
         #endregion
     }
