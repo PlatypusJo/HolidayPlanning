@@ -1,5 +1,6 @@
 ﻿using DAL.Entities;
 using DAL.Interfaces;
+using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,14 @@ namespace DAL.Repositories
         #region Поля
 
         /// <summary>
-        /// Контекст базы данных
+        /// Контекст FirestoreDb
         /// </summary>
-        private readonly HolidayPlanningDbContext _db;
+        private readonly FirestoreDb _firestoreDb;
+
+        /// <summary>
+        /// Репозиторий Пользователя
+        /// </summary>
+        private UserRepository _userRepository;
 
         /// <summary>
         /// Репозиторий Мероприятия
@@ -38,17 +44,31 @@ namespace DAL.Repositories
         /// <summary>
         /// Репозиторий Статуса подрядчика
         /// </summary>
-        private ContractorStatusRepository _contractorStatusRepository;
+        private ContractorStatusRepository _contractorStatusRepository;              
+
+        /// <summary>
+        /// Репозиторий мероприятия для Firestore
+        /// </summary>
+        private HolidayFirestoreRepository _holidayFirestoreRep;
 
         #endregion
 
         #region Свойства
 
+        public IUserRepository<User> User
+        {
+            get
+            {
+                _userRepository ??= new UserRepository(_firestoreDb);
+                return _userRepository;
+            }
+        }
+
         public IRepository<Holiday> Holiday
         {
             get
             {
-                _holidayRepository ??= new HolidayRepository(_db);
+                _holidayRepository ??= new HolidayRepository(_firestoreDb);
                 return _holidayRepository;
             }
         }
@@ -57,7 +77,7 @@ namespace DAL.Repositories
         {
             get
             {
-                _contractorRepository ??= new ContractorRepository(_db);
+                _contractorRepository ??= new ContractorRepository(_firestoreDb);
                 return _contractorRepository;
             }
         }
@@ -66,7 +86,7 @@ namespace DAL.Repositories
         {
             get
             {
-                _contractorCategoryRepository ??= new ContractorCategoryRepository(_db);
+                _contractorCategoryRepository ??= new ContractorCategoryRepository(_firestoreDb);
                 return _contractorCategoryRepository;
             }
         }
@@ -75,8 +95,17 @@ namespace DAL.Repositories
         {
             get
             {
-                _contractorStatusRepository ??= new ContractorStatusRepository(_db);
+                _contractorStatusRepository ??= new ContractorStatusRepository(_firestoreDb);
                 return _contractorStatusRepository;
+            }
+        }
+
+        public IHolidayRepositoryFirestore<Holiday> HolidayFirestore
+        {
+            get
+            {
+                _holidayFirestoreRep ??= new HolidayFirestoreRepository(_firestoreDb);
+                return _holidayFirestoreRep;
             }
         }
 
@@ -90,14 +119,14 @@ namespace DAL.Repositories
         /// <param name="db">Контекст базы данных</param>
         public UnitOfWork(HolidayPlanningDbContext db)
         {
-            _db = db;
+            _firestoreDb = FirestoreDb.Create("holidayplanning-da398");
         }
         
         #endregion
 
         #region Методы
 
-        public async Task<int> Save() => await _db.SaveChangesAsync();
+        public async Task<int> Save() => 1;
         
         #endregion
     }

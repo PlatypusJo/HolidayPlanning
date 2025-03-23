@@ -18,7 +18,7 @@ namespace DAL.Entities
         /// ID Категории
         /// </summary>
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Название категории

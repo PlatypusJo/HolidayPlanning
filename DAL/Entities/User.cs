@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,27 +9,21 @@ using System.Threading.Tasks;
 namespace DAL.Entities
 {
     /// <summary>
-    /// Сущность Статус подрядчика (захардкоженный справочник)
+    /// Сущность пользователя
     /// </summary>
-    public class ContractorStatus
+    public class User : IdentityUser<string>
     {
         #region Свойства
 
         /// <summary>
-        /// ID Статуса
+        /// Логин пользователя.
         /// </summary>
-        [Key]
-        public string Id { get; set; }
+        public string? Login { get; set; }
 
         /// <summary>
-        /// Название статуса
+        /// Мероприятия пользователя.
         /// </summary>
-        public string? Title { get; set; }
-
-        /// <summary>
-        /// Подрядчики статуса
-        /// </summary>
-        public virtual ICollection<Contractor> Contractors { get; set; }
+        public virtual ICollection<Holiday> Holidays { get; set; }
 
         #endregion
 
@@ -37,9 +32,9 @@ namespace DAL.Entities
         /// <summary>
         /// Конструктор по умолчанию
         /// </summary>
-        public ContractorStatus()
+        public User()
         {
-            Contractors = new HashSet<Contractor>();
+            Holidays = new HashSet<Holiday>();
         }
 
         #endregion

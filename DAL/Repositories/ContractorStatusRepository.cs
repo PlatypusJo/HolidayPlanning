@@ -1,6 +1,7 @@
 ﻿using DAL.Abstract;
 using DAL.Entities;
 using DAL.Interfaces;
+using Google.Cloud.Firestore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,13 +23,31 @@ namespace DAL.Repositories
         /// Конструктор с определением контекста
         /// </summary>
         /// <param name="db">Контекст базы данных</param>
-        public ContractorStatusRepository(HolidayPlanningDbContext db) : base(db) { }
+        public ContractorStatusRepository(FirestoreDb db) : base(db) { }
 
         #endregion
 
         #region Методы
 
-        public async Task<List<ContractorStatus>> GetAll() => await _db.ContractorStatus.ToListAsync();
+        public async Task<List<ContractorStatus>> GetAll()
+        {
+            CollectionReference usersRef = _db.Collection("statuses").Document("contractor").Collection("list");
+            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
+
+            List<ContractorStatus> contractorStatuses = [];
+
+            foreach (DocumentSnapshot document in snapshot.Documents)
+            {
+                var documentTemp = document.ToDictionary();
+                contractorStatuses.Add(new ContractorStatus()
+                {
+                    Id = document.Id,
+                    Title = documentTemp["text"].ToString(),
+                });
+            }
+
+            return contractorStatuses;
+        }
 
         #endregion
     }

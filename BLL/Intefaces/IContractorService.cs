@@ -17,6 +17,6 @@ namespace BLL.Intefaces
         /// </summary>
         /// <param name="holidayId">ID Мероприятия</param>
         /// <returns>Список dto сущностей</returns>
-        Task<List<ContractorDto>> GetAllByHolidayId(int holidayId);
+        Task<List<ContractorDto>> GetAllByHolidayId(string holidayId);
     }
 }

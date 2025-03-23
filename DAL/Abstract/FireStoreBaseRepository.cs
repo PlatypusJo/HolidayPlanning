@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Abstract
 {
-    /// <summary>
-    /// Суперкласс для репозиториев
-    /// </summary>
-    public abstract class BaseRepository
+    public class FireStoreBaseRepository
     {
         #region Поля
 
@@ -28,7 +25,7 @@ namespace DAL.Abstract
         /// Конcтруктор с определением контекста
         /// </summary>
         /// <param name="db">Контекст базы данных</param>
-        public BaseRepository(FirestoreDb db) => _db = db;
+        public FireStoreBaseRepository(FirestoreDb db) => _db = db;
 
         #endregion
     }

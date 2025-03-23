@@ -46,7 +46,7 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="id">ID сущности</param>
         /// <returns>Найденная сущность в форме dto (null, если сущность не найдена)</returns>
         [HttpGet("{id}")]
-        public Task<ContractorDto> GetById(int id)
+        public Task<ContractorDto> GetById(string id)
         {
             return _contractorService.GetById(id);
         }
@@ -57,7 +57,7 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="id">ID мероприятия</param>
         /// <returns>Список dto сущностей (В виде OkObjectResult)</returns>
         [HttpGet("HolidayId/{id}")]
-        public async Task<ActionResult<IEnumerable<ContractorDto>>> GetAllByHolidayId(int id)
+        public async Task<ActionResult<IEnumerable<ContractorDto>>> GetAllByHolidayId(string id)
         {
             var contractors = (await _contractorService.GetAllByHolidayId(id)).ToList();
 
@@ -93,7 +93,7 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="contractorDto">Измененная сущность в форме dto</param>
         /// <returns>ID обновленной сущности (В виде OkObjectResult)</returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<int>> Put(int id, [FromBody] ContractorDto contractorDto)
+        public async Task<ActionResult<int>> Put(string id, [FromBody] ContractorDto contractorDto)
         {
             if (id != contractorDto.Id)
             {
@@ -114,7 +114,7 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="id">ID сущности</param>
         /// <returns> ID удаленной сущности (В виде OkObjectResult) </returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<int>> Delete(int id)
+        public async Task<ActionResult<int>> Delete(string id)
         {
             if (!await _contractorService.Exists(id))
             {

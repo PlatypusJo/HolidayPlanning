@@ -20,6 +20,11 @@ namespace DAL.Interfaces
         IRepository<Holiday> Holiday { get; }
 
         /// <summary>
+        /// Репозиторий Пользователя
+        /// </summary>
+        IUserRepository<User> User { get; }
+
+        /// <summary>
         /// Репозиторий Подрядчика
         /// </summary>
         IContractorRepository Contractor { get; }
@@ -33,6 +38,11 @@ namespace DAL.Interfaces
         /// Репозиторий Статуса подрядчика
         /// </summary>
         IFrozenCollectionRepository<ContractorStatus> ContractorStatus { get; }
+
+        /// <summary>
+        /// Репозиторий мероприятия для Firestore
+        /// </summary>
+        IHolidayRepositoryFirestore<Holiday> HolidayFirestore { get; }
 
         #endregion
 

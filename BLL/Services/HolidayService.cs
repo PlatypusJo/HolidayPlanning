@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Google.Cloud.Firestore;
+using System.Diagnostics;
 
 namespace BLL.Services
 {
@@ -22,7 +24,10 @@ namespace BLL.Services
         /// Контрукор на основе UnitOfWork
         /// </summary>
         /// <param name="unitOfWork">Экземпляр UnitOfWork</param>
-        public HolidayService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public HolidayService(IUnitOfWork unitOfWork) : base(unitOfWork) 
+        {
+            
+        }
         
         #endregion
 
@@ -38,11 +43,11 @@ namespace BLL.Services
                 Budget = itemDto.Budget
             };
 
-            await _unitOfWork.Holiday.Create(holiday);
+            await _unitOfWork.HolidayFirestore.Create(holiday);
             return await SaveAsync();
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(string id)
         {
             if (!await _unitOfWork.Holiday.Exists(id))
                 return false;
@@ -51,11 +56,11 @@ namespace BLL.Services
             return await SaveAsync();
         }
 
-        public async Task<bool> Exists(int id) => await _unitOfWork.Holiday.Exists(id);
+        public async Task<bool> Exists(string id) => await _unitOfWork.Holiday.Exists(id);
 
         public async Task<List<HolidayDto>> GetAll()
         {
-            var items = await _unitOfWork.Holiday.GetAll();
+            var items = await _unitOfWork.HolidayFirestore.GetAll();
 
             var result = items
                 .Select(item => new HolidayDto(item))
@@ -64,7 +69,7 @@ namespace BLL.Services
             return result;
         }
 
-        public async Task<HolidayDto> GetById(int id)
+        public async Task<HolidayDto> GetById(string id)
         {
             var item = await _unitOfWork.Holiday.GetItem(id);
 
