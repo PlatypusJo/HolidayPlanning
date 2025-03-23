@@ -23,7 +23,7 @@ namespace DAL.Interfaces
         /// </summary>
         /// <param name="id">ID сущности</param>
         /// <returns> Найденная сущность (null, если сущность не найдена)</returns>
-        Task<T> GetItem(int id);
+        Task<T> GetItem(string id);
 
         /// <summary>
         /// Добавляет сущность в коллекцию
@@ -42,13 +42,13 @@ namespace DAL.Interfaces
         /// </summary>
         /// <param name="id">ID сущности</param>
         /// <returns>true, если удаление успешно, иначе false</returns>
-        Task<bool> Delete(int id);
+        Task<bool> Delete(string id);
 
         /// <summary>
         /// Проверяет наличие в коллекции сущности по заданному ID
         /// </summary>
         /// <param name="id">ID сущности</param>
         /// <returns>true, если сущность существует, иначе false</returns>
-        Task<bool> Exists(int id);
+        Task<bool> Exists(string id);
     }
 }

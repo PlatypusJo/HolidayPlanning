@@ -32,6 +32,6 @@ namespace DAL.Interfaces
         /// </summary>
         /// <param name="id">ID сущности</param>
         /// <returns>true, если удаление успешно, иначе false</returns>
-        Task<WriteResult> Delete(int id);
+        Task<WriteResult> Delete(string id);
     }
 }

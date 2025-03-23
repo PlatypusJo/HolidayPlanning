@@ -47,7 +47,7 @@ namespace BLL.Services
             return await SaveAsync();
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(string id)
         {
             if (!await _unitOfWork.Contractor.Exists(id))
                 return false;
@@ -56,7 +56,7 @@ namespace BLL.Services
             return await SaveAsync();
         }
 
-        public async Task<bool> Exists(int id) => await _unitOfWork.Contractor.Exists(id);
+        public async Task<bool> Exists(string id) => await _unitOfWork.Contractor.Exists(id);
 
         public async Task<List<ContractorDto>> GetAll()
         {
@@ -69,7 +69,7 @@ namespace BLL.Services
             return result;
         }
 
-        public async Task<List<ContractorDto>> GetAllByHolidayId(int holidayId)
+        public async Task<List<ContractorDto>> GetAllByHolidayId(string holidayId)
         {
             var items = await _unitOfWork.Contractor.GetAllByHolidayId(holidayId);
 
@@ -80,7 +80,7 @@ namespace BLL.Services
             return result;
         }
 
-        public async Task<ContractorDto> GetById(int id)
+        public async Task<ContractorDto> GetById(string id)
         {
             var item = await _unitOfWork.Contractor.GetItem(id);
 

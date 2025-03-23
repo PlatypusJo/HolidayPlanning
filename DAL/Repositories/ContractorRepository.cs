@@ -46,13 +46,13 @@ namespace DAL.Repositories
             await docRef.SetAsync(contractor);
         }
         
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(string id)
         {
             DocumentReference docRef = _db.Collection("contractors").Document($"{id}");
             return await docRef.DeleteAsync() is not null;
         }
 
-        public async Task<bool> Exists(int id) 
+        public async Task<bool> Exists(string id) 
         {
             DocumentReference docRef = _db.Collection("contractors").Document($"{id}");
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
@@ -86,7 +86,7 @@ namespace DAL.Repositories
             return contractors;
         }
 
-        public async Task<List<Contractor>> GetAllByHolidayId(int holidayId)
+        public async Task<List<Contractor>> GetAllByHolidayId(string holidayId)
         {
             CollectionReference docRef = _db.Collection("contractors");
             Query query = docRef.WhereEqualTo("holidayId", holidayId);
@@ -114,7 +114,7 @@ namespace DAL.Repositories
             return contractors;
         }
 
-        public async Task<Contractor> GetItem(int id)
+        public async Task<Contractor> GetItem(string id)
         {
             DocumentReference docRef = _db.Collection("contractors").Document($"{id}");
             DocumentSnapshot document = await docRef.GetSnapshotAsync();

@@ -17,6 +17,6 @@ namespace DAL.Interfaces
         /// </summary>
         /// <param name="holidayId">ID мероприятия</param>
         /// <returns></returns>
-        Task<List<Contractor>> GetAllByHolidayId(int holidayId);
+        Task<List<Contractor>> GetAllByHolidayId(string holidayId);
     }
 }

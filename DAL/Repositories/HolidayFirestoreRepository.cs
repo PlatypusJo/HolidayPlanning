@@ -33,7 +33,7 @@ namespace DAL.Repositories
             await docRef.SetAsync(holiday);
         }
 
-        public async Task<WriteResult> Delete(int id)
+        public async Task<WriteResult> Delete(string id)
         {
             DocumentReference docRef = _db.Collection("holiday").Document($"{id}");
             return await docRef.DeleteAsync();

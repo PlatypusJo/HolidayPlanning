@@ -42,13 +42,13 @@ namespace DAL.Repositories
             await docRef.SetAsync(holiday);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(string id)
         {
             DocumentReference docRef = _db.Collection("holiday").Document($"{id}");
             return await docRef.DeleteAsync() is not null;
         }
 
-        public async Task<bool> Exists(int id)
+        public async Task<bool> Exists(string id)
         {
             DocumentReference docRef = _db.Collection("holiday").Document($"{id}");
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
@@ -78,7 +78,7 @@ namespace DAL.Repositories
             return holidays;
         }
 
-        public async Task<Holiday> GetItem(int id)
+        public async Task<Holiday> GetItem(string id)
         {
             DocumentReference docRef = _db.Collection("holiday").Document($"{id}");
             DocumentSnapshot document = await docRef.GetSnapshotAsync();

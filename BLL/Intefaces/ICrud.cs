@@ -27,14 +27,14 @@ namespace BLL.Intefaces
         /// </summary>
         /// <param name="id">ID сущности</param>
         /// <returns> Возращает true при успешном удалении экзмпляра сущности T, иначе false </returns>
-        Task<bool> Delete(int id);
+        Task<bool> Delete(string id);
 
         /// <summary>
         /// Проверяет существование сущности с заданным ID
         /// </summary>
         /// <param name="id">ID сущности</param>
         /// <returns>Возращает true, если экземпляр сущности с указанным id существует, иначе false </returns>
-        Task<bool> Exists(int id);
+        Task<bool> Exists(string id);
 
         /// <summary>
         /// Возвращает все экземпляры сущности в виде dto
@@ -47,7 +47,7 @@ namespace BLL.Intefaces
         /// </summary>
         /// <param name="id">ID сущности</param>
         /// <returns>Найденная сущность в форме dto (null, если сущность не найдена)</returns>
-        Task<T> GetById(int id);
+        Task<T> GetById(string id);
 
         /// <summary>
         /// Обновляет заданную сущность
