@@ -18,6 +18,11 @@ namespace DAL.Entities
         #region Свойства
 
         /// <summary>
+        /// Пользователи
+        /// </summary>
+        public virtual DbSet<User> User { get; set; }
+
+        /// <summary>
         /// Мероприятия
         /// </summary>
         public virtual DbSet<Holiday> Holiday { get; set; }

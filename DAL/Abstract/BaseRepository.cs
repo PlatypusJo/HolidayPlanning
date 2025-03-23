@@ -1,4 +1,5 @@
 ﻿using DAL.Entities;
+using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace DAL.Abstract
         /// <summary>
         /// Контекст базы данных
         /// </summary>
-        protected readonly HolidayPlanningDbContext _db;
+        protected readonly FirestoreDb _db;
 
         #endregion
 
@@ -27,7 +28,7 @@ namespace DAL.Abstract
         /// Конcтруктор с определением контекста
         /// </summary>
         /// <param name="db">Контекст базы данных</param>
-        public BaseRepository(HolidayPlanningDbContext db) => _db = db;
+        public BaseRepository(FirestoreDb db) => _db = db;
 
         #endregion
     }

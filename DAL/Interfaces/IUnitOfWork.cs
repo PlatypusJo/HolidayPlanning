@@ -20,6 +20,11 @@ namespace DAL.Interfaces
         IRepository<Holiday> Holiday { get; }
 
         /// <summary>
+        /// Репозиторий Пользователя
+        /// </summary>
+        IUserRepository<User> User { get; }
+
+        /// <summary>
         /// Репозиторий Подрядчика
         /// </summary>
         IContractorRepository Contractor { get; }

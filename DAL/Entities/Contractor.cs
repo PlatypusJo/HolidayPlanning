@@ -21,6 +21,11 @@ namespace DAL.Entities
         public int Id { get; set; }
 
         /// <summary>
+        /// ID пользователя, который нанял подрядчика
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
         /// ID Мероприятия, на которое нанят подрядчик
         /// </summary>
         public int HolidayId { get; set; }

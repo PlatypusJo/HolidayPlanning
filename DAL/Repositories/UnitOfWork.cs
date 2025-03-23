@@ -17,9 +17,19 @@ namespace DAL.Repositories
         #region Поля
 
         /// <summary>
+        /// Контекст FirestoreDb
+        /// </summary>
+        private readonly FirestoreDb _firestoreDb;
+
+        /// <summary>
         /// Контекст базы данных
         /// </summary>
         private readonly HolidayPlanningDbContext _db;
+
+        /// <summary>
+        /// Репозиторий Пользователя
+        /// </summary>
+        private UserRepository _userRepository;
 
         /// <summary>
         /// Репозиторий Мероприятия
@@ -39,12 +49,7 @@ namespace DAL.Repositories
         /// <summary>
         /// Репозиторий Статуса подрядчика
         /// </summary>
-        private ContractorStatusRepository _contractorStatusRepository;
-
-        /// <summary>
-        /// Контекст FirestoreDb
-        /// </summary>
-        private readonly FirestoreDb _firestoreDb;
+        private ContractorStatusRepository _contractorStatusRepository;              
 
         /// <summary>
         /// Репозиторий мероприятия для Firestore
@@ -54,6 +59,15 @@ namespace DAL.Repositories
         #endregion
 
         #region Свойства
+
+        public IUserRepository<User> User
+        {
+            get
+            {
+                _userRepository ??= new UserRepository(_firestoreDb);
+                return _userRepository;
+            }
+        }
 
         public IRepository<Holiday> Holiday
         {
@@ -68,7 +82,7 @@ namespace DAL.Repositories
         {
             get
             {
-                _contractorRepository ??= new ContractorRepository(_db);
+                _contractorRepository ??= new ContractorRepository(_firestoreDb);
                 return _contractorRepository;
             }
         }
@@ -77,7 +91,7 @@ namespace DAL.Repositories
         {
             get
             {
-                _contractorCategoryRepository ??= new ContractorCategoryRepository(_db);
+                _contractorCategoryRepository ??= new ContractorCategoryRepository(_firestoreDb);
                 return _contractorCategoryRepository;
             }
         }

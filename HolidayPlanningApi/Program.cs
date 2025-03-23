@@ -28,8 +28,8 @@ namespace HolidayPlanningApi
             builder.Services.AddControllers();
 
             // Init
-            string path = AppDomain.CurrentDomain.BaseDirectory + @"holidayplanning-da398-firebase-adminsdk-fbsvc-5c8115c79c.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
+            //string path = AppDomain.CurrentDomain.BaseDirectory;
+            //Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
             // реализация InMemory db
             builder.Services.AddSingleton<HolidayPlanningDbContext>(provider =>
