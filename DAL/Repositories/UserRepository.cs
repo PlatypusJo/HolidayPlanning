@@ -50,5 +50,112 @@ namespace DAL.Repositories
             var user = await userManager.FindByNameAsync(login);
             return user;
         }
+
+        public async Task<User> GetUserByLogin(string login)
+        {
+            try
+            {
+                var query = _db.Collection("users").WhereEqualTo("login", login);
+                var snapshot = await query.GetSnapshotAsync();
+                
+                if (snapshot.Count == 0)
+                    return null;
+                    
+                var userDoc = snapshot.Documents[0];
+                var user = userDoc.ConvertTo<User>();
+                
+                // Если UserID не заполнен, используем ID документа
+                if (string.IsNullOrEmpty(user.UserID))
+                {
+                    user.UserID = userDoc.Id;
+                }
+                
+                return user;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetUserByLogin: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<bool> ExistsByLogin(string login)
+        {
+            var query = _db.Collection("users").WhereEqualTo("login", login);
+            var snapshot = await query.GetSnapshotAsync();
+            return snapshot.Count > 0;
+        }
+
+        public async Task<User> GetUserById(string userId)
+        {
+            var query = _db.Collection("users").WhereEqualTo("UserID", userId);
+            var snapshot = await query.GetSnapshotAsync();
+            
+            if (snapshot.Count == 0)
+            {
+                // Попробуем поискать по ID документа
+                try
+                {
+                    var docRef = _db.Collection("users").Document(userId);
+                    var docSnapshot = await docRef.GetSnapshotAsync();
+                    
+                    if (docSnapshot.Exists)
+                    {
+                        var user = docSnapshot.ConvertTo<User>();
+                        // Если UserID не заполнен, используем ID документа
+                        if (string.IsNullOrEmpty(user.UserID))
+                        {
+                            user.UserID = docSnapshot.Id;
+                        }
+                        return user;
+                    }
+                    
+                    return null;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            
+            var userDoc = snapshot.Documents[0];
+            var result = userDoc.ConvertTo<User>();
+            
+            // Если UserID не заполнен, используем ID документа
+            if (string.IsNullOrEmpty(result.UserID))
+            {
+                result.UserID = userDoc.Id;
+            }
+            
+            return result;
+        }
+
+        public async Task<string> CreateFirestoreUser(User user)
+        {
+            try
+            {
+                // Создаем новый документ в коллекции users
+                var docRef = _db.Collection("users").Document();
+                
+                // Создаем словарь с данными пользователя
+                var userData = new Dictionary<string, object>
+                {
+                    { "UserID", user.UserID },
+                    { "login", user.Login },
+                    { "password", user.Password }
+                };
+                
+                // Сохраняем данные в Firestore
+                await docRef.SetAsync(userData);
+                
+                // Возвращаем ID документа
+                return docRef.Id;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in CreateFirestoreUser: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

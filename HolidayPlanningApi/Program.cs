@@ -4,6 +4,8 @@ using BLL.Services;
 using DAL.Entities;
 using DAL.Interfaces;
 using DAL.Repositories;
+using Google.Api;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HolidayPlanningApi
@@ -28,10 +30,10 @@ namespace HolidayPlanningApi
             builder.Services.AddControllers();
 
             // Init
-            string path = AppDomain.CurrentDomain.BaseDirectory + @"put here";
+            string path = AppDomain.CurrentDomain.BaseDirectory + @"holidayplanning-da398-firebase-adminsdk-fbsvc-5c8115c79c.json";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
-            // реализация InMemory db
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ InMemory db
             builder.Services.AddSingleton<HolidayPlanningDbContext>(provider =>
             {
                 var options = new DbContextOptionsBuilder<HolidayPlanningDbContext>()
@@ -39,10 +41,14 @@ namespace HolidayPlanningApi
                     .Options;
                 return new HolidayPlanningDbContext(options);
             });
+            builder.Services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<HolidayPlanningDbContext>()
+                .AddDefaultTokenProviders();
             builder.Services.AddScoped<IHolidayService, HolidayService>();
             builder.Services.AddScoped<IContractorService, ContractorService>();
             builder.Services.AddScoped<IContractorCategoryService, ContractorCategoryService>();
             builder.Services.AddScoped<IContractorStatusService, ContractorStatusService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddEndpointsApiExplorer();
