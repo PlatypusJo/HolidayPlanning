@@ -109,6 +109,28 @@ namespace HolidayPlanningApi.Controllers
         }
 
         /// <summary>
+        /// Обновляет статус подрядчика
+        /// </summary>
+        /// <param name="id">ID Подрядчика</param>
+        /// <param name="patchContractorStatusDto">Dto с измененным статусом подрядчика</param>
+        /// <returns></returns>
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<int>> Patch(string id, [FromBody] PatchContractorStatusDto patchContractorStatusDto)
+        {
+            if (id != patchContractorStatusDto.ContractorId)
+            {
+                return BadRequest();
+            }
+
+            if (!await _contractorService.PatchContractorStatus(patchContractorStatusDto))
+            {
+                return NotFound();
+            }
+
+            return Ok(patchContractorStatusDto.ContractorId);
+        }
+
+        /// <summary>
         /// Удаляет сущность по заданному ID
         /// </summary>
         /// <param name="id">ID сущности</param>

@@ -30,7 +30,7 @@ namespace HolidayPlanningApi
             builder.Services.AddControllers();
 
             // Init
-            string path = AppDomain.CurrentDomain.BaseDirectory + @"holidayplanning-da398-firebase-adminsdk-fbsvc-5c8115c79c.json";
+            string path = AppDomain.CurrentDomain.BaseDirectory + @"put key here";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
             // ���������� InMemory db

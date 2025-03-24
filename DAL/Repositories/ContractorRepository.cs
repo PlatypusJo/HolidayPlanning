@@ -155,6 +155,17 @@ namespace DAL.Repositories
             await docRef.UpdateAsync(contractor);
         }
 
+        public async Task PatchContractorStatus(string contractorId, string contractorStatusId)
+        {
+            DocumentReference docRef = _db.Collection("contractors").Document($"{contractorId}");
+            Dictionary<string, object> contractor = new Dictionary<string, object>
+            {
+                {"statusId", $"{contractorStatusId}"}
+            };
+
+            await docRef.UpdateAsync(contractor);
+        }
+
         #endregion
     }
 }

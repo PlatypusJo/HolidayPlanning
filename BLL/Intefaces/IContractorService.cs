@@ -18,5 +18,12 @@ namespace BLL.Intefaces
         /// <param name="holidayId">ID Мероприятия</param>
         /// <returns>Список dto сущностей</returns>
         Task<List<ContractorDto>> GetAllByHolidayId(string holidayId);
+
+        /// <summary>
+        /// Обновляет статус подрядчика
+        /// </summary>
+        /// <param name="itemDto">dto-класс, содержащий статус подрячика и id подрядчика</param>
+        /// <returns>true при успешном обновлении экземпляра сущности, иначе false</returns>
+        Task<bool> PatchContractorStatus(PatchContractorStatusDto itemDto);
     }
 }
