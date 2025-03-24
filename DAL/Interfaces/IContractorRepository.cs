@@ -18,5 +18,11 @@ namespace DAL.Interfaces
         /// <param name="holidayId">ID мероприятия</param>
         /// <returns></returns>
         Task<List<Contractor>> GetAllByHolidayId(string holidayId);
+
+        /// <summary>
+        /// Обновляет статус подрядчика
+        /// </summary>
+        /// <param name="contractorStatusId">Id статуса подрядчика</param>
+        Task PatchContractorStatus(string contractorId, string contractorStatusId);
     }
 }
