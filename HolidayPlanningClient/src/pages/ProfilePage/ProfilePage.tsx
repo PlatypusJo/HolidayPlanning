@@ -8,10 +8,12 @@ import {EventContainer, ProfileEventsWidget} from "../../widgets";
 import {EventCreateModal} from "../../modal/EventCreateModal";
 import {useNavigate} from "react-router-dom";
 import {RoutesPaths} from "../../shared/config";
+import {useFooterContext} from "../../shared/ui/Footer/Footer";
 
 export const ProfilePage = () => {
     const navigate = useNavigate()
     const notification = useNotification()
+    const {updateFloatButton } = useFooterContext()
     const [events, setEvents] = useState<EventData[]>([]);
     const [isCreateEventModal, setIsCreateEventModal] = useState(false)
     const [fetchGetEvents, isLoadingFetchGetEvents, errorFetchGetEvents] = useFetching(async () => {
@@ -27,10 +29,11 @@ export const ProfilePage = () => {
     })
 
     useEffect(() => {
+        updateFloatButton(undefined)
         fetchGetEvents()
     }, [])
 
-    const updateSelectedId = (newSelectedId: number) => {
+    const updateSelectedId = (newSelectedId: string) => {
         const targetEvent = events.find(event => event.id === newSelectedId);
         if (!targetEvent) return events; // Если не найден — возвращаем исходный массив
         const remainingEvents = events.filter(event => event.id !== newSelectedId);

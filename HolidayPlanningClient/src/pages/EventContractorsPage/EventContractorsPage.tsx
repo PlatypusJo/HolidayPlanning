@@ -13,7 +13,7 @@ import {Button, Checkbox, MenuProps} from "antd";
 import {ContractorCreateModal} from "../../modal/ContractorCreateModal.tsx";
 
 export const EventContractorsPage = () => {
-    const eventId = Number(useParams().id)
+    const eventId = `${useParams().id}`
     const notification = useNotification()
     const [contractors, setContractors] = useState<ContractorsData[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -62,12 +62,12 @@ export const EventContractorsPage = () => {
         setIsCreateContractorModal(false);
     };
 
-    const onDeleteContractor = (contractorId: number) => {
+    const onDeleteContractor = (contractorId: string) => {
         const updatedContractors = contractors.filter(contractor => contractor.id !== contractorId);
         setContractors(updatedContractors);
     }
 
-    const onChangeContractor = (contractorId: number, newContractor: ContractorsData) => {
+    const onChangeContractor = (contractorId: string, newContractor: ContractorsData) => {
         const index = contractors.findIndex(contractor => contractor.id === contractorId);
 
         if (index !== -1) {
@@ -79,7 +79,6 @@ export const EventContractorsPage = () => {
 
             // Обновляем состояние
             setContractors(updatedContractors);
-            console.log(updatedContractors)
         } else {
             console.warn(`Подрядчик с id ${contractorId} не найден`);
         }

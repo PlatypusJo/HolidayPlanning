@@ -12,8 +12,8 @@ import {RoutesPaths} from "../../shared/config";
 
 export const EventContainer: React.FC<{
     event: EventData,
-    onChangeEvent: (eventId: number, newEvent: EventData) => void,
-    onDeleteEvent: (eventId: number) => void,
+    onChangeEvent: (eventId: string, newEvent: EventData) => void,
+    onDeleteEvent: (eventId: string) => void,
 }> = ({ event, onChangeEvent, onDeleteEvent }) => {
     const navigate = useNavigate()
     const notification = useNotification()

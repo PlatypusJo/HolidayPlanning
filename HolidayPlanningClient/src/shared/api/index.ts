@@ -3,6 +3,7 @@ import axios from "axios";
 const apiUrl = 'https://localhost:7230/api'
 const eventControllerUrl = `${apiUrl}/Holiday`
 const contractorControllerUrl = `${apiUrl}/Contractor`
+const authControllerUrl = `${apiUrl}/Auth`
 
 
 export function getEnumMapping<T extends object>(enumObj: T, value: keyof T | T[keyof T]): string | number | undefined {
@@ -17,7 +18,7 @@ export function getEnumMapping<T extends object>(enumObj: T, value: keyof T | T[
 }
 
 export interface EventDataResponse {
-    id: number,
+    id: string,
     title: string,
     startDate: string,
     endDate: string,
@@ -25,7 +26,7 @@ export interface EventDataResponse {
 }
 
 export interface EventData {
-    id: number,
+    id: string,
     title: string,
     startDate: Date,
     endDate: Date,
@@ -57,6 +58,7 @@ export const getAllEvents = async () => {
 }
 
 export interface CreateEventData {
+    id: string
     title: string,
     startDate: Date,
     endDate: Date,
@@ -86,7 +88,7 @@ export const createEvent = async (body: CreateEventData) => {
     )
 }
 
-export const deleteEvent = async (eventId: number) => {
+export const deleteEvent = async (eventId: string) => {
     return await axios.delete(`${eventControllerUrl}/${eventId}`, {
         headers: {
             "Content-Type": "application/json",
@@ -102,7 +104,7 @@ export const deleteEvent = async (eventId: number) => {
     )
 }
 
-export const changeEvent = async (eventId: number, body: EventData) => {
+export const changeEvent = async (eventId: string, body: EventData) => {
     return await axios.put(`${eventControllerUrl}/${eventId}`, body, {
         headers: {
             "Content-Type": "application/json",
@@ -145,7 +147,7 @@ export const contractorStatus = Object.values(ContractorStatus).filter(
 )
 
 export interface ContractorsData{
-    id: number
+    id: string
     name: string,
     description: string,
     category: string,
@@ -155,7 +157,7 @@ export interface ContractorsData{
     status: string
 }
 
-export const getEventContractors = async (eventId: number) => {
+export const getEventContractors = async (eventId: string) => {
     return await axios.get(`${contractorControllerUrl}/HolidayId/${eventId}`, {
         headers: {
             "Content-Type": "application/json",
@@ -171,8 +173,8 @@ export const getEventContractors = async (eventId: number) => {
                 phoneNumber: contractor.phoneNumber,
                 email: contractor.email,
                 serviceCost: contractor.serviceCost,
-                category: getEnumMapping(ContractorCategory, contractor.сategoryId),
-                status: getEnumMapping(ContractorStatus, contractor.statusId)
+                category: getEnumMapping(ContractorCategory, Number(contractor.сategoryId)),
+                status: getEnumMapping(ContractorStatus, Number(contractor.statusId))
             }));
             return mapData
         }
@@ -185,9 +187,10 @@ export const getEventContractors = async (eventId: number) => {
 }
 
 export interface ContractorDataRequest {
-    holidayId: number,
-    statusId: number,
-    сategoryId: number,
+    id: string
+    holidayId: string,
+    statusId: string,
+    сategoryId: string,
     title: string,
     description: string,
     phoneNumber: string,
@@ -196,10 +199,10 @@ export interface ContractorDataRequest {
 }
 
 export interface ContractorDataResponse {
-    id: number
-    holidayId: number,
-    statusId: number,
-    сategoryId: number,
+    id: string
+    holidayId: string,
+    statusId: string,
+    сategoryId: string,
     title: string,
     description: string,
     phoneNumber: string,
@@ -223,8 +226,8 @@ export const createContractor = async (body: ContractorDataRequest): Promise<Con
                 phoneNumber: data.phoneNumber,
                 email: data.email,
                 serviceCost: data.serviceCost,
-                category: getEnumMapping(ContractorCategory, data.сategoryId),
-                status: getEnumMapping(ContractorStatus, data.statusId)
+                category: getEnumMapping(ContractorCategory, Number(data.сategoryId)),
+                status: getEnumMapping(ContractorStatus, Number(data.statusId))
             } as ContractorsData
         }
     ).catch(
@@ -235,7 +238,7 @@ export const createContractor = async (body: ContractorDataRequest): Promise<Con
     )
 }
 
-export const deleteContractor = async (contractorId: number) => {
+export const deleteContractor = async (contractorId: string) => {
     return await axios.delete(`${contractorControllerUrl}/${contractorId}`, {
         headers: {
             "Content-Type": "application/json",
@@ -251,7 +254,7 @@ export const deleteContractor = async (contractorId: number) => {
     )
 }
 
-export const changeContractor = async (contractorId: number, body: ContractorDataResponse) => {
+export const changeContractor = async (contractorId: string, body: ContractorDataResponse) => {
     return await axios.put(`${contractorControllerUrl}/${contractorId}`, body, {
         headers: {
             "Content-Type": "application/json",
@@ -267,8 +270,23 @@ export const changeContractor = async (contractorId: number, body: ContractorDat
     )
 }
 
-export const changeContractorStatus = async (contractorId: number, newStatusId: number)=> {
-    return true
+export const changeContractorStatus = async (contractorId: string, newStatusId: number)=> {
+    return await axios.patch(`${contractorControllerUrl}/${contractorId}`, {
+        contractorId,
+        contractorStatusId: `${newStatusId}`
+    }, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при изменении статуса подрядчика: ${error}`)
+            return undefined
+        }
+    )
 }
 
 export interface LoginData {
@@ -276,8 +294,23 @@ export interface LoginData {
     password: string
 }
 
+export interface AuthResponse{
+    userID: string,
+    login: string
+}
+
 export const auth = async (data: LoginData)=> {
-    return true
+    return await axios.post(`${authControllerUrl}/login`, data, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(data => {
+        return data.data as AuthResponse
+    }).catch(error => {
+        console.error(`Ошибка при авторизации: ${error}`)
+        return undefined
+    })
 }
 
 export interface RegistrationData {
@@ -287,6 +320,20 @@ export interface RegistrationData {
 }
 
 export const registration = async (data: RegistrationData)=> {
-    return true
+    if(data.password === data.repeatPassword){
+        return await axios.post(`${authControllerUrl}/register`, data, {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: 'application/json'
+            }
+        }).then(data => {
+            return data.status === 200
+        }).catch(error => {
+            console.error(`Ошибка при авторизации: ${error}`)
+            return undefined
+        })
+    }
+
+    return false
 }
 

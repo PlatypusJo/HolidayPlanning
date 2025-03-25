@@ -37,12 +37,12 @@ export const EventsPage = () => {
         setEvents([...events, newEvent])
     }
 
-    const onDeleteEvent = (eventId: number) => {
+    const onDeleteEvent = (eventId: string) => {
         const updatedEvents = events.filter(event => event.id !== eventId);
         setEvents(updatedEvents);
     }
 
-    const onChangeEvent = (eventId: number, newEvent: EventData) => {
+    const onChangeEvent = (eventId: string, newEvent: EventData) => {
         const index = events.findIndex(event => event.id === eventId);
 
         if (index !== -1) {

@@ -37,6 +37,7 @@ export const EventCreateModal: React.FC<{
     const [fetchCreateEvents, isLoadingFetchCreateEvents, errorFetchCreateEvents] = useFetching(async () => {
         try {
             const response = await createEvent({
+                id: `${Date.now()}`,
                 title: formData.title,
                 budget: Number(formData.budget),
                 startDate: new Date(`${formData.startDate} ${formData.startTime}`),
