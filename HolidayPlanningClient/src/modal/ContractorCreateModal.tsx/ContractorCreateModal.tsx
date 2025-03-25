@@ -25,7 +25,7 @@ type FormData = {
 };
 
 export const ContractorCreateModal: React.FC<{
-    eventId: number,
+    eventId: string,
     visible: boolean;
     onCreateContractor: (newContractor: ContractorsData) => void;
     onCancel: () => void;
@@ -47,17 +47,18 @@ export const ContractorCreateModal: React.FC<{
     const [fetchCreateContractor, isLoadingFetchCreateContractor, errorFetchCreateContractor] = useFetching(async () => {
         try {
             const response = await createContractor({
+                id: `${Date.now()}`,
                 title: formData.name,
                 description: formData.description,
                 phoneNumber: formData.phoneNumber,
                 email: formData.email,
                 serviceCost: Number(formData.serviceCost),
                 holidayId: eventId,
-                statusId: Number(getEnumMapping(ContractorStatus, formData.status as keyof typeof ContractorStatus)),
-                сategoryId: Number(getEnumMapping(ContractorCategory, formData.category as keyof typeof ContractorCategory))
+                statusId: `${getEnumMapping(ContractorStatus, formData.status as keyof typeof ContractorStatus)}`,
+                сategoryId: `${getEnumMapping(ContractorCategory, formData.category as keyof typeof ContractorCategory)}`
             })
             if (response) {
-                // onCreateContractor(response)
+                onCreateContractor(response)
                 notification.success(`Подрядчик '${formData.name}' успешно добавлен!`)
             }
         } catch (e) {
@@ -103,7 +104,7 @@ export const ContractorCreateModal: React.FC<{
 
     const handleSubmit = () => {
         const newContractor: ContractorsData = {
-            id: Date.now(), // Генерация уникального id
+            id: `${Date.now()}`, // Генерация уникального id
             name: formData.name,
             description: formData.description,
             category: formData.category,
@@ -112,8 +113,7 @@ export const ContractorCreateModal: React.FC<{
             serviceCost: parseFloat(formData.serviceCost) || 0,
             status: formData.status
         };
-        
-        onCreateContractor(newContractor);
+
         fetchCreateContractor()
         handleClose();
     };

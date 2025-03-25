@@ -14,10 +14,10 @@ import {useParams} from "react-router-dom";
 
 export const ContractorContainer: React.FC<{
     contractor: ContractorsData,
-    onChangeContractor: (contractorId: number, newContractor: ContractorsData) => void,
-    onDeleteContractor: (contractorId: number) => void,
+    onChangeContractor: (contractorId: string, newContractor: ContractorsData) => void,
+    onDeleteContractor: (contractorId: string) => void,
 }> = ({ contractor, onChangeContractor, onDeleteContractor }) => {
-    const eventId = Number(useParams().id)
+    const eventId = `${useParams().id}`
     const notification = useNotification()
     const [isChangeContractorModal, setIsChangeContractorModal] = useState(false);
     const [fetchDeleteContractor, isLoadingFetchDeleteContractor, errorFetchDeleteContractor] = useFetching(async () => {
@@ -34,10 +34,12 @@ export const ContractorContainer: React.FC<{
     const [fetchChangeStatus, isLoadingFetchChangeStatus, errorFetchChangeStatus] = useFetching(async (newStatus: string) => {
         try {
             const response = await changeContractorStatus(contractor.id, Number(getEnumMapping(ContractorStatus, newStatus as keyof typeof ContractorStatus)))
-            onChangeContractor(contractor.id, {
-                ...contractor,
-                status: newStatus
-            })
+            if(response && response.status === 200){
+                onChangeContractor(contractor.id, {
+                    ...contractor,
+                    status: newStatus
+                })
+            }
         } catch (e) {
             notification.error(`Ошибка при изменении статуса подрядчика '${contractor.name}': ${errorFetchChangeStatus}`)
         }

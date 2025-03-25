@@ -25,10 +25,10 @@ type FormData = {
 };
 
 export const ContractorChangeModal: React.FC<{
-    eventId: number,
+    eventId: string,
     contractor: ContractorsData
     visible: boolean;
-    onChangeContractor: (contractorId: number, newContractor: ContractorsData) => void;
+    onChangeContractor: (contractorId: string, newContractor: ContractorsData) => void;
     onCancel: () => void;
 }> = ({ eventId, contractor, visible, onChangeContractor, onCancel }) => {
     const [formData, setFormData] = useState<FormData>({
@@ -52,8 +52,8 @@ export const ContractorChangeModal: React.FC<{
                 email: formData.email,
                 serviceCost: Number(formData.serviceCost),
                 holidayId: eventId,
-                statusId: Number(getEnumMapping(ContractorStatus, formData.status as keyof typeof ContractorStatus)),
-                сategoryId: Number(getEnumMapping(ContractorCategory, formData.category as keyof typeof ContractorCategory))
+                statusId: `${getEnumMapping(ContractorStatus, formData.status as keyof typeof ContractorStatus)}`,
+                сategoryId: `${getEnumMapping(ContractorCategory, formData.category as keyof typeof ContractorCategory)}`
             })
             if (response) {
                 onChangeContractor(contractor.id, {

@@ -29,9 +29,9 @@ export const AuthorizationModal: React.FC<AuthorizationModalProps> =
                 const response = await auth(formData)
 
                 if(response){
-                    localStorage.setItem('userId', `${Date.now()}`)
+                    localStorage.setItem('userId', response.userID)
                     navigate(RoutesPaths.PROFILE)
-                    setIsAuth(response);
+                    setIsAuth(true);
                     notification.success(`${formData.login} приведствую в системе!`)
                 }
             } catch (e) {

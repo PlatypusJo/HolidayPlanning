@@ -21,7 +21,7 @@ type FormData = {
 export const EventChangeModal: React.FC<{
     event: EventData
     visible: boolean;
-    onChangeEvent: (eventId: number, newEvent: EventData) => void;
+    onChangeEvent: (eventId: string, newEvent: EventData) => void;
     onCancel: () => void;
 }> = ({ event, visible, onChangeEvent, onCancel }) => {
     const initialFormState: FormData = {

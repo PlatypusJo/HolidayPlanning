@@ -7,10 +7,10 @@ import cl from './ProfileEventsWidget.module.css'
 
 export const ProfileEventsWidget: React.FC<{
     events: EventData[],
-    updateSelectedEventId: (newSelectedId: number) => void,
+    updateSelectedEventId: (newSelectedId: string) => void,
 }> = ({events,  updateSelectedEventId}) => {
     const notification = useNotification()
-    const [selectEventId, setSelectEventId] = useState<number | undefined>(Number(localStorage.getItem('selectEventId')));
+    const [selectEventId, setSelectEventId] = useState<string | undefined | null>(localStorage.getItem('selectEventId'));
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [beforeEventTime, setBeforeEventTime] = useState(events.find(ev => ev.id === selectEventId)?.startDate)
 
@@ -50,7 +50,8 @@ export const ProfileEventsWidget: React.FC<{
         notification.success(`Выбрано мероприятие: ${event.title}`);
     };
 
-    const updateSelectedId = (newSelectedId: number) => {
+    const updateSelectedId = (newSelectedId: string) => {
+        console.log(newSelectedId)
         setSelectEventId(newSelectedId)
         updateSelectedEventId(newSelectedId)
     }
@@ -98,18 +99,18 @@ export const ProfileEventsWidget: React.FC<{
                                                 onClick={() => handleSelectEvent(event)}
                                             >
                                                 {event.title}
-                                                {events[0].title === event.title ? (
+                                                {(selectEventId ? events.find(ev => ev.id === selectEventId)!.title : events[0].title) === event.title ? (
                                                     <CheckOutlined className={cl.checkIcon}/>) : ("")}
                                             </div>
                                             <div
-                                                className={cl.resumeDateEvent}>{formatDate(events[0].startDate)}</div>
+                                                className={cl.resumeDateEvent}>{formatDate(selectEventId ? events.find(ev => ev.id === selectEventId)!.startDate : events[0].startDate)}</div>
                                         </div>
                                     ))}
                                 </>
                             ) : (
                                 <>
-                                    <div className={cl.resumeNameEvent}>{events[0].title}</div>
-                                    <div className={cl.resumeDateEvent}>{formatDate(events[0].startDate)}</div>
+                                    <div className={cl.resumeNameEvent}>{selectEventId ? events.find(ev => ev.id === selectEventId)!.title : events[0].title}</div>
+                                    <div className={cl.resumeDateEvent}>{formatDate(selectEventId ? events.find(ev => ev.id === selectEventId)!.startDate : events[0].startDate)}</div>
                                 </>
                             )}
                         </div>
