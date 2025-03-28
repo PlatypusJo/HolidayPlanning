@@ -44,7 +44,27 @@ namespace DAL.Repositories
         /// <summary>
         /// Репозиторий Статуса подрядчика
         /// </summary>
-        private ContractorStatusRepository _contractorStatusRepository;              
+        private ContractorStatusRepository _contractorStatusRepository;
+
+        /// <summary>
+        /// Репозиторий Гостя
+        /// </summary>
+        private MemberRepository _memberRepository;
+
+        /// <summary>
+        /// Репозиторий Категории гостя
+        /// </summary>
+        private MemberCategoryRepository _memberCategoryRepository;
+
+        /// <summary>
+        /// Репозиторий Категории меню
+        /// </summary>
+        private MenuCategoryRepository _menuCategoryRepository;
+
+        /// <summary>
+        /// Репозиторий Статуса гостя
+        /// </summary>
+        private MemberStatusRepository _memberStatusRepository;
 
         /// <summary>
         /// Репозиторий мероприятия для Firestore
@@ -97,6 +117,42 @@ namespace DAL.Repositories
             {
                 _contractorStatusRepository ??= new ContractorStatusRepository(_firestoreDb);
                 return _contractorStatusRepository;
+            }
+        }
+
+        public IMemberRepository Member
+        {
+            get
+            {
+                _memberRepository ??= new MemberRepository(_firestoreDb);
+                return _memberRepository;
+            }
+        }
+
+        public IFrozenCollectionRepository<MemberCategory> MemberCategory
+        {
+            get
+            {
+                _memberCategoryRepository ??= new MemberCategoryRepository(_firestoreDb);
+                return _memberCategoryRepository;
+            }
+        }
+
+        public IFrozenCollectionRepository<MemberStatus> MemberStatus
+        {
+            get
+            {
+                _memberStatusRepository ??= new MemberStatusRepository(_firestoreDb);
+                return _memberStatusRepository;
+            }
+        }
+
+        public IFrozenCollectionRepository<MenuCategory> MenuCategory
+        {
+            get
+            {
+                _menuCategoryRepository ??= new MenuCategoryRepository(_firestoreDb);
+                return _menuCategoryRepository;
             }
         }
 

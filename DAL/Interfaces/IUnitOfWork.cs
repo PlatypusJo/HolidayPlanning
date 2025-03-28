@@ -40,6 +40,26 @@ namespace DAL.Interfaces
         IFrozenCollectionRepository<ContractorStatus> ContractorStatus { get; }
 
         /// <summary>
+        /// Репозиторий Гостя
+        /// </summary>
+        IMemberRepository Member { get; }
+
+        /// <summary>
+        /// Репозиторий Категории гостя
+        /// </summary>
+        IFrozenCollectionRepository<MemberCategory> MemberCategory { get; }
+
+        /// <summary>
+        /// Репозиторий Статуса гостя
+        /// </summary>
+        IFrozenCollectionRepository<MemberStatus> MemberStatus { get; }
+
+        /// <summary>
+        /// Репозиторий Категории меню
+        /// </summary>
+        IFrozenCollectionRepository<MenuCategory> MenuCategory { get; }
+
+        /// <summary>
         /// Репозиторий мероприятия для Firestore
         /// </summary>
         IHolidayRepositoryFirestore<Holiday> HolidayFirestore { get; }
