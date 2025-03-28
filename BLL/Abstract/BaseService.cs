@@ -24,7 +24,7 @@ namespace BLL.Abstract
         #region Конструкторы
 
         /// <summary>
-        /// Контрукор на основе UnitOfWork
+        /// Конструкор на основе UnitOfWork
         /// </summary>
         /// <param name="unitOfWork">Экземпляр UnitOfWork</param>
         protected BaseService(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;

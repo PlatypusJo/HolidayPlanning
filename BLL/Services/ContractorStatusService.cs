@@ -18,7 +18,7 @@ namespace BLL.Services
         #region Конструкторы
 
         /// <summary>
-        /// Контрукор на основе UnitOfWork
+        /// Конструкор на основе UnitOfWork
         /// </summary>
         /// <param name="unitOfWork">Экземпляр UnitOfWork</param>
         public ContractorStatusService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
