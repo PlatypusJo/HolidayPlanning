@@ -50,6 +50,11 @@ namespace DAL.Entities
         /// </summary>
         public virtual ICollection<Contractor> Contractors { get; set; }
 
+        /// <summary>
+        /// Гости мероприятия
+        /// </summary>
+        public virtual ICollection<Member> Members { get; set; }
+
         #endregion
 
         #region Конструкторы
@@ -60,6 +65,7 @@ namespace DAL.Entities
         public Holiday() 
         {
             Contractors = new HashSet<Contractor>();
+            Members = new HashSet<Member>();
         }
         
         #endregion
