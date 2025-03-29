@@ -5,6 +5,7 @@ export enum RoutesPaths {
     EVENTS = '/events',
     GUESTS = '/guests',
     EVENTS_CONTRACTORS = '/events/:id/contractors',
+    EVENTS_GUESTS = '/events/:id/guests',
     BUDGET = '/budget',
     TASKS = '/tasks',
 }

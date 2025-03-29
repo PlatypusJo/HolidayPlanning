@@ -6,6 +6,7 @@ import {HomePage} from "../../pages/HomePage/HomePage";
 import {useNavigate} from "react-router-dom";
 import {useFooterContext} from "../../shared/ui/Footer/Footer";
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
+import {EventMembersPage} from "../../pages/EventMembersPage/EventMembersPage";
 
 type AppRoutes = {
     path: RoutesPaths | "*",
@@ -37,5 +38,6 @@ export const routes: AppRoutes[] = [
     { path: RoutesPaths.PROFILE, element:<ProtectedRoute><ProfilePage/> </ProtectedRoute> },
     { path: RoutesPaths.EVENTS, element: <ProtectedRoute><EventsPage/> </ProtectedRoute>},
     { path: RoutesPaths.EVENTS_CONTRACTORS, element: <ProtectedRoute><EventContractorsPage/></ProtectedRoute> },
+    { path: RoutesPaths.EVENTS_GUESTS, element: <ProtectedRoute><EventMembersPage/></ProtectedRoute> },
     { path: "*", element: <NotFoundRedirect/> },
 ]

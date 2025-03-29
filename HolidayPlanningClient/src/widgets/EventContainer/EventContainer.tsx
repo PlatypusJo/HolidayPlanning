@@ -1,5 +1,12 @@
 import cl from "./ui/EventContainer.module.css";
-import {DeleteOutlined, EditOutlined, PlusCircleOutlined, SettingOutlined, SolutionOutlined} from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    EditOutlined,
+    PlusCircleOutlined,
+    SettingOutlined,
+    SolutionOutlined,
+    TeamOutlined
+} from "@ant-design/icons";
 import {formatDate, formatTimeDifference} from "../../shared/lib";
 import React, {useState} from "react";
 import {deleteEvent, EventData, ContractorsData} from "../../shared/api";
@@ -96,6 +103,34 @@ export const EventContainer: React.FC<{
                 </Button>
             ),
             key: '3',
+        }, {
+            type: 'divider',
+        }, {
+            label: (
+                <Button
+                    icon={<TeamOutlined/>}
+                    iconPosition={"start"}
+                    onClick={() => navigate(`${RoutesPaths.EVENTS_GUESTS}`.replace(":id", `${event.id}`))}
+                    color={"default"}
+                    variant={"link"}
+                >
+                    Гости
+                </Button>
+            ),
+            key: '4',
+        }, {
+            label: (
+                <Button
+                    icon={<><PlusCircleOutlined/> <TeamOutlined/></>}
+                    iconPosition={"start"}
+                    onClick={() => notification.info('Добавление гостя в разработке!')}
+                    color={"default"}
+                    variant={"link"}
+                >
+                    Добавить гостя
+                </Button>
+            ),
+            key: '5',
         }
     ];
 
