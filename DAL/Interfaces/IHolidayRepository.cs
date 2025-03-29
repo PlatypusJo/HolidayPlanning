@@ -16,7 +16,7 @@ namespace DAL.Interfaces
         /// Получение всех мероприятий конкретного пошльзователя
         /// </summary>
         /// <param name="userId">ID пользователя</param>
-        /// <returns></returns>
+        /// <returns> Список мероприятий конкретного пользователя. </returns>
         Task<List<Holiday>> GetAllByUserId(string userId);
     }
 }

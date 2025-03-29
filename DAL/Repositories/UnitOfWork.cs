@@ -84,7 +84,7 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<Holiday> Holiday
+        public IHolidayRepository Holiday
         {
             get
             {
