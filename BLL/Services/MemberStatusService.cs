@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace BLL.Services
 {
     /// <summary>
-    /// Сервис Статуса подрядчика
+    /// Сервис Статуса гостя
     /// </summary>
-    public class ContractorStatusService : BaseService, IContractorStatusService
+    public class MemberStatusService : BaseService, IMemberStatusService
     {
         #region Конструкторы
 
@@ -21,18 +21,18 @@ namespace BLL.Services
         /// Конструкор на основе UnitOfWork
         /// </summary>
         /// <param name="unitOfWork">Экземпляр UnitOfWork</param>
-        public ContractorStatusService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public MemberStatusService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         #endregion
 
         #region Методы
 
-        public async Task<List<ContractorStatusDto>> GetAll()
+        public async Task<List<MemberStatusDto>> GetAll()
         {
-            var items = await _unitOfWork.ContractorStatus.GetAll();
+            var items = await _unitOfWork.MemberStatus.GetAll();
 
             var result = items
-                .Select(item => new ContractorStatusDto(item))
+                .Select(item => new MemberStatusDto(item))
                 .ToList();
 
             return result;
