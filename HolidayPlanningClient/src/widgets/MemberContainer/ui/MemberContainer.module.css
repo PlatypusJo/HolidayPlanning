@@ -1,0 +1,45 @@
+.blockContractorBack {
+    width: 100%;
+    border: 2px solid #FE954C;
+    margin-top: 1%;
+    padding: 1.5vh 2vw 1.5vh 1.5vw;
+    position: relative;
+}
+
+.blockContractorName {
+    width: 100%;
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.contractorStatus {
+    color: #888888;
+    font-size: 1.8vh;
+}
+
+.statusLink {
+    color: #888888;
+}
+
+.statusLink:hover{
+    color: #FE954C;
+}
+
+.settingsContractorIcon {
+    color: #888888;
+    margin-left: auto;
+}
+
+.settingsContractorIcon :hover {
+    color: #FE954C;
+}
+
+
+.description {
+    text-align: start;
+    font-size: 2vh;
+    margin-top: 1vh;
+}

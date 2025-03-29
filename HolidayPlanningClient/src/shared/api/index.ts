@@ -1,9 +1,11 @@
 import axios from "axios";
+import {data} from "react-router-dom";
 
 const apiUrl = 'https://localhost:7230/api'
 const eventControllerUrl = `${apiUrl}/Holiday`
 const contractorControllerUrl = `${apiUrl}/Contractor`
 const authControllerUrl = `${apiUrl}/Auth`
+const memberControllerUrl = `${apiUrl}/Member`
 
 
 export function getEnumMapping<T extends object>(enumObj: T, value: keyof T | T[keyof T]): string | number | undefined {
@@ -34,7 +36,7 @@ export interface EventData {
 }
 
 export const getAllEvents = async () => {
-    return await axios.get(eventControllerUrl, {
+    return await axios.get(`${eventControllerUrl}/UserId/${localStorage.getItem('userId')}`, {
         headers: {
             "Content-Type": "application/json",
             Accept: 'application/json'
@@ -138,11 +140,35 @@ export enum ContractorStatus {
     "отклонен" = 3
 }
 
+export enum MemberCategory {
+    "семья" = 1,
+    "друзья" = 2,
+    "коллеги" = 3,
+    "родственники" = 4,
+    "группа не указана" = 5
+}
+
+export enum MenuCategory {
+    "взрослое меню" = 1,
+    "детское меню" = 2,
+    "вегетарианское меню" = 3,
+    "диетическое меню" = 4,
+    "меню не указано" = 5
+}
+
 export const contractorCategories = Object.values(ContractorCategory).filter(
     value => typeof value === "string"
 )
 
 export const contractorStatus = Object.values(ContractorStatus).filter(
+    value => typeof value === "string"
+)
+
+export const memberCategories = Object.values(MemberCategory).filter(
+    value => typeof value === "string"
+)
+
+export const menuCategories = Object.values(MenuCategory).filter(
     value => typeof value === "string"
 )
 
@@ -232,7 +258,7 @@ export const createContractor = async (body: ContractorDataRequest): Promise<Con
         }
     ).catch(
         error => {
-            console.error(`Ошибка при создании мероприятия: ${error}`)
+            console.error(`Ошибка при создании подрядчика: ${error}`)
             return undefined
         }
     )
@@ -337,3 +363,138 @@ export const registration = async (data: RegistrationData)=> {
     return false
 }
 
+export interface MemberResponseData {
+    id: string,
+    holidayId: string,
+    memberCategoryId: string,
+    memberStatusId: string,
+    menuCategoryId: string,
+    fio: string,
+    phoneNumber: string,
+    email: string,
+    comment: string,
+    isChild: boolean,
+    isMale: boolean,
+    seat: string
+}
+
+export interface MemberData {
+    id: string,
+    holidayId: string,
+    memberCategory: string,
+    memberStatus: string,
+    menuCategory: string,
+    fio: string,
+    phoneNumber: string,
+    email: string,
+    comment: string,
+    isChild: boolean,
+    isMale: boolean,
+    seat: string
+}
+
+export const getMembersByEventId = async (eventId: string) => {
+    return await axios.get(`${memberControllerUrl}/HolidayId/${eventId}`).then(
+        response => {
+            const data = response.data
+            const mapData: MemberData[] = data.map((member: MemberResponseData) => ({
+                id: member.id,
+                holidayId: member.holidayId,
+                memberCategory: getEnumMapping(MemberCategory, Number(member.memberCategoryId)),
+                memberStatus: getEnumMapping(ContractorStatus, Number(member.memberStatusId)),
+                menuCategory: getEnumMapping(MenuCategory, Number(member.menuCategoryId)),
+                fio: member.fio,
+                phoneNumber: member.phoneNumber,
+                email: member.email,
+                comment: member.comment,
+                isChild: member.isChild,
+                isMale: member.isMale,
+                seat: member.seat
+            }));
+            return mapData
+        }
+    )
+}
+
+export const changeMemberStatus = async (memberId: string, newStatusId: number)=> {
+    return await axios.patch(`${memberControllerUrl}/${memberId}`, {
+        memberId,
+        memberStatusId: `${newStatusId}`
+    }, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при изменении статуса гостя: ${error}`)
+            return undefined
+        }
+    )
+}
+
+export const deleteMember = async (memberId: string) => {
+    return await axios.delete(`${memberControllerUrl}/${memberId}`, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при удалении гостя: ${error}`)
+            return undefined
+        }
+    )
+}
+
+export const createMember = async (body: MemberResponseData): Promise<MemberData | undefined> => {
+    return await axios.post(memberControllerUrl, body, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => {
+            const data = response.data as MemberResponseData
+            return {
+                id: data.id,
+                holidayId: data.holidayId,
+                memberCategory: getEnumMapping(MemberCategory, Number(data.memberCategoryId)),
+                memberStatus: getEnumMapping(ContractorStatus, Number(data.memberStatusId)),
+                menuCategory: getEnumMapping(MenuCategory, Number(data.menuCategoryId)),
+                fio: data.fio,
+                phoneNumber: data.phoneNumber,
+                email: data.email,
+                comment: data.comment,
+                isChild: data.isChild,
+                isMale: data.isMale,
+                seat: data.seat
+            } as MemberData
+        }
+    ).catch(
+        error => {
+            console.error(`Ошибка при создании гостя: ${error}`)
+            return undefined
+        }
+    )
+}
+
+export const changeMember = async (memberId: string, body: MemberResponseData) => {
+    return await axios.put(`${memberControllerUrl}/${memberId}`, body, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => response
+    ).catch(
+        error => {
+            console.error(`Ошибка при изменении гостя: ${error}`)
+            return undefined
+        }
+    )
+}
