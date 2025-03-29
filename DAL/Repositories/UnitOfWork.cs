@@ -156,15 +156,6 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<Holiday> HolidayFirestore
-        {
-            get
-            {
-                _holidayFirestoreRep ??= new HolidayRepository(_firestoreDb);
-                return _holidayFirestoreRep;
-            }
-        }
-
         #endregion
 
         #region Конструкторы
