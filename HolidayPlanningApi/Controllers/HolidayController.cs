@@ -1,5 +1,6 @@
 using BLL.DTOs;
 using BLL.Intefaces;
+using BLL.Services;
 using DAL.Entities;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,19 @@ namespace HolidayPlanningApi.Controllers
         public async Task<ActionResult<IEnumerable<HolidayDto>>> GetAll()
         {
             var holidays = (await _holidayService.GetAll()).ToList();
+
+            return Ok(holidays);
+        }
+
+        /// <summary>
+        /// Возвращает все мероприятия пользователя
+        /// </summary>
+        /// <param name="id">ID мероприятия</param>
+        /// <returns>Список dto сущностей (В виде OkObjectResult)</returns>
+        [HttpGet("UserId/{id}")]
+        public async Task<ActionResult<IEnumerable<HolidayDto>>> GetAllByUserId(string id)
+        {
+            var holidays = (await _holidayService.GetAllByUserId(id)).ToList();
 
             return Ok(holidays);
         }
