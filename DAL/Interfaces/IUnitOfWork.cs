@@ -62,7 +62,7 @@ namespace DAL.Interfaces
         /// <summary>
         /// Репозиторий мероприятия для Firestore
         /// </summary>
-        IHolidayRepositoryFirestore<Holiday> HolidayFirestore { get; }
+        IRepository<Holiday> HolidayFirestore { get; }
 
         #endregion
 
