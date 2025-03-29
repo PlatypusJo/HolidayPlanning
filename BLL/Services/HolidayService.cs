@@ -43,7 +43,7 @@ namespace BLL.Services
                 Budget = itemDto.Budget
             };
 
-            await _unitOfWork.HolidayFirestore.Create(holiday);
+            await _unitOfWork.Holiday.Create(holiday);
             return await SaveAsync();
         }
 
@@ -60,7 +60,18 @@ namespace BLL.Services
 
         public async Task<List<HolidayDto>> GetAll()
         {
-            var items = await _unitOfWork.HolidayFirestore.GetAll();
+            var items = await _unitOfWork.Holiday.GetAll();
+
+            var result = items
+                .Select(item => new HolidayDto(item))
+                .ToList();
+
+            return result;
+        }
+
+        public async Task<List<HolidayDto>> GetAllByUserId(string userId)
+        {
+            var items = await _unitOfWork.Holiday.GetAllByUserId(userId);
 
             var result = items
                 .Select(item => new HolidayDto(item))

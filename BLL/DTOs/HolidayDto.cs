@@ -20,6 +20,11 @@ namespace BLL.DTOs
         public string Id { get; set; }
 
         /// <summary>
+        /// ID пользователя
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// Название мероприятия
         /// </summary>
         public string? Title { get; set; }
@@ -55,6 +60,7 @@ namespace BLL.DTOs
         public HolidayDto(Holiday holiday)
         {
             Id = holiday.Id;
+            UserId = holiday.UserId;
             Title = holiday.Title;
             StartDate = holiday.StartDate;
             EndDate = holiday.EndDate;

@@ -12,5 +12,11 @@ namespace BLL.Intefaces
     /// </summary>
     public interface IHolidayService : ICrud<HolidayDto>
     {
+        /// <summary>
+        /// Возвращает всех подрядчиков выбранного мероприятия в виде dto
+        /// </summary>
+        /// <param name="userId">ID пользователя</param>
+        /// <returns>Список dto сущностей</returns>
+        Task<List<HolidayDto>> GetAllByUserId(string userId);
     }
 }

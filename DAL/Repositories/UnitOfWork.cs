@@ -69,7 +69,7 @@ namespace DAL.Repositories
         /// <summary>
         /// Репозиторий мероприятия для Firestore
         /// </summary>
-        private HolidayFirestoreRepository _holidayFirestoreRep;
+        private HolidayRepository _holidayFirestoreRep;
 
         #endregion
 
@@ -84,7 +84,7 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<Holiday> Holiday
+        public IHolidayRepository Holiday
         {
             get
             {
@@ -153,15 +153,6 @@ namespace DAL.Repositories
             {
                 _menuCategoryRepository ??= new MenuCategoryRepository(_firestoreDb);
                 return _menuCategoryRepository;
-            }
-        }
-
-        public IHolidayRepositoryFirestore<Holiday> HolidayFirestore
-        {
-            get
-            {
-                _holidayFirestoreRep ??= new HolidayFirestoreRepository(_firestoreDb);
-                return _holidayFirestoreRep;
             }
         }
 

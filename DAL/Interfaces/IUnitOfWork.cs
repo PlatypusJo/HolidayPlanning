@@ -17,7 +17,7 @@ namespace DAL.Interfaces
         /// <summary>
         /// Репозиторий Мероприятия
         /// </summary>
-        IRepository<Holiday> Holiday { get; }
+        IHolidayRepository Holiday { get; }
 
         /// <summary>
         /// Репозиторий Пользователя
@@ -58,11 +58,6 @@ namespace DAL.Interfaces
         /// Репозиторий Категории меню
         /// </summary>
         IFrozenCollectionRepository<MenuCategory> MenuCategory { get; }
-
-        /// <summary>
-        /// Репозиторий мероприятия для Firestore
-        /// </summary>
-        IHolidayRepositoryFirestore<Holiday> HolidayFirestore { get; }
 
         #endregion
 
