@@ -14,7 +14,7 @@ namespace DAL.Repositories
     /// <summary>
     /// Репозиторий Мероприятия
     /// </summary>
-    public class HolidayRepository : BaseRepository, IRepository<Holiday>
+    public class HolidayRepository : BaseRepository, IHolidayRepository
     {
         #region Конструкторы
 
@@ -35,6 +35,7 @@ namespace DAL.Repositories
             {
                 {"Title", $"{item.Title}"},
                 {"StartDate", item.StartDate.ToString()},
+                {"userId", item.UserId},
                 {"EndDate", item.EndDate.ToString()},
                 {"Budget", item.Budget.ToString()}
 
@@ -57,7 +58,7 @@ namespace DAL.Repositories
 
         public async Task<List<Holiday>> GetAll()
         {
-            CollectionReference usersRef = _db.Collection("contractors");
+            CollectionReference usersRef = _db.Collection("holiday");
             QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
 
             List<Holiday> holidays = [];
@@ -69,6 +70,32 @@ namespace DAL.Repositories
                 {
                     Id = document.Id,
                     Title = documentTemp["Title"].ToString(),
+                    UserId = documentTemp["userId"].ToString(),
+                    Budget = Convert.ToDouble(documentTemp["Budget"].ToString()),
+                    StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
+                    EndDate = DateTime.Parse(documentTemp["EndDate"].ToString())
+                });
+            }
+
+            return holidays;
+        }
+
+        public async Task<List<Holiday>> GetAllByUserId(string userId)
+        {
+            CollectionReference docRef = _db.Collection("holiday");
+            Query query = docRef.WhereEqualTo("userId", userId);
+            QuerySnapshot snapshot = await query.GetSnapshotAsync();
+
+            List<Holiday> holidays = [];
+
+            foreach (DocumentSnapshot document in snapshot.Documents)
+            {
+                var documentTemp = document.ToDictionary();
+                holidays.Add(new Holiday()
+                {
+                    Id = document.Id,
+                    Title = documentTemp["Title"].ToString(),
+                    UserId = documentTemp["userId"].ToString(),
                     Budget = Convert.ToDouble(documentTemp["Budget"].ToString()),
                     StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
                     EndDate = DateTime.Parse(documentTemp["EndDate"].ToString())
@@ -89,6 +116,7 @@ namespace DAL.Repositories
             {
                 Id = document.Id,
                 Title = documentTemp["Title"].ToString(),
+                UserId = documentTemp["userId"].ToString(),
                 Budget = Convert.ToDouble(documentTemp["Budget"].ToString()),
                 StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
                 EndDate = DateTime.Parse(documentTemp["EndDate"].ToString())
@@ -104,6 +132,7 @@ namespace DAL.Repositories
             {
                 {"Title", $"{item.Title}"},
                 {"StartDate", item.StartDate.ToString()},
+                {"userId", item.UserId},
                 {"EndDate", item.EndDate.ToString()},
                 {"Budget", item.Budget.ToString()}
             };
