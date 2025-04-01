@@ -17,6 +17,13 @@ const modalTheme = {
             colorText: "rgb(255,255,255)",
             colorBgElevated: "rgb(100,122,148)",
             optionSelectedBg: "rgba(167, 206, 252, 0.5)"
+        },
+        Radio: {
+            buttonSolidCheckedBg: "linear-gradient(to right, #FE9449, #EF5282)",
+            buttonSolidCheckedHoverBg: "linear-gradient(to right, #FE9449, #EF5282)",
+            colorPrimary: "#ffffff",
+            colorBgContainer: "rgba(167, 206, 252, 0.5)",
+            colorBorder: "rgba(217,217,217,0)"
         }
     },
 }

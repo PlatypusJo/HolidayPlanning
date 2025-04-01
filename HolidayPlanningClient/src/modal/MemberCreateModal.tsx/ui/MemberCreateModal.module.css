@@ -1,0 +1,57 @@
+.inputContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    column-gap: 4%;
+    color: black;
+    width: 85%;
+    margin-left: 8%;
+    margin-top: 3%;
+}
+
+.inputBoolean {
+    color: black;
+    display: grid;
+    grid-template-columns: 32% 76%;  /* Соотношение колонок 30:66 (+4% gap) */
+    align-items: center;
+    width: 70%;
+    margin-left: 8%;
+    margin-top: 3%;
+}
+
+.booleanText {
+    color: white;
+    margin-left: 4px;
+    font-size: 1.5vh;
+}
+
+.inputContainerPhEmail{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-items: center;
+    column-gap: 4%;
+    color: black;
+    width: 85%;
+    margin-left: 8%;
+    margin-top: 3%;
+    font-size: 12;
+}
+
+.error{
+    color: white;
+}
+
+
+.inputDatetimeContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    column-gap: 3%;
+    color: black;
+    width: 85%;
+    margin-left: 8%;
+    margin-top: 3%;
+}

@@ -9,6 +9,7 @@ import {
 import {Button, Cascader, Dropdown, MenuProps} from "antd";
 import {useFetching, useNotification} from "../../shared/hook";
 import {useParams} from "react-router-dom";
+import {MemberChangeModal} from "../../modal/MemberChangeModal.tsx";
 
 export const MemberContainer: React.FC<{
     member: MemberData,
@@ -17,6 +18,7 @@ export const MemberContainer: React.FC<{
 }> = ({ member, onChangeMember, onDeleteMember }) => {
     const eventId = `${useParams().id}`
     const notification = useNotification()
+    const [isChangeMemberModal, setIsChangeMemberModal] = useState(false);
     const [fetchDeleteMember, isLoadingFetchDeleteMember, errorFetchDeleteMember] = useFetching(async () => {
         try {
             const response = await deleteMember(member.id)
@@ -47,9 +49,7 @@ export const MemberContainer: React.FC<{
             label: (
                 <Button icon={<EditOutlined/>}
                         iconPosition={"start"}
-                        onClick={() => {
-                            notification.info('Изменение гостя в разработке!')
-                        }}
+                        onClick={() => {openChangeMemberModal()}}
                         color={"default"}
                         variant={"link"}
                 >
@@ -80,6 +80,15 @@ export const MemberContainer: React.FC<{
         value: val,
         label: val
     }))
+
+    const openChangeMemberModal = () => {
+        setIsChangeMemberModal(true);
+    };
+
+
+    const handleChangeCreateMemberModal = () => {
+        setIsChangeMemberModal(false);
+    };
 
     const onChangeStatus = (
         _: (string | ContractorStatus)[],
@@ -118,6 +127,7 @@ export const MemberContainer: React.FC<{
                     <div>Группа: {member.memberCategory}</div>
                 </div>
             </div>
+            <MemberChangeModal eventId={eventId} visible={isChangeMemberModal} member={member} onChangeMember={onChangeMember} onCancel={handleChangeCreateMemberModal}/>
         </>
     );
 };
