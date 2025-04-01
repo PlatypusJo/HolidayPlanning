@@ -16,6 +16,7 @@ import {EventChangeModal} from "../../modal/EventChangeModal";
 import { ContractorCreateModal } from "../../modal/ContractorCreateModal.tsx";
 import {useNavigate} from "react-router-dom";
 import {RoutesPaths} from "../../shared/config";
+import {MemberCreateModal} from "../../modal/MemberCreateModal.tsx";
 
 export const EventContainer: React.FC<{
     event: EventData,
@@ -25,8 +26,8 @@ export const EventContainer: React.FC<{
     const navigate = useNavigate()
     const notification = useNotification()
     const [isChangeEventModal, setIsChangeEventModal] = useState(false);
-    const [contractors, setContractors] = useState<ContractorsData[]>([]);
     const [isCreateContractorModal, setIsCreateContractorModal] = useState(false);
+    const [isCreateMemberModal, setIsCreateMemberModal] = useState(false);
     const [fetchDeleteEvents, isLoadingFetchDeleteEvents, errorFetchDeleteEvents] = useFetching(async () => {
         try {
             const response = await deleteEvent(event.id)
@@ -46,6 +47,15 @@ export const EventContainer: React.FC<{
     
     const handleCancelCreateContractorModal = () => {
         setIsCreateContractorModal(false);
+    };
+
+    const openCreateMemberModal = () => {
+        setIsCreateMemberModal(true);
+    };
+
+
+    const handleCancelCreateMemberModal = () => {
+        setIsCreateMemberModal(false);
     };
 
     const items: MenuProps['items'] = [
@@ -123,7 +133,7 @@ export const EventContainer: React.FC<{
                 <Button
                     icon={<><PlusCircleOutlined/> <TeamOutlined/></>}
                     iconPosition={"start"}
-                    onClick={() => notification.info('Добавление гостя в разработке!')}
+                    onClick={() => {openCreateMemberModal()}}
                     color={"default"}
                     variant={"link"}
                 >
@@ -143,10 +153,6 @@ export const EventContainer: React.FC<{
         setIsChangeEventModal(false);
     };
 
-    const onCreateContractor = (newContractor: ContractorsData) => {
-                setContractors([...contractors, newContractor])
-    }
-
     return (
         <>
             <div key={event.id} className={cl.blockEventBack}>
@@ -162,7 +168,8 @@ export const EventContainer: React.FC<{
                 </div>
             </div>
             <EventChangeModal event={event} visible={isChangeEventModal} onCancel={handleCloseChangeEventModal} onChangeEvent={onChangeEvent}/>
-            <ContractorCreateModal eventId={event.id} visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={onCreateContractor}/>
+            <ContractorCreateModal eventId={event.id} visible={isCreateContractorModal} onCancel={handleCancelCreateContractorModal} onCreateContractor={() => {}}/>
+            <MemberCreateModal eventId={event.id} visible={isCreateMemberModal} onCreateMember={() => {}} onCancel={handleCancelCreateMemberModal}/>
         </>
     );
 };

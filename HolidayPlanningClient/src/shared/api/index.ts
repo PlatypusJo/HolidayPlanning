@@ -451,30 +451,14 @@ export const deleteMember = async (memberId: string) => {
     )
 }
 
-export const createMember = async (body: MemberResponseData): Promise<MemberData | undefined> => {
+export const createMember = async (body: MemberResponseData) => {
     return await axios.post(memberControllerUrl, body, {
         headers: {
             "Content-Type": "application/json",
             Accept: 'application/json'
         }
     }).then(
-        response => {
-            const data = response.data as MemberResponseData
-            return {
-                id: data.id,
-                holidayId: data.holidayId,
-                memberCategory: getEnumMapping(MemberCategory, Number(data.memberCategoryId)),
-                memberStatus: getEnumMapping(ContractorStatus, Number(data.memberStatusId)),
-                menuCategory: getEnumMapping(MenuCategory, Number(data.menuCategoryId)),
-                fio: data.fio,
-                phoneNumber: data.phoneNumber,
-                email: data.email,
-                comment: data.comment,
-                isChild: data.isChild,
-                isMale: data.isMale,
-                seat: data.seat
-            } as MemberData
-        }
+        response => response
     ).catch(
         error => {
             console.error(`Ошибка при создании гостя: ${error}`)

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import cl from "./ui/EventMembersPage.module.css"
 import ImageContainerGuests from "../../shared/image/image container-guests.png"
 import {
+    ContractorsData,
     getMembersByEventId, memberCategories,
     MemberData, menuCategories
 } from "../../shared/api";
@@ -12,6 +13,8 @@ import {useFooterContext} from "../../shared/ui/Footer/Footer";
 import {MemberContainer} from "../../widgets";
 import {useParams} from "react-router-dom";
 import {Checkbox} from "antd";
+import {MemberCreateModal} from "../../modal/MemberCreateModal.tsx";
+import {MemberChangeModal} from "../../modal/MemberChangeModal.tsx";
 
 export const EventMembersPage = () => {
     const eventId = `${useParams().id}`
@@ -19,6 +22,7 @@ export const EventMembersPage = () => {
     const [members, setMembers] = useState<MemberData[]>([]);
     const [selectedMemberCategories, setSelectedMemberCategories] = useState<string[]>([]);
     const [selectedMenuCategories, setSelectedMenuCategories] = useState<string[]>([]);
+    const [isCreateMemberModal, setIsCreateMemberModal] = useState(false);
     const { updateFloatButton } = useFooterContext()
     const [fetchGetMembers, isLoadingFetchGetMembers, errorFetchGetMembers] = useFetching(async () => {
         try {
@@ -34,11 +38,18 @@ export const EventMembersPage = () => {
         updateFloatButton(<RightFloatButton
             tooltipTitle={"Добавить гостя"}
             buttonIcon={<PlusOutlined/>}
-            onClick={() => {
-                notification.info("Создание гостя еще не реализованно!")
-            }}
+            onClick={() => {openCreateMemberModal()}}
         />)
     }, [])
+
+    const openCreateMemberModal = () => {
+        setIsCreateMemberModal(true);
+    };
+
+
+    const handleCancelCreateMemberModal = () => {
+        setIsCreateMemberModal(false);
+    };
 
     const handleMemberCategoryChange = (category: string) => {
         setSelectedMemberCategories(prev =>
@@ -56,10 +67,6 @@ export const EventMembersPage = () => {
         );
     };
 
-    // const filteredMembers = selectedMemberCategories.length > 0
-    //     ? members.filter((member) => selectedMemberCategories.includes(member.memberCategory))
-    //     : members;
-
     const filteredMembers = members.filter(member => {
         const matchesMember = selectedMemberCategories.length === 0
             || selectedMemberCategories.includes(member.memberCategory);
@@ -68,6 +75,10 @@ export const EventMembersPage = () => {
         return matchesMember && matchesMenu;
     });
 
+    const onCreateMember = (newMember: MemberData) => {
+        console.log(newMember)
+        setMembers([...members, newMember])
+    }
 
     const onDeleteMember = (memberId: string) => {
         const updatedMembers = members.filter(member => member.id !== memberId);
@@ -145,6 +156,7 @@ export const EventMembersPage = () => {
                     </div>
                 </div>
             </div>
+            <MemberCreateModal eventId={eventId} visible={isCreateMemberModal} onCreateMember={onCreateMember} onCancel={handleCancelCreateMemberModal}/>
         </>
     )
 }
