@@ -1,0 +1,58 @@
+.blockContractorBack {
+    width: 100%;
+    border: 2px solid #FE954C;
+    margin-top: 1%;
+    padding: 1.5vh 2vw 1.5vh 1.5vw;
+    position: relative;
+}
+
+.blockContractorName {
+    width: 100%;
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.statusLink {
+    color: #888888;
+}
+
+.statusLink:hover{
+    color: #FE954C;
+}
+
+.settingsContractorIcon {
+    color: #888888;
+    margin-left: auto;
+}
+
+.settingsContractorIcon :hover {
+    color: #FE954C;
+}
+
+.progressContainer {
+    position: relative;
+    align-items: center;
+    width: 100%;
+}
+
+.progressItem{
+    width: 100%;
+    margin-top: 1%;
+}
+
+.description {
+    margin-top: 1%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    font-size: 2vh;
+}
+
+.contrStatus{
+    color: #888888;
+    font-size: 2vh;
+}
