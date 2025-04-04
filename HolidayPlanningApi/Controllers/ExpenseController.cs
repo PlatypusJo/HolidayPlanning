@@ -1,39 +1,34 @@
 ﻿using BLL.DTOs;
 using BLL.Intefaces;
-using BLL.Services;
-using DAL.Entities;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace HolidayPlanningApi.Controllers
 {
     /// <summary>
-    /// Класс-контроллер Подрядчика
+    /// Класс-контроллер Статьи расходов
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class ContractorController : ControllerBase
+    public class ExpenseController : ControllerBase
     {
         #region Поля
 
         /// <summary>
-        /// Экземпляр сервиса Подрядчика
+        /// Экземпляр сервиса Статьи расходов
         /// </summary>
-        private readonly IContractorService _contractorService;
+        private readonly IExpenseService _expenseService;
 
         #endregion
 
         #region Конструкторы
 
         /// <summary>
-        /// Контруктор на основе сервиса Подрядчика
+        /// Контруктор на основе сервиса Статьи расходов
         /// </summary>
-        /// <param name="contractorService">Сервис Подрядчика</param>
-        public ContractorController(IContractorService contractorService)
+        /// <param name="contractorService">Сервис Статьи расходов</param>
+        public ExpenseController(IExpenseService contractorService)
         {
-            _contractorService = contractorService;
+            _expenseService = contractorService;
         }
 
         #endregion
@@ -46,48 +41,48 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="id">ID сущности</param>
         /// <returns>Найденная сущность в форме dto (null, если сущность не найдена)</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<ContractorDto>> GetById(string id)
+        public async Task<ActionResult<ExpenseDto>> GetById(string id)
         {
-            if (!await _contractorService.Exists(id))
+            if (!await _expenseService.Exists(id))
             {
                 return NotFound("Invalid id, entity not exists.");
             }
 
-            return await _contractorService.GetById(id);
+            return await _expenseService.GetById(id);
         }
 
         /// <summary>
-        /// Возвращает всех подрядчиков выбранного мероприятия
+        /// Возвращает все статьи расходов выбранного мероприятия
         /// </summary>
         /// <param name="id">ID мероприятия</param>
         /// <returns>Список dto сущностей (В виде OkObjectResult)</returns>
         [HttpGet("HolidayId/{id}")]
-        public async Task<ActionResult<IEnumerable<ContractorDto>>> GetAllByHolidayId(string id)
+        public async Task<ActionResult<IEnumerable<ExpenseDto>>> GetAllByHolidayId(string id)
         {
-            var contractors = (await _contractorService.GetAllByHolidayId(id)).ToList();
+            var expenses = (await _expenseService.GetAllByHolidayId(id)).ToList();
 
-            return Ok(contractors);
+            return Ok(expenses);
         }
 
         /// <summary>
         /// Создает сущность на основе заданного DTO
         /// </summary>
-        /// <param name="contractorDto">DTO сущности</param>
+        /// <param name="expenseDto">DTO сущности</param>
         /// <returns>Созданная сущность (В виде OkObjectResult)</returns>
         [HttpPost]
-        public async Task<ActionResult<ContractorDto>> Create([FromBody] ContractorDto contractorDto)
+        public async Task<ActionResult<ContractorDto>> Create([FromBody] ExpenseDto expenseDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (!await _contractorService.Create(contractorDto))
+            if (!await _expenseService.Create(expenseDto))
             {
                 return NotFound();
             }
 
-            var createdItem = await _contractorService.GetById((await _contractorService.GetAll()).Max(x => x.Id));
+            var createdItem = await _expenseService.GetById((await _expenseService.GetAll()).Max(x => x.Id));
             return Ok(createdItem);
         }
 
@@ -95,44 +90,44 @@ namespace HolidayPlanningApi.Controllers
         /// Обновляет заданную сущность
         /// </summary>
         /// <param name="id">ID заданной сущности</param>
-        /// <param name="contractorDto">Измененная сущность в форме dto</param>
+        /// <param name="expenseDto">Измененная сущность в форме dto</param>
         /// <returns>ID обновленной сущности (В виде OkObjectResult)</returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<int>> Put(string id, [FromBody] ContractorDto contractorDto)
+        public async Task<ActionResult<int>> Put(string id, [FromBody] ExpenseDto expenseDto)
         {
-            if (id != contractorDto.Id)
+            if (id != expenseDto.Id)
             {
                 return BadRequest();
             }
 
-            if (!await _contractorService.Update(contractorDto))
+            if (!await _expenseService.Update(expenseDto))
             {
                 return NotFound();
             }
 
-            return Ok(contractorDto.Id);
+            return Ok(expenseDto.Id);
         }
 
         /// <summary>
-        /// Обновляет статус подрядчика
+        /// Обновляет оплаченную сумму Статьи расходов
         /// </summary>
-        /// <param name="id">ID Подрядчика</param>
-        /// <param name="patchContractorStatusDto">Dto с измененным статусом подрядчика</param>
+        /// <param name="id">ID Статьи расходов</param>
+        /// <param name="patchExpensePaidDto">Dto с измененной оплаченной суммой</param>
         /// <returns></returns>
         [HttpPatch("{id}")]
-        public async Task<ActionResult<int>> Patch(string id, [FromBody] PatchContractorStatusDto patchContractorStatusDto)
+        public async Task<ActionResult<int>> Patch(string id, [FromBody] PatchExpensePaidDto patchExpensePaidDto)
         {
-            if (id != patchContractorStatusDto.ContractorId)
+            if (id != patchExpensePaidDto.ExpenseId)
             {
                 return BadRequest();
             }
 
-            if (!await _contractorService.PatchContractorStatus(patchContractorStatusDto))
+            if (!await _expenseService.PatchPaid(patchExpensePaidDto))
             {
                 return NotFound();
             }
 
-            return Ok(patchContractorStatusDto.ContractorId);
+            return Ok(patchExpensePaidDto.ExpenseId);
         }
 
         /// <summary>
@@ -143,12 +138,12 @@ namespace HolidayPlanningApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<int>> Delete(string id)
         {
-            if (!await _contractorService.Exists(id))
+            if (!await _expenseService.Exists(id))
             {
                 return NotFound();
             }
 
-            await _contractorService.Delete(id);
+            await _expenseService.Delete(id);
             return Ok(id);
         }
 
