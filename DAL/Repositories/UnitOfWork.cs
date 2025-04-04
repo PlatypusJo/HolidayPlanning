@@ -37,6 +37,11 @@ namespace DAL.Repositories
         private ContractorRepository _contractorRepository;
 
         /// <summary>
+        /// Репозиторий Статьи расходов
+        /// </summary>
+        private ExpenseRepository _expenseRepository;
+
+        /// <summary>
         /// Репозиторий Категории подрядчика
         /// </summary>
         private ContractorCategoryRepository _contractorCategoryRepository;
@@ -99,6 +104,15 @@ namespace DAL.Repositories
             {
                 _contractorRepository ??= new ContractorRepository(_firestoreDb);
                 return _contractorRepository;
+            }
+        }
+
+        public IExpenseRepository Expense
+        {
+            get
+            {
+                _expenseRepository ??= new ExpenseRepository(_firestoreDb);
+                return _expenseRepository;
             }
         }
 

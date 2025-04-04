@@ -30,6 +30,11 @@ namespace DAL.Interfaces
         IContractorRepository Contractor { get; }
 
         /// <summary>
+        /// Репозиторий Статьи расходов
+        /// </summary>
+        IExpenseRepository Expense { get; }
+
+        /// <summary>
         /// Репозиторий Категории подрядчика
         /// </summary>
         IFrozenCollectionRepository<ContractorCategory> ContractorCategory { get; }
