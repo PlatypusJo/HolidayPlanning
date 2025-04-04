@@ -46,9 +46,14 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="id">ID сущности</param>
         /// <returns>Найденная сущность в форме dto (null, если сущность не найдена)</returns>
         [HttpGet("{id}")]
-        public Task<ContractorDto> GetById(string id)
+        public async Task<ActionResult<ContractorDto>> GetById(string id)
         {
-            return _contractorService.GetById(id);
+            if (!await _contractorService.Exists(id))
+            {
+                return NotFound("Invalid id, entity not exists.");
+            }
+
+            return await _contractorService.GetById(id);
         }
 
         /// <summary>
