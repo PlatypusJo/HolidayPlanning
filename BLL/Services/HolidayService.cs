@@ -52,6 +52,24 @@ namespace BLL.Services
             if (!await _unitOfWork.Holiday.Exists(id))
                 return false;
 
+            List<Member> members = await _unitOfWork.Member.GetAllByHolidayId(id);
+            if (members != null)
+            {
+                for (int i = 0; i < members.Count; i++)
+                {
+                    await _unitOfWork.Member.Delete(members[i].Id);
+                }
+            }
+
+            List<Contractor> contractors = await _unitOfWork.Contractor.GetAllByHolidayId(id);
+            if (contractors != null)
+            {
+                for (int i = 0; i < contractors.Count; i++)
+                {
+                    await _unitOfWork.Contractor.Delete(contractors[i].Id);
+                }
+            }
+
             await _unitOfWork.Holiday.Delete(id);
             return await SaveAsync();
         }
