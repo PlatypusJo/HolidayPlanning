@@ -150,8 +150,6 @@ namespace DAL.Repositories
             await docRef.UpdateAsync(expense);
         }
 
-        
-
         #endregion
     }
 }

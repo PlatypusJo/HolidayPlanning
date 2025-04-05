@@ -47,6 +47,7 @@ namespace HolidayPlanningApi
             builder.Services.AddScoped<IHolidayService, HolidayService>();
             builder.Services.AddScoped<IContractorService, ContractorService>();
             builder.Services.AddScoped<IContractorCategoryService, ContractorCategoryService>();
+            builder.Services.AddScoped<IExpenseService, ExpenseService>();
             builder.Services.AddScoped<IContractorStatusService, ContractorStatusService>();
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<IMemberCategoryService, MemberCategoryService>();
