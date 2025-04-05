@@ -61,8 +61,8 @@ namespace DAL.Repositories
 
         public async Task<List<Contractor>> GetAll()
         {
-            CollectionReference usersRef = _db.Collection("contractors");
-            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
+            CollectionReference contractorsRef = _db.Collection("contractors");
+            QuerySnapshot snapshot = await contractorsRef.GetSnapshotAsync();
 
             List<Contractor> contractors = [];
 
