@@ -1,0 +1,103 @@
+.resumeBudget{
+    background-color: white;
+    border-radius: 10px;
+    width: 160%;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+
+.resumeBudgetHeader{
+    display: flex;
+    align-items: center;
+    margin-top: 1%;
+    margin-left: 3%;
+}
+
+.resumeEventBudgetButton{
+    color: #043873;
+    font-size: 22px;
+    margin-right: 1%;
+}
+
+.resumeBudgetHeaderText{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.resumeUnderlineHeader{
+    width: 96%;
+    margin-left: 2%;
+    height: 2px;
+    background-color: #043873;
+    margin-top: 5px;
+}
+
+.tooltipBudget {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.2vh;
+    margin-left: 6%;
+    margin-bottom: 1%;
+}
+
+.budgetRow {
+    display: flex;
+    justify-content: row; /* Распределение элементов по сторонам */
+    align-items: center;
+}
+
+.budgetItem {
+    font-size: 22px;
+    text-align: left;
+    margin-top: 1%;
+    width: 50%;
+}
+
+.budgetValue {
+    font-size: 18px;
+    text-align: left;
+    font-weight: 500;
+    margin-top: 1%;
+    width: 50%;
+}
+
+.tooltipBudgetIconBox {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 3%;
+}
+
+.tooltipBudgetIcon1 {
+    background-color: #F77567;
+}
+
+.tooltipBudgetIcon2 {
+    background-color: #FEC04C;
+}
+
+.tooltipBudgetIcon3 {
+    background-color: #FE954C;
+}
+
+.tooltipBudgetIcon4 {
+    background-color: #706d6ec1;
+}
+
+.budgetItemOst {
+    font-size: 18px;
+    text-align: left;
+    margin-top: 1%;
+    color: #888888;
+    font-weight: 600;
+    width: 50%;
+}
+
+.budgetValueOst {
+    font-size: 18px;
+    text-align: left;
+    font-weight: 500;
+    margin-top: 1%;
+    width: 50%;
+}

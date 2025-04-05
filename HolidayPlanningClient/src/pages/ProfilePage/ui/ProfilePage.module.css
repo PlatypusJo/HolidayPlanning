@@ -1,3 +1,43 @@
+.contentResume{
+    width: 100%;
+    background-color: var(--background-color);
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-top: 1%;
+    padding-bottom: 3%;
+}
+
+.textResume{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    width: 60%;
+    z-index: 1;
+}
+
+.resumeUnderline {
+    width: 166%;
+    height: 2px;
+    background-color: white;
+    margin-top: 5px;
+}
+
+.resumeBlock{
+    color: white;
+    text-align: start;
+    font-weight: bold;
+    font-size: 36px;
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+
 .eventsContainer {
     position: relative;
     min-height: 540px;

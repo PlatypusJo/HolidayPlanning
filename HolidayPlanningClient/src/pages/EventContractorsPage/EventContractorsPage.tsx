@@ -4,12 +4,11 @@ import ImageContainerContractors from "../../shared/image/image container-contra
 import {contractorCategories, ContractorsData, EventData, getEventContractors} from "../../shared/api";
 import {useFetching, useNotification} from "../../shared/hook";
 import {InfoContainer, NoData, RightFloatButton} from "../../shared/ui";
-import {DeleteOutlined, EditOutlined, PlusCircleOutlined, PlusOutlined, SolutionOutlined} from "@ant-design/icons";
+import {PlusOutlined} from "@ant-design/icons";
 import {useFooterContext} from "../../shared/ui/Footer/Footer";
 import {ContractorContainer} from "../../widgets";
-import {useNavigate, useParams} from "react-router-dom";
-import {RoutesPaths} from "../../shared/config";
-import {Button, Checkbox, MenuProps} from "antd";
+import {useParams} from "react-router-dom";
+import {Checkbox} from "antd";
 import {ContractorCreateModal} from "../../modal/ContractorCreateModal.tsx";
 
 export const EventContractorsPage = () => {

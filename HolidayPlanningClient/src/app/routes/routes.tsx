@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useFooterContext} from "../../shared/ui/Footer/Footer";
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
 import {EventMembersPage} from "../../pages/EventMembersPage/EventMembersPage";
+import {EventBudgetPage} from "../../pages/EventBudgetPage/EventBudgetPage";
 
 type AppRoutes = {
     path: RoutesPaths | "*",
@@ -39,5 +40,6 @@ export const routes: AppRoutes[] = [
     { path: RoutesPaths.EVENTS, element: <ProtectedRoute><EventsPage/> </ProtectedRoute>},
     { path: RoutesPaths.EVENTS_CONTRACTORS, element: <ProtectedRoute><EventContractorsPage/></ProtectedRoute> },
     { path: RoutesPaths.EVENTS_GUESTS, element: <ProtectedRoute><EventMembersPage/></ProtectedRoute> },
+    { path: RoutesPaths.EVENTS_BUDGETS, element: <ProtectedRoute><EventBudgetPage/></ProtectedRoute> },
     { path: "*", element: <NotFoundRedirect/> },
 ]

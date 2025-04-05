@@ -1,0 +1,82 @@
+.resumeTwoBlock {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1%;
+    width: 163%;
+}
+
+.resumeTwoGoast {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 100%;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.resumeGoastHeader{
+    display: flex;
+    align-items: center;
+    margin-top: 2%;
+    margin-left: 6%;
+}
+
+.resumeGostHeaderButton {
+    color: #043873;
+    font-size: 22px;
+    margin-right: 2%;
+}
+
+.resumeGostHeaderText {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.resumeGostUnderlineHeader {
+    width: 92%;
+    margin-left: 4%;
+    height: 2px;
+    background-color: #043873;
+    margin-top: 5px;
+}
+
+.progressGost {
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+
+.tooltipGost {
+    display: flex;
+    flex-direction: row;
+    column-gap: 2%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3%;
+}
+
+.textTooltipGost {
+    font-size: clamp(11px, 1.5vw, 14px);
+    color: #888888;
+    font-weight: 700;
+}
+
+.tooltipGostIconBox {
+    width: clamp(10px, 1.5vw, 12px);
+    height: clamp(10px, 1.5vw, 12px);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.tooltipGostIcon1 {
+    background-color: #F77567;
+}
+
+.tooltipGostIcon2 {
+    background-color: #FEC04C;
+}
+
+.tooltipGostIcon3 {
+    background-color: #FE954C;
+}
+

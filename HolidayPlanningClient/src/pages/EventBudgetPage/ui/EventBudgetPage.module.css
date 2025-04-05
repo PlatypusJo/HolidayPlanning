@@ -3,11 +3,11 @@
     min-height: 540px;
     padding: 10px clamp(14px, 2.2vw, 36px);
     display: grid; /* Включаем Grid */
-    grid-template-columns: 2.5fr 10fr; /* Определяем ширину колонок */
+    grid-template-columns: 2fr 10fr; /* Определяем ширину колонок */
     gap: 10px; /* Расстояние между колонками */
 }
 
-.memberContainer {
+.budgetsContainer {
     position: relative;
     padding: 10px clamp(14px, 2.2vw, 36px);
 }

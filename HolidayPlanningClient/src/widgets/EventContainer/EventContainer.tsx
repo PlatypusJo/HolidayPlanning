@@ -5,7 +5,7 @@ import {
     PlusCircleOutlined,
     SettingOutlined,
     SolutionOutlined,
-    TeamOutlined
+    TeamOutlined, WalletOutlined
 } from "@ant-design/icons";
 import {formatDate, formatTimeDifference} from "../../shared/lib";
 import React, {useState} from "react";
@@ -141,6 +141,34 @@ export const EventContainer: React.FC<{
                 </Button>
             ),
             key: '5',
+        }, {
+            type: 'divider',
+        }, {
+            label: (
+                <Button
+                    icon={<WalletOutlined/>}
+                    iconPosition={"start"}
+                    onClick={() => navigate(`${RoutesPaths.EVENTS_BUDGETS}`.replace(":id", `${event.id}`))}
+                    color={"default"}
+                    variant={"link"}
+                >
+                    Бюджет
+                </Button>
+            ),
+            key: '6',
+        }, {
+            label: (
+                <Button
+                    icon={<><PlusCircleOutlined/> <WalletOutlined/></>}
+                    iconPosition={"start"}
+                    onClick={() => {notification.info(`Добавление бюджета в разработке!`)}}
+                    color={"default"}
+                    variant={"link"}
+                >
+                    Добавить бюджет
+                </Button>
+            ),
+            key: '7',
         }
     ];
 

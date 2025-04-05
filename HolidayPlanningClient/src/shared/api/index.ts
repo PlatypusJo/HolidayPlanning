@@ -59,6 +59,25 @@ export const getAllEvents = async () => {
     )
 }
 
+export const getBudgetEventByEventId = async (eventId: string) => {
+    return await axios.get(`${eventControllerUrl}/${eventId}`, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => {
+            const data = response.data as EventDataResponse
+            return data.budget
+        }
+    ).catch(
+        error => {
+            console.error(`Ошибка при получении мероприятия: ${error}`)
+            return undefined
+        }
+    )
+}
+
 export interface CreateEventData {
     id: string
     title: string,
@@ -68,7 +87,7 @@ export interface CreateEventData {
 }
 
 export const createEvent = async (body: CreateEventData) => {
-    return await axios.post(eventControllerUrl, body, {
+    return await axios.post(eventControllerUrl, {...body, userId: `${localStorage.getItem('userId')}`}, {
         headers: {
             "Content-Type": "application/json",
             Accept: 'application/json'
@@ -107,7 +126,7 @@ export const deleteEvent = async (eventId: string) => {
 }
 
 export const changeEvent = async (eventId: string, body: EventData) => {
-    return await axios.put(`${eventControllerUrl}/${eventId}`, body, {
+    return await axios.put(`${eventControllerUrl}/${eventId}`, {...body, userId: `${localStorage.getItem('userId')}`}, {
         headers: {
             "Content-Type": "application/json",
             Accept: 'application/json'
@@ -416,6 +435,92 @@ export const getMembersByEventId = async (eventId: string) => {
     )
 }
 
+interface MetricInfo {
+    count: number,
+    percent: number
+}
+
+export interface Metrics {
+    anticipation: MetricInfo,
+    confirmed: MetricInfo,
+    rejected: MetricInfo
+}
+
+export const getMembersMetricsByEventId = async (eventId: string) => {
+    return await axios.get(`${memberControllerUrl}/HolidayId/${eventId}`).then(
+        response => {
+            const data = response.data;
+            const counts = { anticipation: 0, confirmed: 0, rejected: 0 };
+
+            data.forEach((member: MemberResponseData) => {
+                const statusId = Number(member.memberStatusId);
+                if (statusId === 1) counts.anticipation++;
+                else if (statusId === 2) counts.confirmed++;
+                else if (statusId === 3) counts.rejected++;
+            });
+
+            const total = data.length;
+            const calcPercent = (count: number) =>
+                total === 0 ? 0 : Math.round((count / total) * 100);
+
+            return {
+                anticipation: {
+                    count: counts.anticipation,
+                    percent: calcPercent(counts.anticipation)
+                },
+                confirmed: {
+                    count: counts.confirmed,
+                    percent: calcPercent(counts.confirmed)
+                },
+                rejected: {
+                    count: counts.rejected,
+                    percent: calcPercent(counts.rejected)
+                }
+            } as Metrics;
+        }
+    )
+}
+
+export const getMembersContractorsByEventId = async (eventId: string) => {
+    return await axios.get(`${contractorControllerUrl}/HolidayId/${eventId}`, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: 'application/json'
+        }
+    }).then(
+        response => {
+            const data = response.data;
+            const counts = { anticipation: 0, confirmed: 0, rejected: 0 };
+
+            data.forEach((contractor: ContractorDataResponse) => {
+                const statusId = Number(contractor.statusId);
+                if (statusId === 1) counts.anticipation++;
+                else if (statusId === 2) counts.confirmed++;
+                else if (statusId === 3) counts.rejected++;
+            });
+
+            const total = data.length;
+            const calcPercent = (count: number) =>
+                total === 0 ? 0 : Math.round((count / total) * 100);
+
+            return {
+                anticipation: {
+                    count: counts.anticipation,
+                    percent: calcPercent(counts.anticipation)
+                },
+                confirmed: {
+                    count: counts.confirmed,
+                    percent: calcPercent(counts.confirmed)
+                },
+                rejected: {
+                    count: counts.rejected,
+                    percent: calcPercent(counts.rejected)
+                }
+            } as Metrics;
+        }
+    )
+}
+
 export const changeMemberStatus = async (memberId: string, newStatusId: number)=> {
     return await axios.patch(`${memberControllerUrl}/${memberId}`, {
         memberId,
@@ -481,4 +586,129 @@ export const changeMember = async (memberId: string, body: MemberResponseData) =
             return undefined
         }
     )
+}
+
+export interface BudgetData {
+    id: string,
+    holidayId: string,
+    title: string
+    description: string,
+    totalAmount: number,
+    paidAmount: number,
+    isContractor: boolean
+}
+
+export const getBudgetByEventId = async (eventId: string) => {
+    return [
+        {
+            id: `${Date.now()}`,
+            holidayId: '',
+            title: 'Бюджет 1',
+            description: 'Описание бюджета 1',
+            totalAmount: 10000,
+            paidAmount: 1000,
+            isContractor: false
+        },
+        {
+            id: `${Date.now() + 1}`,
+            holidayId: '',
+            title: 'Бюджет 2',
+            description: 'Описание бюджета 2',
+            totalAmount: 10000,
+            paidAmount: 0,
+            isContractor: false
+        },
+        {
+            id: `${Date.now() + 2}`,
+            holidayId: '',
+            title: 'Бюджет 3',
+            description: 'Описание бюджета 3',
+            totalAmount: 5000,
+            paidAmount: 0,
+            isContractor: true
+        },
+        {
+            id: `${Date.now() + 3}`,
+            holidayId: '',
+            title: 'Бюджет 4',
+            description: 'Описание бюджета 4',
+            totalAmount: 5000,
+            paidAmount: 4500,
+            isContractor: true
+        }
+    ] as BudgetData[]
+}
+
+export const deleteBudget = async (budgetId: string) => {
+    return `Удаление статьи бюджета в разработке!`
+}
+
+export const changePaidAmount = async (id: string, isContractor: boolean, newValue: number) => {
+    return isContractor
+    ? `Изменение суммы оплаты в разработке! (Статья от подрядчика)`
+        : `Изменение суммы оплаты в разработке!`
+}
+
+export interface BudgetMetrics {
+    generalBudget: number,
+    paid: number,
+    waitingPayment: number,
+    restBudget: number
+}
+
+export const getBudgetMetricsByEventId = async (eventId: string) => {
+    const eventBudget = await getBudgetEventByEventId(eventId)
+    if(eventBudget){
+        const budgetsData = [
+            {
+                id: `${Date.now()}`,
+                holidayId: '',
+                title: 'Бюджет 1',
+                description: 'Описание бюджета 1',
+                totalAmount: 10000,
+                paidAmount: 1000,
+                isContractor: false
+            },
+            {
+                id: `${Date.now() + 1}`,
+                holidayId: '',
+                title: 'Бюджет 2',
+                description: 'Описание бюджета 2',
+                totalAmount: 10000,
+                paidAmount: 0,
+                isContractor: false
+            },
+            {
+                id: `${Date.now() + 2}`,
+                holidayId: '',
+                title: 'Бюджет 3',
+                description: 'Описание бюджета 3',
+                totalAmount: 5000,
+                paidAmount: 0,
+                isContractor: true
+            },
+            {
+                id: `${Date.now() + 3}`,
+                holidayId: '',
+                title: 'Бюджет 4',
+                description: 'Описание бюджета 4',
+                totalAmount: 5000,
+                paidAmount: 4500,
+                isContractor: true
+            }
+        ] as BudgetData[]
+
+        const paid = budgetsData.reduce((sum, item) => sum + item.paidAmount, 0);
+        const waitingPayment = budgetsData.reduce((sum, item) => sum + (item.totalAmount - item.paidAmount), 0);
+        const restBudget = eventBudget - waitingPayment;
+
+        return {
+            generalBudget: eventBudget,
+            paid,
+            waitingPayment,
+            restBudget
+        } as BudgetMetrics;
+    }
+
+    return null
 }

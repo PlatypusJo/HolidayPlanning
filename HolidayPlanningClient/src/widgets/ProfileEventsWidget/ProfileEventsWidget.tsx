@@ -3,7 +3,7 @@ import {EventData} from "../../shared/api";
 import {useNotification} from "../../shared/hook";
 import {CheckOutlined, GiftOutlined, MenuOutlined} from "@ant-design/icons";
 import {formatDate, getCountdown} from "../../shared/lib";
-import cl from './ProfileEventsWidget.module.css'
+import cl from './ui/ProfileEventsWidget.module.css'
 
 export const ProfileEventsWidget: React.FC<{
     events: EventData[],
@@ -51,7 +51,6 @@ export const ProfileEventsWidget: React.FC<{
     };
 
     const updateSelectedId = (newSelectedId: string) => {
-        console.log(newSelectedId)
         setSelectEventId(newSelectedId)
         updateSelectedEventId(newSelectedId)
     }
@@ -78,50 +77,46 @@ export const ProfileEventsWidget: React.FC<{
     };
 
     return (
-        <div className={cl.contentResume}>
-            <div className={cl.textResume}>
-                <div className={cl.resumeBlock}>Сводка</div>
-                <div className={cl.resumeUnderline}></div>
-                <div className={cl.resumeEvent}>
-                    <div className={cl.resumeEventHeader}>
-                        <GiftOutlined className={cl.resumeEventHeaderButton}/>
-                        <div className={cl.resumeEventHeaderText}>Мероприятия</div>
-                    </div>
-                    <div className={cl.resumeUnderlineHeader}></div>
-                    <div className={cl.resumeBlockEventName}>
-                        <div>
-                            {isDropdownOpen ? (
-                                <>
-                                    {events.map((event) => (
-                                        <div key={event.id} className={cl.resumeNameEventList}>
-                                            <div
-                                                className={cl.resumeNameEventList}
-                                                onClick={() => handleSelectEvent(event)}
-                                            >
-                                                {event.title}
-                                                {(selectEventId ? events.find(ev => ev.id === selectEventId)!.title : events[0].title) === event.title ? (
-                                                    <CheckOutlined className={cl.checkIcon}/>) : ("")}
-                                            </div>
-                                            <div
-                                                className={cl.resumeDateEvent}>{formatDate(selectEventId ? events.find(ev => ev.id === selectEventId)!.startDate : events[0].startDate)}</div>
+        <>
+            <div className={cl.resumeEvent}>
+                <div className={cl.resumeEventHeader}>
+                    <GiftOutlined className={cl.resumeEventHeaderButton}/>
+                    <div className={cl.resumeEventHeaderText}>Мероприятия</div>
+                </div>
+                <div className={cl.resumeUnderlineHeader}></div>
+                <div className={cl.resumeBlockEventName}>
+                    <div>
+                        {isDropdownOpen ? (
+                            <>
+                                {events.map((event) => (
+                                    <div key={event.id} className={cl.resumeNameEventList}>
+                                        <div
+                                            className={cl.resumeNameEventList}
+                                            onClick={() => handleSelectEvent(event)}
+                                        >
+                                            {event.title}
+                                            {(selectEventId ? events.find(ev => ev.id === selectEventId)!.title : events[0].title) === event.title ? (
+                                                <CheckOutlined className={cl.checkIcon}/>) : ("")}
                                         </div>
-                                    ))}
-                                </>
-                            ) : (
-                                <>
-                                    <div className={cl.resumeNameEvent}>{selectEventId ? events.find(ev => ev.id === selectEventId)!.title : events[0].title}</div>
-                                    <div className={cl.resumeDateEvent}>{formatDate(selectEventId ? events.find(ev => ev.id === selectEventId)!.startDate : events[0].startDate)}</div>
-                                </>
-                            )}
-                        </div>
-                        <MenuOutlined className={cl.iconDropdown}
-                                      onClick={() => setIsDropdownOpen(prev => !prev)}/>
+                                        <div
+                                            className={cl.resumeDateEvent}>{formatDate(selectEventId ? events.find(ev => ev.id === selectEventId)!.startDate : events[0].startDate)}</div>
+                                    </div>
+                                ))}
+                            </>
+                        ) : (
+                            <>
+                                <div className={cl.resumeNameEvent}>{selectEventId ? events.find(ev => ev.id === selectEventId)!.title : events[0].title}</div>
+                                <div className={cl.resumeDateEvent}>{formatDate(selectEventId ? events.find(ev => ev.id === selectEventId)!.startDate : events[0].startDate)}</div>
+                            </>
+                        )}
                     </div>
-                    <div className={cl.countdownTimer}>
-                        <div className={cl.timerDisplay}>{getCountdown(beforeEventTime)}</div>
-                    </div>
+                    <MenuOutlined className={cl.iconDropdown}
+                                  onClick={() => setIsDropdownOpen(prev => !prev)}/>
+                </div>
+                <div className={cl.countdownTimer}>
+                    <div className={cl.timerDisplay}>{getCountdown(beforeEventTime)}</div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
