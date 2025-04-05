@@ -1,7 +1,7 @@
 import axios from "axios";
 import {data} from "react-router-dom";
 
-const apiUrl = 'https://localhost:7230/api'
+const apiUrl = 'https://widebrasskayak91.conveyor.cloud/api'
 const eventControllerUrl = `${apiUrl}/Holiday`
 const contractorControllerUrl = `${apiUrl}/Contractor`
 const authControllerUrl = `${apiUrl}/Auth`

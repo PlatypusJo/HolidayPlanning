@@ -11,7 +11,7 @@ const { Content } = Layout
 
 const App = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/HolidayPlanningClient">
             <Layout className="layout">
                 <FooterProvider>
                     <NotificationProvider>
