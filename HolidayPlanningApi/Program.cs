@@ -3,6 +3,7 @@ using BLL.Intefaces;
 using BLL.Services;
 using DAL.Entities;
 using DAL.Interfaces;
+using DAL.Providers;
 using DAL.Repositories;
 using Google.Api;
 using Microsoft.AspNetCore.Identity;
@@ -55,6 +56,7 @@ namespace HolidayPlanningApi
             builder.Services.AddScoped<IMenuCategoryService, MenuCategoryService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            ContractorStatusProvider.RegisterAll();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
