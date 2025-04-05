@@ -1,14 +1,13 @@
 ﻿using DAL.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.DTOs
 {
-    public class ExpenseDto
+    public class HolidayExpenseDto
     {
         #region Свойства
 
@@ -42,6 +41,11 @@ namespace BLL.DTOs
         /// </summary>
         public double Paid { get; set; }
 
+        /// <summary>
+        /// Флаг является ли статья расходов услугой подрядчика
+        /// </summary>
+        public bool IsContractor { get; set; }
+
         #endregion
 
         #region Конструкторы
@@ -49,13 +53,13 @@ namespace BLL.DTOs
         /// <summary>
         /// Конструктор по умолчанию
         /// </summary>
-        public ExpenseDto() { }
+        public HolidayExpenseDto() { }
 
         /// <summary>
-        /// Конструктор на основе оригинальной сущности
+        /// Конструктор на основе сущности Статьи расходов
         /// </summary>
         /// <param name="expense">Сущность статьи расходов</param>
-        public ExpenseDto(Expense expense)
+        public HolidayExpenseDto(Expense expense)
         {
             Id = expense.Id;
             HolidayId = expense.HolidayId;
@@ -63,6 +67,22 @@ namespace BLL.DTOs
             Description = expense.Description;
             Amount = expense.Amount;
             Paid = expense.Paid;
+            IsContractor = false;
+        }
+
+        /// <summary>
+        /// Конструктор на основе сущности Подрядчика
+        /// </summary>
+        /// <param name="contactor">Сущность Подрядчика</param>
+        public HolidayExpenseDto(Contractor contactor)
+        {
+            Id = contactor.Id;
+            HolidayId = contactor.HolidayId;
+            Title = contactor.Title;
+            Description = contactor.Description;
+            Amount = contactor.ServiceCost;
+            Paid = contactor.Paid;
+            IsContractor = true;
         }
 
         #endregion
