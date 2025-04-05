@@ -1,0 +1,3 @@
+[submodule "HolidayPlanningClient"]
+	path = HolidayPlanningClient
+	url = https://github.com/Sharik2468/HolidayPlanningClient
