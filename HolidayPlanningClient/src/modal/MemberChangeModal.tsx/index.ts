@@ -1,1 +1,0 @@
-export {MemberChangeModal} from "./MemberChangeModal"

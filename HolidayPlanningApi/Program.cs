@@ -22,7 +22,10 @@ namespace HolidayPlanningApi
                 options.AddDefaultPolicy(
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins(
+                        "http://localhost:3000",
+                        "https://sharik2468.github.io"
+                    )
                 .AllowAnyHeader()
                 .AllowAnyMethod();
                 });
@@ -31,7 +34,7 @@ namespace HolidayPlanningApi
             builder.Services.AddControllers();
 
             // Init
-            string path = AppDomain.CurrentDomain.BaseDirectory + @"put key here";
+            string path = AppDomain.CurrentDomain.BaseDirectory + @"holidayplanning-da398-firebase-adminsdk-fbsvc-5c8115c79c.json";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
             // ���������� InMemory db
