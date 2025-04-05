@@ -15,7 +15,7 @@ namespace BLL.Services
     /// <summary>
     /// Сервис расходов мероприятия
     /// </summary>
-    public class HolidayExpenseSrvice : BaseService, IHolidayExpenseService
+    public class HolidayExpenseService : BaseService, IHolidayExpenseService
     {
         #region Конструкторы
 
@@ -23,7 +23,7 @@ namespace BLL.Services
         /// Конструкор на основе UnitOfWork
         /// </summary>
         /// <param name="unitOfWork">Экземпляр UnitOfWork</param>
-        public HolidayExpenseSrvice(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public HolidayExpenseService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         #endregion
 
