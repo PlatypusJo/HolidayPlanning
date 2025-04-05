@@ -4,17 +4,19 @@ import {EventData, getAllEvents} from "../../shared/api";
 import {useFetching, useNotification} from "../../shared/hook";
 import {AdviceContainer, InfoContainer, ProfileMenu} from "../../shared/ui";
 import {PlusOutlined} from "@ant-design/icons";
-import {EventContainer, ProfileEventsWidget} from "../../widgets";
+import {ProfileBudgetWidget, ProfileEventsWidget, ProfileGoastInfoWidget} from "../../widgets";
 import {EventCreateModal} from "../../modal/EventCreateModal";
 import {useNavigate} from "react-router-dom";
 import {RoutesPaths} from "../../shared/config";
 import {useFooterContext} from "../../shared/ui/Footer/Footer";
+import cl from "./ui/ProfilePage.module.css";
 
 export const ProfilePage = () => {
     const navigate = useNavigate()
     const notification = useNotification()
     const {updateFloatButton } = useFooterContext()
     const [events, setEvents] = useState<EventData[]>([]);
+    const [selectedEventId, setSelectedEventId] = useState(localStorage.getItem('selectEventId'))
     const [isCreateEventModal, setIsCreateEventModal] = useState(false)
     const [fetchGetEvents, isLoadingFetchGetEvents, errorFetchGetEvents] = useFetching(async () => {
         try {
@@ -38,6 +40,7 @@ export const ProfilePage = () => {
         if (!targetEvent) return events; // Если не найден — возвращаем исходный массив
         const remainingEvents = events.filter(event => event.id !== newSelectedId);
         setEvents([targetEvent, ...remainingEvents])
+        setSelectedEventId(newSelectedId)
     }
 
     const openCreateEventModal = () => {
@@ -57,10 +60,19 @@ export const ProfilePage = () => {
                 buttonSettings={{ btnIcon: <PlusOutlined/>, iconPosition: 'end', btnText: "Создать мероприятие" }}
             />
             <ProfileMenu/>
-            {events.length !== 0 && <ProfileEventsWidget
-                events={events}
-                updateSelectedEventId={updateSelectedId}
-            />}
+            <div className={cl.contentResume}>
+                <div className={cl.textResume}>
+                    <div className={cl.resumeBlock}>Сводка</div>
+                    <div className={cl.resumeUnderline}></div>
+
+                    {events.length !== 0 && <ProfileEventsWidget
+                        events={events}
+                        updateSelectedEventId={updateSelectedId}
+                    />}
+                    <ProfileGoastInfoWidget eventId={`${selectedEventId}`}/>
+                    <ProfileBudgetWidget eventId={`${selectedEventId}`}/>
+                </div>
+            </div>
             <AdviceContainer/>
             <EventCreateModal
                 visible={isCreateEventModal}

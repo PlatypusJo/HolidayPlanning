@@ -66,6 +66,11 @@ namespace DAL.Entities
         public double ServiceCost { get; set; }
 
         /// <summary>
+        /// Оплаченная сумма от всей цены
+        /// </summary>
+        public double Paid { get; set; }
+
+        /// <summary>
         /// Мероприятие, на которое нанят подрядчик
         /// </summary>
         public virtual Holiday Holiday { get; set; }

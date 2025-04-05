@@ -136,7 +136,7 @@ export const MemberChangeModal: React.FC<{
         <Modal
             onCancel={handleClose}
             onOk={handleSubmit}
-            okButtonText={"Добавить"}
+            okButtonText={"Изменить"}
             icon={Logo}
             loading={isLoadingFetchChangeMember}
             modalTitle={"Добавление гостя"}

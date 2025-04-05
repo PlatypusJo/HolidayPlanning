@@ -33,11 +33,11 @@ namespace DAL.Repositories
             DocumentReference docRef = _db.Collection("holiday").Document($"{item.Id}");
             Dictionary<string, object> holiday = new Dictionary<string, object>
             {
-                {"Title", $"{item.Title}"},
-                {"StartDate", item.StartDate.ToString()},
+                {"title", $"{item.Title}"},
+                {"startDate", item.StartDate.ToString()},
                 {"userId", item.UserId},
-                {"EndDate", item.EndDate.ToString()},
-                {"Budget", item.Budget.ToString()}
+                {"endDate", item.EndDate.ToString()},
+                {"budget", item.Budget.ToString()}
 
             };
             await docRef.SetAsync(holiday);
@@ -69,11 +69,11 @@ namespace DAL.Repositories
                 holidays.Add(new Holiday()
                 {
                     Id = document.Id,
-                    Title = documentTemp["Title"].ToString(),
+                    Title = documentTemp["title"].ToString(),
                     UserId = documentTemp["userId"].ToString(),
-                    Budget = Convert.ToDouble(documentTemp["Budget"].ToString()),
-                    StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
-                    EndDate = DateTime.Parse(documentTemp["EndDate"].ToString())
+                    Budget = Convert.ToDouble(documentTemp["budget"].ToString()),
+                    StartDate = DateTime.Parse(documentTemp["startDate"].ToString()),
+                    EndDate = DateTime.Parse(documentTemp["endDate"].ToString())
                 });
             }
 
@@ -94,11 +94,11 @@ namespace DAL.Repositories
                 holidays.Add(new Holiday()
                 {
                     Id = document.Id,
-                    Title = documentTemp["Title"].ToString(),
+                    Title = documentTemp["title"].ToString(),
                     UserId = documentTemp["userId"].ToString(),
-                    Budget = Convert.ToDouble(documentTemp["Budget"].ToString()),
-                    StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
-                    EndDate = DateTime.Parse(documentTemp["EndDate"].ToString())
+                    Budget = Convert.ToDouble(documentTemp["budget"].ToString()),
+                    StartDate = DateTime.Parse(documentTemp["startDate"].ToString()),
+                    EndDate = DateTime.Parse(documentTemp["endDate"].ToString())
                 });
             }
 
@@ -115,11 +115,11 @@ namespace DAL.Repositories
             Holiday holiday = new Holiday()
             {
                 Id = document.Id,
-                Title = documentTemp["Title"].ToString(),
+                Title = documentTemp["title"].ToString(),
                 UserId = documentTemp["userId"].ToString(),
-                Budget = Convert.ToDouble(documentTemp["Budget"].ToString()),
-                StartDate = DateTime.Parse(documentTemp["StartDate"].ToString()),
-                EndDate = DateTime.Parse(documentTemp["EndDate"].ToString())
+                Budget = Convert.ToDouble(documentTemp["budget"].ToString()),
+                StartDate = DateTime.Parse(documentTemp["startDate"].ToString()),
+                EndDate = DateTime.Parse(documentTemp["endDate"].ToString())
             };
 
             return holiday;
@@ -130,11 +130,11 @@ namespace DAL.Repositories
             DocumentReference docRef = _db.Collection("holiday").Document($"{item.Id}");
             Dictionary<string, object> holiday = new Dictionary<string, object>
             {
-                {"Title", $"{item.Title}"},
-                {"StartDate", item.StartDate.ToString()},
+                {"title", $"{item.Title}"},
+                {"startDate", item.StartDate.ToString()},
                 {"userId", item.UserId},
-                {"EndDate", item.EndDate.ToString()},
-                {"Budget", item.Budget.ToString()}
+                {"endDate", item.EndDate.ToString()},
+                {"budget", item.Budget.ToString()}
             };
 
             await docRef.UpdateAsync(holiday);

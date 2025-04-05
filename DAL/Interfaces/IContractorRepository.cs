@@ -25,5 +25,12 @@ namespace DAL.Interfaces
         /// <param name="contractorId">Id Подрядчика</param>
         /// <param name="contractorStatusId">Id Статуса подрядчика</param>
         Task PatchContractorStatus(string contractorId, string contractorStatusId);
+
+        /// <summary>
+        /// Обновляет оплаченную сумму услуги подрядчика.
+        /// </summary>
+        /// <param name="contractorId">Id подрядчика.</param>
+        /// <param name="paid">Новая оплаченная сумма.</param>
+        Task PatchPaid(string contractorId, double paid);
     }
 }

@@ -46,9 +46,14 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="id">ID сущности</param>
         /// <returns>Найденная сущность в форме dto (null, если сущность не найдена)</returns>
         [HttpGet("{id}")]
-        public Task<ContractorDto> GetById(string id)
+        public async Task<ActionResult<ContractorDto>> GetById(string id)
         {
-            return _contractorService.GetById(id);
+            if (!await _contractorService.Exists(id))
+            {
+                return NotFound("Invalid id, entity not exists.");
+            }
+
+            return await _contractorService.GetById(id);
         }
 
         /// <summary>
@@ -114,7 +119,7 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="id">ID Подрядчика</param>
         /// <param name="patchContractorStatusDto">Dto с измененным статусом подрядчика</param>
         /// <returns></returns>
-        [HttpPatch("{id}")]
+        [HttpPatch("Status/ContractorId/{id}")]
         public async Task<ActionResult<int>> Patch(string id, [FromBody] PatchContractorStatusDto patchContractorStatusDto)
         {
             if (id != patchContractorStatusDto.ContractorId)
@@ -128,6 +133,28 @@ namespace HolidayPlanningApi.Controllers
             }
 
             return Ok(patchContractorStatusDto.ContractorId);
+        }
+
+        /// <summary>
+        /// Обновляет оплаченную сумму услуги Подрядчика
+        /// </summary>
+        /// <param name="id">ID Подрядчика</param>
+        /// <param name="patchContractorPaidDto">Dto с измененной оплаченной суммой</param>
+        /// <returns></returns>
+        [HttpPatch("Paid/ContractorId/{id}")]
+        public async Task<ActionResult<int>> Patch(string id, [FromBody] PatchContractorPaidDto patchContractorPaidDto)
+        {
+            if (id != patchContractorPaidDto.ContractorId)
+            {
+                return BadRequest();
+            }
+
+            if (!await _contractorService.PatchPaid(patchContractorPaidDto))
+            {
+                return NotFound();
+            }
+
+            return Ok(patchContractorPaidDto.ContractorId);
         }
 
         /// <summary>
@@ -148,6 +175,5 @@ namespace HolidayPlanningApi.Controllers
         }
 
         #endregion
-
     }
 }

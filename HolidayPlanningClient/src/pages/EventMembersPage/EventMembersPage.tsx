@@ -106,7 +106,7 @@ export const EventMembersPage = () => {
         <>
             <InfoContainer title={"Здесь располагаются гости вашего мероприятия"} src={ImageContainerGuests}
                            onBtnClick={() => window.history.back()}/>
-            <div className={cl.contractorsContainer}>
+            <div className={cl.memberContainer}>
                 <div className={cl.separatorUnderline}/>
                 <div className={cl.container}>
                     <div className={cl.filterContainer}>

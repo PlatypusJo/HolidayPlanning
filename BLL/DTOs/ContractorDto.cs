@@ -60,6 +60,11 @@ namespace BLL.DTOs
         /// </summary>
         public double ServiceCost { get; set; }
 
+        /// <summary>
+        /// Оплаченная сумма от всей цены
+        /// </summary>
+        public double Paid { get; set; }
+
         #endregion
 
         #region Конструкторы
@@ -84,6 +89,7 @@ namespace BLL.DTOs
             PhoneNumber = contractor.PhoneNumber;
             Email = contractor.Email;
             ServiceCost = contractor.ServiceCost;
+            Paid = contractor.Paid;
         }
 
         #endregion

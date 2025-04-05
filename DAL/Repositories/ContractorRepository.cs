@@ -38,6 +38,7 @@ namespace DAL.Repositories
                 {"email", $"{item.Email}"},
                 {"phoneNumber", $"{item.PhoneNumber}"},
                 {"serviceCost", $"{item.ServiceCost}"},
+                {"paid", $"{item.Paid}"},
                 {"categoryId", $"{item.СategoryId}"},
                 {"statusId", $"{item.StatusId}"},
                 {"holidayId", $"{item.HolidayId}"}
@@ -61,8 +62,8 @@ namespace DAL.Repositories
 
         public async Task<List<Contractor>> GetAll()
         {
-            CollectionReference usersRef = _db.Collection("contractors");
-            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
+            CollectionReference contractorsRef = _db.Collection("contractors");
+            QuerySnapshot snapshot = await contractorsRef.GetSnapshotAsync();
 
             List<Contractor> contractors = [];
 
@@ -80,6 +81,7 @@ namespace DAL.Repositories
                     Email = documentTemp["email"].ToString(),
                     PhoneNumber = documentTemp["phoneNumber"].ToString(),
                     ServiceCost = Convert.ToDouble(documentTemp["serviceCost"].ToString()),
+                    Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
                 });
             }
 
@@ -108,6 +110,7 @@ namespace DAL.Repositories
                     Email = documentTemp["email"].ToString(),
                     PhoneNumber = documentTemp["phoneNumber"].ToString(),
                     ServiceCost = Convert.ToDouble(documentTemp["serviceCost"].ToString()),
+                    Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
                 });
             }
 
@@ -132,6 +135,7 @@ namespace DAL.Repositories
                 Email = documentTemp["email"].ToString(),
                 PhoneNumber = documentTemp["phoneNumber"].ToString(),
                 ServiceCost = Convert.ToDouble(documentTemp["serviceCost"].ToString()),
+                Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
             };
 
             return contractor;
@@ -147,6 +151,7 @@ namespace DAL.Repositories
                 {"email", $"{item.Email}"},
                 {"phoneNumber", $"{item.PhoneNumber}"},
                 {"serviceCost", $"{item.ServiceCost}"},
+                {"paid", $"{item.Paid}"},
                 {"categoryId", $"{item.СategoryId}"},
                 {"statusId", $"{item.StatusId}"},
                 {"holidayId", $"{item.HolidayId}"}
@@ -161,6 +166,17 @@ namespace DAL.Repositories
             Dictionary<string, object> contractor = new Dictionary<string, object>
             {
                 {"statusId", $"{contractorStatusId}"}
+            };
+
+            await docRef.UpdateAsync(contractor);
+        }
+
+        public async Task PatchPaid(string contractorId, double paid)
+        {
+            DocumentReference docRef = _db.Collection("contractors").Document($"{contractorId}");
+            Dictionary<string, object> contractor = new Dictionary<string, object>
+            {
+                {"paid", $"{paid}"}
             };
 
             await docRef.UpdateAsync(contractor);

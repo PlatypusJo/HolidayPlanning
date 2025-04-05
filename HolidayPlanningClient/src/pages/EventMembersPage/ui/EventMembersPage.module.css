@@ -7,7 +7,7 @@
     gap: 10px; /* Расстояние между колонками */
 }
 
-.contractorsContainer {
+.memberContainer {
     position: relative;
     padding: 10px clamp(14px, 2.2vw, 36px);
 }
