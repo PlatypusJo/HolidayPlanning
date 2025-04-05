@@ -25,10 +25,10 @@ namespace HolidayPlanningApi.Controllers
         /// <summary>
         /// Контруктор на основе сервиса Статьи расходов
         /// </summary>
-        /// <param name="contractorService">Сервис Статьи расходов</param>
-        public ExpenseController(IExpenseService contractorService)
+        /// <param name="expenseSevice">Сервис Статьи расходов</param>
+        public ExpenseController(IExpenseService expenseSevice)
         {
-            _expenseService = contractorService;
+            _expenseService = expenseSevice;
         }
 
         #endregion

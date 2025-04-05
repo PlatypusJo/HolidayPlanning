@@ -25,5 +25,12 @@ namespace BLL.Intefaces
         /// <param name="itemDto">dto-класс, содержащий статус подрячика и id подрядчика</param>
         /// <returns>true при успешном обновлении экземпляра сущности, иначе false</returns>
         Task<bool> PatchContractorStatus(PatchContractorStatusDto itemDto);
+
+        /// <summary>
+        /// Обновляет оплаченную сумму услуги подрядчика
+        /// </summary>
+        /// <param name="itemDto">dto-класс, содержащий оплаченную сумму и id подрядчика</param>
+        /// <returns>true при успешном обновлении экземпляра сущности, иначе false</returns>
+        Task<bool> PatchPaid(PatchContractorPaidDto itemDto);
     }
 }

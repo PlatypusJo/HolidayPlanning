@@ -117,6 +117,15 @@ namespace BLL.Services
             return await SaveAsync();
         }
 
+        public async Task<bool> PatchPaid(PatchContractorPaidDto itemDto)
+        {
+            if (!await _unitOfWork.Contractor.Exists(itemDto.ContractorId))
+                return false;
+
+            await _unitOfWork.Contractor.PatchPaid(itemDto.ContractorId, itemDto.Paid);
+            return await SaveAsync();
+        }
+
         #endregion
     }
 }

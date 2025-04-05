@@ -119,7 +119,7 @@ namespace HolidayPlanningApi.Controllers
         /// <param name="id">ID Подрядчика</param>
         /// <param name="patchContractorStatusDto">Dto с измененным статусом подрядчика</param>
         /// <returns></returns>
-        [HttpPatch("{id}")]
+        [HttpPatch("Status/ContractorId/{id}")]
         public async Task<ActionResult<int>> Patch(string id, [FromBody] PatchContractorStatusDto patchContractorStatusDto)
         {
             if (id != patchContractorStatusDto.ContractorId)
@@ -133,6 +133,28 @@ namespace HolidayPlanningApi.Controllers
             }
 
             return Ok(patchContractorStatusDto.ContractorId);
+        }
+
+        /// <summary>
+        /// Обновляет оплаченную сумму услуги Подрядчика
+        /// </summary>
+        /// <param name="id">ID Подрядчика</param>
+        /// <param name="patchContractorPaidDto">Dto с измененной оплаченной суммой</param>
+        /// <returns></returns>
+        [HttpPatch("Paid/ContractorId/{id}")]
+        public async Task<ActionResult<int>> Patch(string id, [FromBody] PatchContractorPaidDto patchContractorPaidDto)
+        {
+            if (id != patchContractorPaidDto.ContractorId)
+            {
+                return BadRequest();
+            }
+
+            if (!await _contractorService.PatchPaid(patchContractorPaidDto))
+            {
+                return NotFound();
+            }
+
+            return Ok(patchContractorPaidDto.ContractorId);
         }
 
         /// <summary>
