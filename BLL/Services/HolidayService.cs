@@ -70,6 +70,15 @@ namespace BLL.Services
                 }
             }
 
+            List<Expense> expenses = await _unitOfWork.Expense.GetAllByHolidayId(id);
+            if (expenses != null)
+            {
+                for (int i = 0; i < expenses.Count; i++)
+                {
+                    await _unitOfWork.Expense.Delete(expenses[i].Id);
+                }
+            }
+
             await _unitOfWork.Holiday.Delete(id);
             return await SaveAsync();
         }
