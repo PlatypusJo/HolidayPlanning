@@ -14,12 +14,18 @@ namespace DAL.Providers
     {
         #region Поля
 
+        /// <summary>
+        /// Словарь Статусов подрядчика
+        /// </summary>
         private static readonly Dictionary<string, ContractorStatusEnum> _dictionary = [];
 
         #endregion
 
         #region Методы
 
+        /// <summary>
+        /// Регистрирует все Статусы подрядчика в провайдере в виде enum по ключу id
+        /// </summary>
         public static void RegisterAll()
         {
             _dictionary.Clear();
@@ -28,11 +34,21 @@ namespace DAL.Providers
             Register("3", ContractorStatusEnum.Refused);
         }
 
-        public static void Register(string name, ContractorStatusEnum status)
+        /// <summary>
+        /// Регистрирует Статус подрядчика в провайдере в виде enum по ключу id
+        /// </summary>
+        /// <param name="id">Id Статуса подрядчика</param>
+        /// <param name="status">enum Статуса подрядчика</param>
+        public static void Register(string id, ContractorStatusEnum status)
         {
-            _dictionary.Add(name, status);
+            _dictionary.Add(id, status);
         }
 
+        /// <summary>
+        /// Получение Статуса подрядчика в виде enum
+        /// </summary>
+        /// <param name="id">Id Статуса подрядчика</param>
+        /// <returns></returns>
         public static ContractorStatusEnum Provide(string id)
         {
             return _dictionary[id];

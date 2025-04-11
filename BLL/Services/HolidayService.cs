@@ -37,6 +37,7 @@ namespace BLL.Services
             var holiday = new Holiday
             {
                 Id = itemDto.Id,
+                UserId = itemDto.UserId,
                 Title = itemDto.Title,
                 StartDate = itemDto.StartDate,
                 EndDate = itemDto.EndDate,
@@ -67,6 +68,15 @@ namespace BLL.Services
                 for (int i = 0; i < contractors.Count; i++)
                 {
                     await _unitOfWork.Contractor.Delete(contractors[i].Id);
+                }
+            }
+
+            List<Expense> expenses = await _unitOfWork.Expense.GetAllByHolidayId(id);
+            if (expenses != null)
+            {
+                for (int i = 0; i < expenses.Count; i++)
+                {
+                    await _unitOfWork.Expense.Delete(expenses[i].Id);
                 }
             }
 
@@ -113,6 +123,7 @@ namespace BLL.Services
             Holiday item = await _unitOfWork.Holiday.GetItem(itemDto.Id);
 
             item.Id = itemDto.Id;
+            item.UserId = itemDto.UserId;
             item.Title = itemDto.Title;
             item.StartDate = itemDto.StartDate;
             item.EndDate = itemDto.EndDate;

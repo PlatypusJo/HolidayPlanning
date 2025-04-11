@@ -1,4 +1,5 @@
 ﻿using DAL.Abstract;
+using DAL.Converters;
 using DAL.Entities;
 using DAL.Interfaces;
 using Google.Cloud.Firestore;
@@ -31,19 +32,7 @@ namespace DAL.Repositories
         public async Task Create(Contractor item)
         {
             DocumentReference docRef = _db.Collection("contractors").Document($"{item.Id}");
-            Dictionary<string, object> contractor = new Dictionary<string, object>
-            {
-                {"title", $"{item.Title}"},
-                {"description", $"{item.Description}"},
-                {"email", $"{item.Email}"},
-                {"phoneNumber", $"{item.PhoneNumber}"},
-                {"serviceCost", $"{item.ServiceCost}"},
-                {"paid", $"{item.Paid}"},
-                {"categoryId", $"{item.СategoryId}"},
-                {"statusId", $"{item.StatusId}"},
-                {"holidayId", $"{item.HolidayId}"}
-
-            };
+            Dictionary<string, object> contractor = ContractorConverter.FromModelToDictionary(item);
             await docRef.SetAsync(contractor);
         }
         
@@ -69,20 +58,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                contractors.Add(new Contractor()
-                {
-                    Id = document.Id,
-                    Title = documentTemp["title"].ToString(),
-                    СategoryId = documentTemp["categoryId"].ToString(),
-                    StatusId = documentTemp["statusId"].ToString(),
-                    HolidayId = documentTemp["holidayId"].ToString(),
-                    Description = documentTemp["description"].ToString(),
-                    Email = documentTemp["email"].ToString(),
-                    PhoneNumber = documentTemp["phoneNumber"].ToString(),
-                    ServiceCost = Convert.ToDouble(documentTemp["serviceCost"].ToString()),
-                    Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
-                });
+                Contractor contractor = ContractorConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                contractors.Add(contractor);
             }
 
             return contractors;
@@ -98,20 +75,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                contractors.Add(new Contractor()
-                {
-                    Id = document.Id,
-                    Title = documentTemp["title"].ToString(),
-                    СategoryId = documentTemp["categoryId"].ToString(),
-                    StatusId = documentTemp["statusId"].ToString(),
-                    HolidayId = documentTemp["holidayId"].ToString(),
-                    Description = documentTemp["description"].ToString(),
-                    Email = documentTemp["email"].ToString(),
-                    PhoneNumber = documentTemp["phoneNumber"].ToString(),
-                    ServiceCost = Convert.ToDouble(documentTemp["serviceCost"].ToString()),
-                    Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
-                });
+                Contractor contractor = ContractorConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                contractors.Add(contractor);
             }
 
             return contractors;
@@ -121,42 +86,14 @@ namespace DAL.Repositories
         {
             DocumentReference docRef = _db.Collection("contractors").Document($"{id}");
             DocumentSnapshot document = await docRef.GetSnapshotAsync();
-
-            var documentTemp = document.ToDictionary();
-
-            Contractor contractor = new Contractor()
-            {
-                Id = document.Id,
-                Title = documentTemp["title"].ToString(),
-                СategoryId = documentTemp["categoryId"].ToString(),
-                StatusId = documentTemp["statusId"].ToString(),
-                HolidayId = documentTemp["holidayId"].ToString(),
-                Description = documentTemp["description"].ToString(),
-                Email = documentTemp["email"].ToString(),
-                PhoneNumber = documentTemp["phoneNumber"].ToString(),
-                ServiceCost = Convert.ToDouble(documentTemp["serviceCost"].ToString()),
-                Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
-            };
-
+            Contractor contractor = ContractorConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
             return contractor;
         }
 
         public async Task Update(Contractor item)
         {
             DocumentReference docRef = _db.Collection("contractors").Document($"{item.Id}");
-            Dictionary<string, object> contractor = new Dictionary<string, object>
-            {
-                {"title", $"{item.Title}"},
-                {"description", $"{item.Description}"},
-                {"email", $"{item.Email}"},
-                {"phoneNumber", $"{item.PhoneNumber}"},
-                {"serviceCost", $"{item.ServiceCost}"},
-                {"paid", $"{item.Paid}"},
-                {"categoryId", $"{item.СategoryId}"},
-                {"statusId", $"{item.StatusId}"},
-                {"holidayId", $"{item.HolidayId}"}
-            };
-
+            Dictionary<string, object> contractor = ContractorConverter.FromModelToDictionary(item);
             await docRef.UpdateAsync(contractor);
         }
 

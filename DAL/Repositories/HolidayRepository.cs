@@ -1,4 +1,5 @@
 ﻿using DAL.Abstract;
+using DAL.Converters;
 using DAL.Entities;
 using DAL.Interfaces;
 using Google.Cloud.Firestore;
@@ -31,15 +32,7 @@ namespace DAL.Repositories
         public async Task Create(Holiday item)
         {
             DocumentReference docRef = _db.Collection("holiday").Document($"{item.Id}");
-            Dictionary<string, object> holiday = new Dictionary<string, object>
-            {
-                {"title", $"{item.Title}"},
-                {"startDate", item.StartDate.ToString()},
-                {"userId", item.UserId},
-                {"endDate", item.EndDate.ToString()},
-                {"budget", item.Budget.ToString()}
-
-            };
+            Dictionary<string, object> holiday = HolidayConverter.FromModelToDictionary(item);
             await docRef.SetAsync(holiday);
         }
 
@@ -65,16 +58,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                holidays.Add(new Holiday()
-                {
-                    Id = document.Id,
-                    Title = documentTemp["title"].ToString(),
-                    UserId = documentTemp["userId"].ToString(),
-                    Budget = Convert.ToDouble(documentTemp["budget"].ToString()),
-                    StartDate = DateTime.Parse(documentTemp["startDate"].ToString()),
-                    EndDate = DateTime.Parse(documentTemp["endDate"].ToString())
-                });
+                var holiday = HolidayConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                holidays.Add(holiday);
             }
 
             return holidays;
@@ -90,16 +75,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                holidays.Add(new Holiday()
-                {
-                    Id = document.Id,
-                    Title = documentTemp["title"].ToString(),
-                    UserId = documentTemp["userId"].ToString(),
-                    Budget = Convert.ToDouble(documentTemp["budget"].ToString()),
-                    StartDate = DateTime.Parse(documentTemp["startDate"].ToString()),
-                    EndDate = DateTime.Parse(documentTemp["endDate"].ToString())
-                });
+                var holiday = HolidayConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                holidays.Add(holiday);
             }
 
             return holidays;
@@ -109,34 +86,14 @@ namespace DAL.Repositories
         {
             DocumentReference docRef = _db.Collection("holiday").Document($"{id}");
             DocumentSnapshot document = await docRef.GetSnapshotAsync();
-
-            var documentTemp = document.ToDictionary();
-
-            Holiday holiday = new Holiday()
-            {
-                Id = document.Id,
-                Title = documentTemp["title"].ToString(),
-                UserId = documentTemp["userId"].ToString(),
-                Budget = Convert.ToDouble(documentTemp["budget"].ToString()),
-                StartDate = DateTime.Parse(documentTemp["startDate"].ToString()),
-                EndDate = DateTime.Parse(documentTemp["endDate"].ToString())
-            };
-
+            Holiday holiday = HolidayConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
             return holiday;
         }
 
         public async Task Update(Holiday item)
         {
             DocumentReference docRef = _db.Collection("holiday").Document($"{item.Id}");
-            Dictionary<string, object> holiday = new Dictionary<string, object>
-            {
-                {"title", $"{item.Title}"},
-                {"startDate", item.StartDate.ToString()},
-                {"userId", item.UserId},
-                {"endDate", item.EndDate.ToString()},
-                {"budget", item.Budget.ToString()}
-            };
-
+            Dictionary<string, object> holiday = HolidayConverter.FromModelToDictionary(item);
             await docRef.UpdateAsync(holiday);
         }
         

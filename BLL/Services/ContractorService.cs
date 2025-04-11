@@ -103,6 +103,7 @@ namespace BLL.Services
             item.PhoneNumber = itemDto.PhoneNumber;
             item.Email = itemDto.Email;
             item.ServiceCost = itemDto.ServiceCost;
+            item.Paid = itemDto.Paid;
 
             await _unitOfWork.Contractor.Update(item);
             return await SaveAsync();

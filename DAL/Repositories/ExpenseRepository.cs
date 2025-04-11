@@ -1,4 +1,5 @@
 ﻿using DAL.Abstract;
+using DAL.Converters;
 using DAL.Entities;
 using DAL.Interfaces;
 using Google.Cloud.Firestore;
@@ -31,14 +32,7 @@ namespace DAL.Repositories
         public async Task Create(Expense item)
         {
             DocumentReference docRef = _db.Collection("expenses").Document($"{item.Id}");
-            Dictionary<string, object> expense = new Dictionary<string, object>
-            {
-                {"holidayId", $"{item.HolidayId}"},
-                {"title", $"{item.Title}"},
-                {"description", $"{item.Description}"},
-                {"amount", $"{item.Amount}"},
-                {"paid", $"{item.Paid}"}
-            };
+            Dictionary<string, object> expense = ExpenseConverter.FromModelToDictionary(item);
             await docRef.SetAsync(expense);
         }
 
@@ -64,16 +58,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                expenses.Add(new Expense()
-                {
-                    Id = document.Id,
-                    Title = documentTemp["title"].ToString(),
-                    HolidayId = documentTemp["holidayId"].ToString(),
-                    Description = documentTemp["description"].ToString(),
-                    Amount = Convert.ToDouble(documentTemp["amount"].ToString()),
-                    Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
-                });
+                var expense = ExpenseConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                expenses.Add(expense);
             }
 
             return expenses;
@@ -89,16 +75,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                expenses.Add(new Expense()
-                {
-                    Id = document.Id,
-                    Title = documentTemp["title"].ToString(),
-                    HolidayId = documentTemp["holidayId"].ToString(),
-                    Description = documentTemp["description"].ToString(),
-                    Amount = Convert.ToDouble(documentTemp["amount"].ToString()),
-                    Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
-                });
+                var expense = ExpenseConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                expenses.Add(expense);
             }
 
             return expenses;
@@ -108,34 +86,14 @@ namespace DAL.Repositories
         {
             DocumentReference docRef = _db.Collection("expenses").Document($"{id}");
             DocumentSnapshot document = await docRef.GetSnapshotAsync();
-
-            var documentTemp = document.ToDictionary();
-
-            Expense expense = new Expense()
-            {
-                Id = document.Id,
-                    Title = documentTemp["title"].ToString(),
-                    HolidayId = documentTemp["holidayId"].ToString(),
-                    Description = documentTemp["description"].ToString(),
-                    Amount = Convert.ToDouble(documentTemp["amount"].ToString()),
-                    Paid = Convert.ToDouble(documentTemp["paid"].ToString()),
-            };
-
+            Expense expense = ExpenseConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
             return expense;
         }
 
         public async Task Update(Expense item)
         {
             DocumentReference docRef = _db.Collection("expenses").Document($"{item.Id}");
-            Dictionary<string, object> expense = new Dictionary<string, object>
-            {
-                {"holidayId", $"{item.HolidayId}"},
-                {"title", $"{item.Title}"},
-                {"description", $"{item.Description}"},
-                {"amount", $"{item.Amount}"},
-                {"paid", $"{item.Paid}"}
-            };
-
+            Dictionary<string, object> expense = ExpenseConverter.FromModelToDictionary(item);
             await docRef.UpdateAsync(expense);
         }
 
