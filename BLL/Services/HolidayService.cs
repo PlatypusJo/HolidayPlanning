@@ -37,6 +37,7 @@ namespace BLL.Services
             var holiday = new Holiday
             {
                 Id = itemDto.Id,
+                UserId = itemDto.UserId,
                 Title = itemDto.Title,
                 StartDate = itemDto.StartDate,
                 EndDate = itemDto.EndDate,
@@ -122,6 +123,7 @@ namespace BLL.Services
             Holiday item = await _unitOfWork.Holiday.GetItem(itemDto.Id);
 
             item.Id = itemDto.Id;
+            item.UserId = itemDto.UserId;
             item.Title = itemDto.Title;
             item.StartDate = itemDto.StartDate;
             item.EndDate = itemDto.EndDate;
