@@ -19,16 +19,16 @@ namespace DAL.Abstract
         /// <summary>
         /// Получение значения типа string из словаря по ключу
         /// </summary>
-        /// <param name="dictionaty">Словарь</param>
+        /// <param name="dictionary">Словарь</param>
         /// <param name="key">Ключ</param>
         /// <param name="defaultValue">Значение, возвращаемое по умолчанию</param>
         /// <returns>Возвращает найденное значение. Если значение по ключу не найдено - вовзращает значение по умолчанию</returns>
-        protected static string GetString(Dictionary<string, object> dictionaty, string key, string defaultValue = "")
+        protected static string GetString(Dictionary<string, object> dictionary, string key, string defaultValue = "")
         {
             string result = defaultValue;
-            if (dictionaty.ContainsKey(key))
+            if (dictionary.ContainsKey(key))
             {
-                result = dictionaty[key].ToString();
+                result = dictionary[key].ToString();
             }
             return result;
         }
@@ -36,16 +36,16 @@ namespace DAL.Abstract
         /// <summary>
         /// Получение значения типа bool из словаря по ключу
         /// </summary>
-        /// <param name="dictionaty">Словарь</param>
+        /// <param name="dictionary">Словарь</param>
         /// <param name="key">Ключ</param>
         /// <param name="defaultValue">Значение, возвращаемое по умолчанию</param>
         /// <returns>Возвращает найденное значение. Если значение по ключу не найдено - вовзращает значение по умолчанию</returns>
-        static protected bool GetBool(Dictionary<string, object> dictionaty, string key, bool defaultValue = default)
+        static protected bool GetBool(Dictionary<string, object> dictionary, string key, bool defaultValue = default)
         {
             bool result = defaultValue;
-            if (dictionaty.ContainsKey(key))
+            if (dictionary.ContainsKey(key))
             {
-                result = Convert.ToBoolean(dictionaty[key].ToString());
+                result = Convert.ToBoolean(dictionary[key].ToString());
             }
             return result;
         }
@@ -53,16 +53,16 @@ namespace DAL.Abstract
         /// <summary>
         /// Получение значения типа double из словаря по ключу
         /// </summary>
-        /// <param name="dictionaty">Словарь</param>
+        /// <param name="dictionary">Словарь</param>
         /// <param name="key">Ключ</param>
         /// <param name="defaultValue">Значение, возвращаемое по умолчанию</param>
         /// <returns>Возвращает найденное значение. Если значение по ключу не найдено - вовзращает значение по умолчанию</returns>
-        protected static double GetDouble(Dictionary<string, object> dictionaty, string key, double defaultValue = default)
+        protected static double GetDouble(Dictionary<string, object> dictionary, string key, double defaultValue = default)
         {
             double result = defaultValue;
-            if (dictionaty.ContainsKey(key))
+            if (dictionary.ContainsKey(key))
             {
-                result = Convert.ToDouble(dictionaty[key].ToString());
+                result = Convert.ToDouble(dictionary[key].ToString());
             }
             return result;
         }
@@ -70,16 +70,16 @@ namespace DAL.Abstract
         /// <summary>
         /// Получение значения типа double из словаря по ключу
         /// </summary>
-        /// <param name="dictionaty">Словарь</param>
+        /// <param name="dictionary">Словарь</param>
         /// <param name="key">Ключ</param>
         /// <param name="defaultValue">Значение, возвращаемое по умолчанию</param>
         /// <returns>Возвращает найденное значение. Если значение по ключу не найдено - вовзращает значение по умолчанию</returns>
-        protected static DateTime GetDateTime(Dictionary<string, object> dictionaty, string key, DateTime defaultValue = default)
+        protected static DateTime GetDateTime(Dictionary<string, object> dictionary, string key, DateTime defaultValue = default)
         {
             DateTime result = defaultValue;
-            if (dictionaty.ContainsKey(key))
+            if (dictionary.ContainsKey(key))
             {
-                result = DateTime.Parse(dictionaty[key].ToString());
+                result = DateTime.Parse(dictionary[key].ToString());
             }
             return result;
         }
