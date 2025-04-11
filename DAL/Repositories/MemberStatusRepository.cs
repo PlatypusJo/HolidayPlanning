@@ -1,4 +1,5 @@
 ﻿using DAL.Abstract;
+using DAL.Converters;
 using DAL.Entities;
 using DAL.Interfaces;
 using Google.Cloud.Firestore;
@@ -36,12 +37,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                memberStatuses.Add(new MemberStatus()
-                {
-                    Id = document.Id,
-                    Title = documentTemp["text"].ToString(),
-                });
+                var memberStatus = MemberStatusConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                memberStatuses.Add(memberStatus);
             }
 
             return memberStatuses;

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Converters;
 
 namespace DAL.Repositories
 {
@@ -37,12 +38,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                categories.Add(new ContractorCategory()
-                {
-                    Id = document.Id,
-                    Title = documentTemp["text"].ToString(),
-                });
+                var category = ContractorCategoryConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                categories.Add(category);
             }
 
             return categories;

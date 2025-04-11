@@ -1,4 +1,5 @@
 ﻿using DAL.Abstract;
+using DAL.Converters;
 using DAL.Entities;
 using DAL.Interfaces;
 using Google.Cloud.Firestore;
@@ -31,20 +32,7 @@ namespace DAL.Repositories
         public async Task Create(Member item)
         {
             DocumentReference docRef = _db.Collection("members").Document($"{item.Id}");
-            Dictionary<string, object> member = new Dictionary<string, object>
-            {
-                {"holidayId", $"{item.HolidayId}"},
-                {"memberCategoryId", $"{item.MemberCategoryId}"},
-                {"memberStatusId", $"{item.MemberStatusId}"},
-                {"menuCategoryId", $"{item.MenuCategoryId}"},
-                {"fio", $"{item.FIO}"},
-                {"phoneNumber", $"{item.PhoneNumber}"},
-                {"email", $"{item.Email}"},
-                {"comment", $"{item.Comment}"},
-                {"isChild", $"{item.IsChild}"},
-                {"isMale", $"{item.IsMale}"},
-                {"seat", $"{item.Seat}"},
-            };
+            Dictionary<string, object> member = MemberConverter.FromModelToDictionary(item);
             await docRef.SetAsync(member);
         }
 
@@ -70,22 +58,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                members.Add(new Member()
-                {
-                    Id = document.Id,
-                    HolidayId = documentTemp["holidayId"].ToString(),
-                    MemberCategoryId = documentTemp["memberCategoryId"].ToString(),
-                    MemberStatusId = documentTemp["memberStatusId"].ToString(),
-                    MenuCategoryId = documentTemp["menuCategoryId"].ToString(),
-                    FIO = documentTemp["fio"].ToString(),
-                    PhoneNumber = documentTemp["phoneNumber"].ToString(),
-                    Email = documentTemp["email"].ToString(),
-                    Comment = documentTemp["comment"].ToString(),
-                    IsChild = Convert.ToBoolean(documentTemp["isChild"].ToString()),
-                    IsMale = Convert.ToBoolean(documentTemp["isMale"].ToString()),
-                    Seat = documentTemp["seat"].ToString(),
-                });
+                var member = MemberConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                members.Add(member);
             }
 
             return members;
@@ -101,22 +75,8 @@ namespace DAL.Repositories
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                var documentTemp = document.ToDictionary();
-                members.Add(new Member()
-                {
-                    Id = document.Id,
-                    HolidayId = documentTemp["holidayId"].ToString(),
-                    MemberCategoryId = documentTemp["memberCategoryId"].ToString(),
-                    MemberStatusId = documentTemp["memberStatusId"].ToString(),
-                    MenuCategoryId = documentTemp["menuCategoryId"].ToString(),
-                    FIO = documentTemp["fio"].ToString(),
-                    PhoneNumber = documentTemp["phoneNumber"].ToString(),
-                    Email = documentTemp["email"].ToString(),
-                    Comment = documentTemp["comment"].ToString(),
-                    IsChild = Convert.ToBoolean(documentTemp["isChild"].ToString()),
-                    IsMale = Convert.ToBoolean(documentTemp["isMale"].ToString()),
-                    Seat = documentTemp["seat"].ToString(),
-                });
+                var member = MemberConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
+                members.Add(member);
             }
 
             return members;
@@ -126,46 +86,14 @@ namespace DAL.Repositories
         {
             DocumentReference docRef = _db.Collection("members").Document($"{id}");
             DocumentSnapshot document = await docRef.GetSnapshotAsync();
-
-            var documentTemp = document.ToDictionary();
-
-            Member member = new Member()
-            {
-                Id = document.Id,
-                HolidayId = documentTemp["holidayId"].ToString(),
-                MemberCategoryId = documentTemp["memberCategoryId"].ToString(),
-                MemberStatusId = documentTemp["memberStatusId"].ToString(),
-                MenuCategoryId = documentTemp["menuCategoryId"].ToString(),
-                FIO = documentTemp["fio"].ToString(),
-                PhoneNumber = documentTemp["phoneNumber"].ToString(),
-                Email = documentTemp["email"].ToString(),
-                Comment = documentTemp["comment"].ToString(),
-                IsChild = Convert.ToBoolean(documentTemp["isChild"].ToString()),
-                IsMale = Convert.ToBoolean(documentTemp["isMale"].ToString()),
-                Seat = documentTemp["seat"].ToString(),
-            };
-
+            Member member = MemberConverter.FromDictionaryToModel(document.ToDictionary(), document.Id);
             return member;
         }
 
         public async Task Update(Member item)
         {
             DocumentReference docRef = _db.Collection("members").Document($"{item.Id}");
-            Dictionary<string, object> member = new Dictionary<string, object>
-            {
-                {"holidayId", $"{item.HolidayId}"},
-                {"memberCategoryId", $"{item.MemberCategoryId}"},
-                {"memberStatusId", $"{item.MemberStatusId}"},
-                {"menuCategoryId", $"{item.MenuCategoryId}"},
-                {"fio", $"{item.FIO}"},
-                {"phoneNumber", $"{item.PhoneNumber}"},
-                {"email", $"{item.Email}"},
-                {"comment", $"{item.Comment}"},
-                {"isChild", $"{item.IsChild}"},
-                {"isMale", $"{item.IsMale}"},
-                {"seat", $"{item.Seat}"},
-            };
-
+            Dictionary<string, object> member = MemberConverter.FromModelToDictionary(item);
             await docRef.UpdateAsync(member);
         }
 
