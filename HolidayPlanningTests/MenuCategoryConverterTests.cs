@@ -11,7 +11,7 @@ namespace HolidayPlanningTests
     /// <summary>
     /// Тесты для конвертора Категории меню
     /// </summary>
-    public class MenuCategoryConvertorTests
+    public class MenuCategoryConverterTests
     {
         [Fact]
         public void FromDictionaryToModal_PassDictionary_GetCorrectEntityModel_Test()
