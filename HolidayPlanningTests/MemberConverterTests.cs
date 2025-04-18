@@ -27,8 +27,8 @@ namespace HolidayPlanningTests
                 {"phoneNumber", "+11111111111"},
                 {"email", "test@test.ru"},
                 {"comment", "Comment"},
-                {"isChild", "false"},
-                {"isMale", "true"},
+                {"isChild", false},
+                {"isMale", true},
                 {"seat", "Middle"},
             };
             Member expected = new()
