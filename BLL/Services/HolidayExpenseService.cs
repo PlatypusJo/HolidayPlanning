@@ -33,7 +33,7 @@ namespace BLL.Services
         {
             var expenses = await _unitOfWork.Expense.GetAllByHolidayId(holidayId);
             var contactors = (await _unitOfWork.Contractor.GetAllByHolidayId(holidayId))
-                .FindAll(c => ContractorStatusProvider.Provide(c.StatusId) is ContractorStatusEnum.Confirmed);
+                .FindAll(c => ContractorStatusProvider.Provide(c.ContractorStatusId) is ContractorStatusEnum.Confirmed);
 
             var result = expenses
                 .Select(item => new HolidayExpenseDto(item))

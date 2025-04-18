@@ -33,12 +33,12 @@ namespace DAL.Entities
         /// <summary>
         /// ID статуса найма подрядчика (Ожидание, Принял, Отказал)
         /// </summary>
-        public string StatusId { get; set; }
+        public string ContractorStatusId { get; set; }
 
         /// <summary>
         /// ID категории деятельности подрядчика
         /// </summary>
-        public string СategoryId { get; set; }
+        public string ContractorСategoryId { get; set; }
 
         /// <summary>
         /// ФИО Подрядчика или название организации

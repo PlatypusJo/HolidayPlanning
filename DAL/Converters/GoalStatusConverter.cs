@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace DAL.Converters
 {
     /// <summary>
-    /// Статический класс-конвертер для сущности Категория гостя, для передачи данных в Firebase и принятия данных из него
+    /// Статический класс-конвертер для сущности Статус задачи, для передачи данных в Firebase и принятия данных из него
     /// </summary>
-    public class MemberCategoryConverter : BaseConverter
+    public class GoalStatusConverter : BaseConverter
     {
         /// <summary>
         /// Конвертер из словаря, собранного на основе документа из firebse, в класс модели
@@ -19,9 +19,9 @@ namespace DAL.Converters
         /// <param name="dictionary">Словарь</param>
         /// <param name="modelId">Id модели</param>
         /// <returns>Заполненный из словаря класс модели</returns>
-        public static MemberCategory FromDictionaryToModel(Dictionary<string, object> dictionary, string modelId)
+        public static GoalStatus FromDictionaryToModel(Dictionary<string, object> dictionary, string modelId)
         {
-            MemberCategory model = new MemberCategory()
+            GoalStatus model = new GoalStatus()
             {
                 Id = modelId,
                 Title = GetString(dictionary, "text"),
@@ -34,7 +34,7 @@ namespace DAL.Converters
         /// </summary>
         /// <param name="model">Класс модели</param>
         /// <returns>Словарь, заполненный на основве класса модели</returns>
-        public static Dictionary<string, object> FromModelToDictionary(MemberCategory model)
+        public static Dictionary<string, object> FromModelToDictionary(GoalStatus model)
         {
             Dictionary<string, object> dictionary = new Dictionary<string, object>
             {

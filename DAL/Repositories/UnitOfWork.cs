@@ -72,9 +72,14 @@ namespace DAL.Repositories
         private MemberStatusRepository _memberStatusRepository;
 
         /// <summary>
-        /// Репозиторий мероприятия для Firestore
+        /// Репозиторий Задачи
         /// </summary>
-        private HolidayRepository _holidayFirestoreRep;
+        private GoalRepository _goalRepository;
+
+        /// <summary>
+        /// Репозиторий Статуса задачи
+        /// </summary>
+        private GoalStatusRepository _goalStatusRepository;
 
         #endregion
 
@@ -167,6 +172,24 @@ namespace DAL.Repositories
             {
                 _menuCategoryRepository ??= new MenuCategoryRepository(_firestoreDb);
                 return _menuCategoryRepository;
+            }
+        }
+
+        public IGoalRepository Goal
+        {
+            get
+            {
+                _goalRepository ??= new GoalRepository(_firestoreDb);
+                return _goalRepository;
+            }
+        }
+
+        public IFrozenCollectionRepository<GoalStatus> GoalStatus
+        {
+            get
+            {
+                _goalStatusRepository ??= new GoalStatusRepository(_firestoreDb);
+                return _goalStatusRepository;
             }
         }
 
