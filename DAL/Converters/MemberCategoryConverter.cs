@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DAL.Converters
 {
     /// <summary>
-    /// Статический класс-конвертер для сущности Категория подрядчика, для передачи данных в Firebase и принятия данных из него
+    /// Статический класс-конвертер для сущности Категория гостя, для передачи данных в Firebase и принятия данных из него
     /// </summary>
     public class MemberCategoryConverter : BaseConverter
     {
