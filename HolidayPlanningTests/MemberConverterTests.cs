@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace HolidayPlanningTests
 {
+    /// <summary>
+    /// Тесты для конвертора Гостя
+    /// </summary>
     public class MemberConverterTests
     {
         [Fact]
