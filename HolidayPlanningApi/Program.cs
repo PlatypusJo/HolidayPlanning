@@ -58,6 +58,8 @@ namespace HolidayPlanningApi
             builder.Services.AddScoped<IMemberCategoryService, MemberCategoryService>();
             builder.Services.AddScoped<IMemberStatusService, MemberStatusService>();
             builder.Services.AddScoped<IMenuCategoryService, MenuCategoryService>();
+            builder.Services.AddScoped<IGoalService, GoalService>();
+            builder.Services.AddScoped<IGoalStatusService, GoalStatusService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             ContractorStatusProvider.RegisterAll();
