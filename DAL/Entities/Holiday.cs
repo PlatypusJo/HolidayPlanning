@@ -55,6 +55,11 @@ namespace DAL.Entities
         /// </summary>
         public virtual ICollection<Member> Members { get; set; }
 
+        /// <summary>
+        /// Задачи мероприятия
+        /// </summary>
+        public virtual ICollection<Goal> Goals { get; set; }
+
         #endregion
 
         #region Конструкторы
@@ -66,6 +71,7 @@ namespace DAL.Entities
         {
             Contractors = new HashSet<Contractor>();
             Members = new HashSet<Member>();
+            Goals = new HashSet<Goal>();
         }
         
         #endregion

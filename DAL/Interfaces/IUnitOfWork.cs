@@ -64,6 +64,16 @@ namespace DAL.Interfaces
         /// </summary>
         IFrozenCollectionRepository<MenuCategory> MenuCategory { get; }
 
+        /// <summary>
+        /// Репозиторий Задачи
+        /// </summary>
+        IGoalRepository Goal { get; }
+
+        /// <summary>
+        /// Репозиторий Статуса задачи
+        /// </summary>
+        IFrozenCollectionRepository<GoalStatus> GoalStatus { get; }
+
         #endregion
 
         #region Методы
