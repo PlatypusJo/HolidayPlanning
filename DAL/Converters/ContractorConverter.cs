@@ -20,8 +20,8 @@ namespace DAL.Converters
             {
                 Id =            modelId,
                 Title =         GetString(dictionary, "title"),
-                СategoryId =    GetString(dictionary, "categoryId"),
-                StatusId =      GetString(dictionary, "statusId"),
+                ContractorСategoryId =    GetString(dictionary, "categoryId"),
+                ContractorStatusId =      GetString(dictionary, "statusId"),
                 HolidayId =     GetString(dictionary, "holidayId"),
                 Description =   GetString(dictionary, "description"),
                 Email =         GetString(dictionary, "email"),
@@ -47,8 +47,8 @@ namespace DAL.Converters
                 {"phoneNumber", $"{model.PhoneNumber}"},
                 {"serviceCost", $"{model.ServiceCost}"},
                 {"paid", $"{model.Paid}"},
-                {"categoryId", $"{model.СategoryId}"},
-                {"statusId", $"{model.StatusId}"},
+                {"categoryId", $"{model.ContractorСategoryId}"},
+                {"statusId", $"{model.ContractorStatusId}"},
                 {"holidayId", $"{model.HolidayId}"}
             };
 

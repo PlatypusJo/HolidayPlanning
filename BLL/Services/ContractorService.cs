@@ -34,8 +34,8 @@ namespace BLL.Services
             {
                 Id = itemDto.Id,
                 HolidayId = itemDto.HolidayId,
-                StatusId = itemDto.StatusId,
-                СategoryId = itemDto.СategoryId,
+                ContractorStatusId = itemDto.ContractorStatusId,
+                ContractorСategoryId = itemDto.ContractorСategoryId,
                 Title = itemDto.Title,
                 Description = itemDto.Description,
                 PhoneNumber = itemDto.PhoneNumber,
@@ -96,8 +96,8 @@ namespace BLL.Services
 
             item.Id = itemDto.Id;
             item.HolidayId = itemDto.HolidayId;
-            item.StatusId = itemDto.StatusId;
-            item.СategoryId = itemDto.СategoryId;
+            item.ContractorStatusId = itemDto.ContractorStatusId;
+            item.ContractorСategoryId = itemDto.ContractorСategoryId;
             item.Title = itemDto.Title;
             item.Description = itemDto.Description;
             item.PhoneNumber = itemDto.PhoneNumber;

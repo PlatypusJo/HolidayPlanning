@@ -28,12 +28,12 @@ namespace BLL.DTOs
         /// <summary>
         /// ID статуса найма подрядчика (Ожидание, Принял, Отказал)
         /// </summary>
-        public string StatusId { get; set; }
+        public string ContractorStatusId { get; set; }
 
         /// <summary>
         /// ID категории деятельности подрядчика
         /// </summary>
-        public string СategoryId { get; set; }
+        public string ContractorСategoryId { get; set; }
 
         /// <summary>
         /// ФИО Подрядчика или название организации
@@ -82,8 +82,8 @@ namespace BLL.DTOs
         {
             Id = contractor.Id;
             HolidayId = contractor.HolidayId;
-            StatusId = contractor.StatusId;
-            СategoryId = contractor.СategoryId;
+            ContractorStatusId = contractor.ContractorStatusId;
+            ContractorСategoryId = contractor.ContractorСategoryId;
             Title = contractor.Title;
             Description = contractor.Description;
             PhoneNumber = contractor.PhoneNumber;
